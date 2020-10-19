@@ -1,4 +1,4 @@
-# GeoR
+# GeoplotR
 
 **GeoplotR** is an **R** package to classify geochemical data.
 
@@ -14,7 +14,7 @@ command line prompt:
 install.packages('remotes')
 ```
 
-## Installation
+after which **GeoplotR** can be installed as follows:
 
 ```
 remotes::install_github('pvermees/GeoplotR')
