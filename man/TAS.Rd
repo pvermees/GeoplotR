@@ -4,7 +4,7 @@
 \alias{TAS}
 \title{TAS diagram}
 \usage{
-TAS(Na2O, K2O, SiO2, plot = TRUE, labels = FALSE, ...)
+TAS(Na2O, K2O, SiO2, plot = TRUE, labels = FALSE, volcanic = TRUE, ...)
 }
 \arguments{
 \item{Na2O}{vector with \eqn{Na_2O} concentrations (wt\%)}
@@ -18,6 +18,8 @@ output.}
 
 \item{labels}{logical. Label to mark the different fields of the
 TAS diagram.}
+
+\item{volcanic}{logical. Set to \code{FALSE} for plutonic rocks.}
 
 \item{...}{additional arguments to the generic \code{points}
 function.}

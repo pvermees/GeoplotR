@@ -7,6 +7,7 @@
 #'     output.
 #' @param labels logical. Label to mark the different fields of the
 #'     TAS diagram.
+#' @param volcanic logical. Set to \code{FALSE} for plutonic rocks.
 #' @param ... additional arguments to the generic \code{points}
 #'     function.
 #' @return a vector with rock types
@@ -16,7 +17,7 @@
 #'     K2O=test[,'K2O(WT%)'],
 #'     SiO2=test[,'SIO2(WT%)'])
 #' @export
-TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){    
+TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,volcanic=TRUE,...){
     nc <- length(tas$cords)
     labs <- names(tas$cords)
     TA <- Na2O+K2O
@@ -26,7 +27,7 @@ TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){
     if (plot){
         graphics::plot(c(35,90),c(0,20),type='n',
                        xlab=expression('Si'[2]*'O'),
-                       ylab=expression('Na'[2]*'O+K'[2]*'O'),...)
+                       ylab=expression('Na'[2]*'O+K'[2]*'O'),bty='n')
     }
     for (i in 1:nc){
         cord <- unlist(tas$cords[i])
@@ -35,13 +36,14 @@ TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){
             graphics::lines(xy,col='gray50')
             if (labels){
                 xyl <- colMeans(xy)
-                graphics::text(x=xyl[1],y=xyl[2],labels=labs[i])
+                graphics::text(x=xyl[1],y=xyl[2],labels=labs[i],col='gray50')
             }
         }
         for (j in 1:ns){
             good <- !(is.na(S[j]) | is.na(TA[j]))
             if (good && inside(x=S[j],y=TA[j],X=xy[,1],Y=xy[,2])){
-                out[j] <- tas$Plutonic[[labs[i]]]
+                if (volcanic) out[j] <- tas$Plutonic[[labs[i]]]
+                else out[j] <- tas$Volcanic[[labs[i]]]
             }
         }
     }

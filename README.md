@@ -26,7 +26,7 @@ Quadratic discriminant analysis of Ti-Zr-Y data:
 
 ```
 library(GeoplotR)
-data(training,package='GeoplotR')
+data(test,package='GeoplotR')
 TiZrY(Ti=test[,'TIO2(WT%)'],Zr=test[,'ZR(PPM)'],Y=test[,'Y(PPM)'],
       units=c('wt%','ppm','ppm'),type='QDA',plot='ternary')
 ```
