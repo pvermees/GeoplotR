@@ -16,22 +16,27 @@
 #'     K2O=test[,'K2O(WT%)'],
 #'     SiO2=test[,'SIO2(WT%)'])
 #' @export
-TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){
-    plot(c(35,90),c(0,20),type='n')
+TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){    
     nc <- length(tas$cords)
     labs <- names(tas$cords)
     TA <- Na2O+K2O
     S <- SiO2
-    graphics::points(S,TA,...)
     ns <- length(S)
     out <- rep(NA,ns)
+    if (plot){
+        graphics::plot(c(35,90),c(0,20),type='n',
+                       xlab=expression('Si'[2]*'O'),
+                       ylab=expression('Na'[2]*'O+K'[2]*'O'),...)
+    }
     for (i in 1:nc){
         cord <- unlist(tas$cords[i])
         xy <- matrix(cord,ncol=2,byrow=TRUE)
-        graphics::lines(xy)
-        if (labels){
-            xyl <- colMeans(xy)
-            graphics::text(x=xyl[1],y=xyl[2],labels=labs[i])
+        if (plot){
+            graphics::lines(xy,col='gray50')
+            if (labels){
+                xyl <- colMeans(xy)
+                graphics::text(x=xyl[1],y=xyl[2],labels=labs[i])
+            }
         }
         for (j in 1:ns){
             good <- !(is.na(S[j]) | is.na(TA[j]))
@@ -40,6 +45,7 @@ TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){
             }
         }
     }
+    if (plot) graphics::points(S,TA,...)
     invisible(out)
 }
 

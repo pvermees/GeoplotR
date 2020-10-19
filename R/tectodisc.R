@@ -63,14 +63,16 @@ DA <- function(uv,da,type=c('LDA','QDA'),
         graphics::points(x=dat[,1],y=dat[,2],col=out$class,...)
     }
     if (identical(plot,'ternary')){
+        p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
         ternaryplot(f=f,labels=labels)
-        fcorr <- log(f[2:3])-log(f[1])
+        fcorr <- log(f[-1])-log(f[1])
         for (cont in da$contours){
             fcont <- sweep(cont,2,fcorr,'+')
             ternarylines(fcont)
         }
         fdat <- sweep(dat,2,fcorr,'+')
         ternarypoints(fdat,col=out$class,...)
+        graphics::par(p)
     }
     invisible(out)
 }
@@ -84,7 +86,7 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     uv <- alr(cbind(x,y,z))
     u <- uv[,1]
     v <- uv[,2]
-    padding <- 5
+    padding <- 4
     ugrid <- seq(from=min(u,na.rm=TRUE)-padding,
                  to=max(u,na.rm=TRUE)+padding,length.out=nn)
     vgrid <- seq(from=min(v,na.rm=TRUE)-padding,
@@ -105,7 +107,7 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     contours <- grDevices::contourLines(ugrid,vgrid,z,levels=c(1.5,2.5))
     for (i in seq_along(contours)){
         nx <- length(contours[[i]]$x)
-        j <- seq(from=1,to=nx,length.out=500)
+        j <- seq(from=1,to=nx,length.out=nt)
         x <- contours[[i]]$x[j]
         y <- contours[[i]]$y[j]
         out$contours[[i]] <- cbind(x,y)

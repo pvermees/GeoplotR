@@ -2,7 +2,7 @@
 
 **GeoplotR** is an **R** package to classify geochemical data.
 
-## Prerequisites
+## Installation
 
 You must have **R** installed on your system (see
 [http://r-project.org](http://r-project.org)).  Additionally, to
@@ -26,6 +26,7 @@ Quadratic discriminant analysis of Ti-Zr-Y data:
 
 ```
 library(GeoplotR)
+data(training,package='GeoplotR')
 TiZrY(Ti=test[,'TIO2(WT%)'],Zr=test[,'ZR(PPM)'],Y=test[,'Y(PPM)'],
       units=c('wt%','ppm','ppm'),type='QDA',plot='ternary')
 ```
