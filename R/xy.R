@@ -21,7 +21,7 @@ TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,volcanic=TRUE,...){
     if (plot){
         xlim <- c(35,90)
         ylim <- c(0,20)
-        xlab <- expression('Si'[2]*'O')
+        xlab <- expression('SiO'[2])
         ylab <- expression('Na'[2]*'O+K'[2]*'O')
         if (labels) tags <- names(.TAS$cords)
         else tags <- NULL
