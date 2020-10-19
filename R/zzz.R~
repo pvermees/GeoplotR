@@ -1,0 +1,4 @@
+.onLoad <- function(libname, pkgname){
+    data(atomicmass,training,test,
+         package=pkgname,envir=parent.env(environment()))
+}
