@@ -8,7 +8,8 @@
 #' @param type either \code{'LDA'} for linear discriminant analysis,
 #'     \code{'QDA'} for quadratic discriminant analysis, or
 #'     \code{'Pearce'} for the nominal decision boundaries of Pearce
-#'     and Cann (1973).
+#'     and Cann (1973). The latter option has not been implemented
+#'     yet.
 #' @param plot either \code{'none'} to omit the plot, \code{'ternary'}
 #'     for a ternary diagram, or \code{'logratio'} for a bivariate
 #'     logratio plot

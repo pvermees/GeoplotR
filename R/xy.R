@@ -47,7 +47,7 @@ TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,...){
 # X,Y: coordinates of the class
 inside <- function(x,y,X,Y){
     ch <- grDevices::chull(x=X,y=Y)
-    CH <- grDevices::chull(x=c(x,X),y=c(y,Y))
-    if (length(ch)==length(CH)) return(TRUE)
+    CH <- grDevices::chull(x=c(X,x),y=c(Y,y))
+    if (identical(ch,CH)) return(TRUE)
     else return(FALSE)
 }
