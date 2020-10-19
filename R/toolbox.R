@@ -6,8 +6,8 @@ wtpct2ppm <- function(x,oxide){
     ncat <- c(1,1,2,2,1,1,1,1,2,2,2)
     nO <- c(2,2,3,3,1,1,1,1,1,1,5)
     i <- which(oxides %in% oxide)
-    num <- atomicmass[cations[i]]
-    den <- ncat[i]*atomicmass[cations[i]] + nO[i]*atomicmass['O']
+    num <- .atomicmass[cations[i]]
+    den <- ncat[i]*.atomicmass[cations[i]] + nO[i]*.atomicmass['O']
     1e4*x*num/den
 }
 

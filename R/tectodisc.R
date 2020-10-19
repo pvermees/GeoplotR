@@ -34,8 +34,8 @@ TiZrY <- function(Ti,Zr,Y,units=c('wt%','ppm','ppm'),
                   plot=c('none','ternary','logratio'),...){
     if (identical(units[1],'wt%')) Ti <- wtpct2ppm(Ti,'TiO2')
     if (type%in%c('LDA','QDA')){ # discriminant analysis
-        if (identical(type,'LDA')) da <- TiZrY_LDA
-        else da <- TiZrY_QDA
+        if (identical(type,'LDA')) da <- .TiZrY_LDA
+        else da <- .TiZrY_QDA
         uv <- alr(cbind(Ti,Zr,Y))
         out <- DA(uv=uv,da=da,type=type,plot=plot,
                   f=c(1/100,1,3),labels=c('Ti','Zr','Y'),...)
