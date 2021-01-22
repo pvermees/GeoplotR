@@ -1,10 +1,22 @@
+#' @title wtpct2ppm
+#' @description Converts from percentage oxide by weight to parts per
+#' million of the element
+#' @param x percentage by weight of the oxide
+#' @param oxide Oxide of the element; one of 'SiO2', 'TiO2', 'Al2O3',
+#' 'Fe2O3', 'FeO', 'CaO', 'MgO', 'MnO', 'K2O', 'Na2O', 'P2O5'
+#' @return parts per million of the element by weight
+#' @examples
+#' ppm <- wtpct2ppm(3.08, 'TiO2')
+#' @export
 wtpct2ppm <- function(x,oxide){
     oxides <- c('SiO2','TiO2','Al2O3','Fe2O3','FeO',
-                'CaO','MgO','MnO','K2O','Na2O','P2O5')
+                'CaO','MgO','MnO','K2O','Na2O','P2O5',
+                'Y2O3', 'ZrO2')
     cations <- c('Si','Ti','Al','Fe3','Fe2',
-                 'Ca','Mg','Mn','K','Na','P')
-    ncat <- c(1,1,2,2,1,1,1,1,2,2,2)
-    nO <- c(2,2,3,3,1,1,1,1,1,1,5)
+                 'Ca','Mg','Mn','K','Na','P',
+                 'Y', 'Zr')
+    ncat <- c(1,1,2,2,1,1,1,1,2,2,2,2,1)
+    nO <- c(2,2,3,3,1,1,1,1,1,1,5,3,2)
     i <- which(oxides %in% oxide)
     num <- .atomicmass[cations[i]]
     den <- ncat[i]*.atomicmass[cations[i]] + nO[i]*.atomicmass['O']
