@@ -7,11 +7,11 @@
 TAS(Na2O, K2O, SiO2, plot = TRUE, labels = FALSE, volcanic = TRUE, ...)
 }
 \arguments{
-\item{Na2O}{vector with \eqn{Na_2O} concentrations (wt\%)}
+\item{Na2O}{vector with Na\eqn{_2}O concentrations (wt\%)}
 
-\item{K2O}{vector with \eqn{K_2O} concentrations (wt\%)}
+\item{K2O}{vector with K\eqn{_2}O concentrations (wt\%)}
 
-\item{SiO2}{vector with \eqn{SiO_2} concentrations (wt\%)}
+\item{SiO2}{vector with SiO\eqn{_2} concentrations (wt\%)}
 
 \item{plot}{logical. If \code{FALSE}, suppresses the graphical
 output.}

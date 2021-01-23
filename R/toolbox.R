@@ -1,26 +1,42 @@
-#' @title wtpct2ppm
+#' @title concentration unit conversion
 #' @description Converts from percentage oxide by weight to parts per
-#' million of the element
-#' @param x percentage by weight of the oxide
-#' @param oxide Oxide of the element; one of 'SiO2', 'TiO2', 'Al2O3',
-#' 'Fe2O3', 'FeO', 'CaO', 'MgO', 'MnO', 'K2O', 'Na2O', 'P2O5'
-#' @return parts per million of the element by weight
+#'     million of the element and vice versa. \code{wtpct2ppm} and
+#'     \code{ppm2wtpct} are special cases.
+#' @param x scalar or vector of wt\% or ppm values
+#' @param oxide Oxide of the element; one of \code{'SiO2'},
+#'     \code{'TiO2'}, \code{'Al2O3'}, \code{'Fe2O3'}, \code{'FeO'},
+#'     \code{'CaO'}, \code{'MgO'}, \code{'MnO'}, \code{'K2O'},
+#'     \code{'Na2O'}, \code{'P2O5'}, \code{'Y2O3'}, \code{'ZrO2'}
+#' @param wtpct2ppm logical. If \code{TRUE}, converts wt\% to ppm,
+#'     otherwise converts ppm to wt\%.
+#' @return converted values
 #' @examples
-#' ppm <- wtpct2ppm(3.08, 'TiO2')
+#' ppm <- wtpct2ppm(0.308,'TiO2')
+#' wtpct <- ppm2wtpct(ppm,'TiO2')
+#' @export
+conconv <- function(x,oxide,wtpct2ppm=TRUE){
+    cation <- as.character(.oxides[oxide,'cation'])
+    ncat <- .oxides[oxide,'ncat']
+    nO <- .oxides[oxide,'nO']
+    num <- .atomicmass[cation]
+    den <- ncat*.atomicmass[cation] + nO*.atomicmass['O']
+    if (wtpct2ppm) out <- 1e4*x*num/den
+    else out <- x*1e-4*den/num
+    out
+}
+#' @rdname conconv
+#' @examples
+#' ppm <- wtpct2ppm(0.308,'TiO2')
 #' @export
 wtpct2ppm <- function(x,oxide){
-    oxides <- c('SiO2','TiO2','Al2O3','Fe2O3','FeO',
-                'CaO','MgO','MnO','K2O','Na2O','P2O5',
-                'Y2O3', 'ZrO2')
-    cations <- c('Si','Ti','Al','Fe3','Fe2',
-                 'Ca','Mg','Mn','K','Na','P',
-                 'Y', 'Zr')
-    ncat <- c(1,1,2,2,1,1,1,1,2,2,2,2,1)
-    nO <- c(2,2,3,3,1,1,1,1,1,1,5,3,2)
-    i <- which(oxides %in% oxide)
-    num <- .atomicmass[cations[i]]
-    den <- ncat[i]*.atomicmass[cations[i]] + nO[i]*.atomicmass['O']
-    1e4*x*num/den
+    conconv(x=x,oxide=oxide,wtpct2ppm=TRUE)
+}
+#' @rdname conconv
+#' @examples
+#' wtpct <- ppm2wtpct(ppm,'TiO2')
+#' @export
+ppm2wtpct <- function(x,oxide){
+    conconv(x=x,oxide=oxide,wtpct2ppm=FALSE)
 }
 
 alr <- function(dat,inverse=FALSE){

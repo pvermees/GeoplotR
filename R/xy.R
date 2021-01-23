@@ -1,8 +1,8 @@
 #' @title TAS diagram
 #' @description Total Alkali Silica diagram
-#' @param Na2O vector with \eqn{Na_2O} concentrations (wt\%)
-#' @param K2O vector with \eqn{K_2O} concentrations (wt\%)
-#' @param SiO2 vector with \eqn{SiO_2} concentrations (wt\%)
+#' @param Na2O vector with Na\eqn{_2}O concentrations (wt\%)
+#' @param K2O vector with K\eqn{_2}O concentrations (wt\%)
+#' @param SiO2 vector with SiO\eqn{_2} concentrations (wt\%)
 #' @param plot logical. If \code{FALSE}, suppresses the graphical
 #'     output.
 #' @param labels logical. Label to mark the different fields of the

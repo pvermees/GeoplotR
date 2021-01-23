@@ -2,4 +2,6 @@
 
 export(TAS)
 export(TiZrY)
+export(conconv)
+export(ppm2wtpct)
 export(wtpct2ppm)

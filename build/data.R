@@ -18,6 +18,9 @@ am <- read.csv('inst/atomicmass.csv',header=FALSE)
 .atomicmass <- am[,2]
 names(.atomicmass) <- am[,1]
 
+.oxides <- read.csv('inst/oxides.csv',header=FALSE,row.names=1)
+colnames(.oxides) <- c('cation','ncat','nO')
+
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
 attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 
