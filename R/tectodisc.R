@@ -33,6 +33,8 @@ TiZrY <- function(Ti,Zr,Y,units=c('wt%','ppm','ppm'),
                   type=c('LDA','QDA','Pearce'),
                   plot=c('none','ternary','logratio'),...){
     if (identical(units[1],'wt%')) Ti <- wtpct2ppm(Ti,'TiO2')
+    if (identical(units[2],'wt%')) Zr <- wtpct2ppm(Zr,'ZrO2')
+    if (identical(units[3],'wt%')) Y <- wtpct2ppm(Y,'Y2O3')
     if (type%in%c('LDA','QDA')){ # discriminant analysis
         if (identical(type,'LDA')) da <- .TiZrY_LDA
         else da <- .TiZrY_QDA
