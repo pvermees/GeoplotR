@@ -59,3 +59,36 @@ DApredict <- function(fit,dat){
         out <- QDApredict(fit,newdata=dat)
     }
 }
+
+get_training_data <- function(cols){
+    out <- NULL
+    cnames <- names(training)
+    oxides <- c('SiO2','TiO2','Al2O3','Fe2O3','FeO',
+                'CaO','MgO','MnO','K2O','Na2O','P2O5')
+    elements <- c('Si','Ti','Al','Fe3','Fe2','Ca','Mg','Mn','K','Na','P',
+                  'La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho',
+                  'Er','Tm','Yb','Lu','Sc','V','Cr','Co','Ni','Cu','Zn',
+                  'Ga','Rb','Sr','Y','Zr','Nb','Sn','Cs','Ba','Hf','Ta',
+                  'Pb','Th','U')
+    isoxide <- (cols %in% oxides)
+    iselement <- (cols %in% elements)
+    isother <- (cols %in% cnames) & !isoxide & !iselement
+    if (any(isoxide)){
+        out <- c(out,training[cols[isoxide]])
+    }
+    if (any(iselement)){
+        i <- which(elements %in% cols[iselement])
+        if (any(i<12)){ # convert from oxide
+            oxide <- oxides[i[i<12]]
+            out <- c(out,wtpct2ppm(training[oxide],oxide))
+        }
+        if (any(i>=12)){
+            element <- elements[i[i>=12]]
+            out <- c(out,training[element])
+        }
+    }
+    if (any(isother)){
+        out <- c(out,training[cols[isother]])
+    }
+    as.data.frame(out,check.names=FALSE)
+}

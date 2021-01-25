@@ -117,22 +117,3 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     }
     invisible(out)
 }
-
-get_training_data <- function(element){
-    cnames <- colnames(training)
-    elements <- c('Si','Ti','Al','Fe3','Fe2','Ca','Mg','Mn','K','Na','P',
-                 'La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho',
-                 'Er','Tm','Yb','Lu','Sc','V','Cr','Co','Ni','Cu','Zn',
-                 'Ga','Rb','Sr','Y','Zr','Nb','Sn','Cs','Ba','Hf','Ta',
-                 'Pb','Th','U')
-    i <- which(elements %in% element)
-    if (i<12){ # oxide
-        oxides <- c('SiO2','TiO2','Al2O3','Fe2O3','FeO',
-                    'CaO','MgO','MnO','K2O','NaO','P2O5')
-        oxide <- oxides[i]
-        out <- wtpct2ppm(training[,i+4],oxide)
-    } else {
-        out <- training[,i+4]
-    }
-    out
-}
