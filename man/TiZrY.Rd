@@ -48,8 +48,8 @@ Ti-Zr-Y tectonic discrimination diagram
 }
 \examples{
 data(test,package='GeoplotR')
-TiZrY(Ti=test[,'TIO2(WT\%)'],Zr=test[,'ZR(PPM)'],
-      Y=test[,'Y(PPM)'],units=c('wt\%','ppm','ppm'),
+TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],
+      units=c('wt\%','ppm','ppm'),
       type='QDA',plot='ternary')
 }
 \references{

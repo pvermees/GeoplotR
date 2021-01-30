@@ -8,8 +8,8 @@
 #'     doi:10.1029/2005GC001092
 #' @examples
 #' data(training,package='GeoplotR')
-#' TiZrY(Ti=training[,'TIO2(WT%)'],Zr=training[,'ZR(PPM)'],
-#'       Y=training[,'Y(PPM)'],units=c(2,1,1))
+#' TiZrY(training[,'TiO2'],training[,'Zr'],Y=training[,'Y'],
+#'       units=c('wt%','ppm','ppm'))
 NULL
 
 #' @title test data
@@ -22,6 +22,5 @@ NULL
 #'     doi:10.1029/2005GC001092
 #' @examples
 #' data(test,package='GeoplotR')
-#' TiZrY(Ti=test[,'TIO2(WT%)'],Zr=test[,'ZR(PPM)'],
-#'       Y=test[,'Y(PPM)'],units=c(2,1,1))
+#' TiZrY(test[,'TiO2'],test[,'Zr'],test[,'Y'],units=c('wt%','ppm','ppm'))
 NULL

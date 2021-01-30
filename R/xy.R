@@ -13,9 +13,7 @@
 #' @return a vector with rock types
 #' @examples
 #' data(test,package='GeoplotR')
-#' TAS(Na2O=test[,'NA2O(WT%)'],
-#'     K2O=test[,'K2O(WT%)'],
-#'     SiO2=test[,'SIO2(WT%)'])
+#' TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
 #' @export
 TAS <- function(Na2O,K2O,SiO2,plot=TRUE,labels=FALSE,volcanic=TRUE,...){
     if (plot){

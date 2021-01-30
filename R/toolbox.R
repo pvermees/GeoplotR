@@ -59,6 +59,8 @@ DApredict <- function(fit,dat){
         out <- QDApredict(fit,newdata=dat)
     }
 }
+rpartpredict <- utils::getFromNamespace("predict.rpart", "rpart")
+rparttext <- utils::getFromNamespace("text.rpart", "rpart")
 
 get_training_data <- function(cols){
     out <- NULL

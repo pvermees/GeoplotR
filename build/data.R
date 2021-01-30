@@ -56,6 +56,6 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
                   method="class", control=my.control)
 .tectotree_ratios <- prune(unpruned, cp=0.015)
 
-save(.TiZrY_LDA,.TiZrY_QDA,.atomicmass,.TAS,.AbOrAn,
+save(.TiZrY_LDA,.TiZrY_QDA,.atomicmass,.oxides,.TAS,.AbOrAn,
      .AlFeTiMg,.Pearson,.tectotree_all,.tectotree_HFS,
      .tectotree_ratios,file="R/sysdata.rda",version=2)

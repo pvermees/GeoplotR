@@ -25,8 +25,8 @@
 #'     p. 290-300.
 #' @examples
 #' data(test,package='GeoplotR')
-#' TiZrY(Ti=test[,'TIO2(WT%)'],Zr=test[,'ZR(PPM)'],
-#'       Y=test[,'Y(PPM)'],units=c('wt%','ppm','ppm'),
+#' TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],
+#'       units=c('wt%','ppm','ppm'),
 #'       type='QDA',plot='ternary')
 #' @export
 TiZrY <- function(Ti,Zr,Y,units=c('wt%','ppm','ppm'),
@@ -35,11 +35,11 @@ TiZrY <- function(Ti,Zr,Y,units=c('wt%','ppm','ppm'),
     if (identical(units[1],'wt%')) Ti <- wtpct2ppm(Ti,'TiO2')
     if (identical(units[2],'wt%')) Zr <- wtpct2ppm(Zr,'ZrO2')
     if (identical(units[3],'wt%')) Y <- wtpct2ppm(Y,'Y2O3')
-    if (type%in%c('LDA','QDA')){ # discriminant analysis
-        if (identical(type,'LDA')) da <- .TiZrY_LDA
+    if (type[1]%in%c('LDA','QDA')){ # discriminant analysis
+        if (identical(type[1],'LDA')) da <- .TiZrY_LDA
         else da <- .TiZrY_QDA
         uv <- alr(cbind(Ti,Zr,Y))
-        out <- DA(uv=uv,da=da,type=type,plot=plot,
+        out <- DA(uv=uv,da=da,type=type[1],plot=plot,
                   f=c(1/100,1,3),labels=c('Ti','Zr','Y'),...)
     } else if (identical(type,'Pearce')) { # legacy
         
