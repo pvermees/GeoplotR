@@ -24,3 +24,19 @@ NULL
 #' data(test,package='GeoplotR')
 #' TiZrY(test[,'TiO2'],test[,'Zr'],test[,'Y'],units=c('wt%','ppm','ppm'))
 NULL
+
+#' @title A-F-M data
+#' @description Calc-alkaline and tholeiitic data from the Cascade
+#'     Mountains and Iceland
+#' @name cath
+#' @docType data
+#' @keywords data
+#' @references Vermeesch, P. and Pease, V. A genetic classification of
+#'     the tholeiitic and calc-alkaline magma series, Geochemical
+#'     Perspective Letters (in review).
+#' @examples
+#' data(cath,package='GeoplotR')
+#' ca <- cath[cath$affinity=='ca',]
+#' AFM(cath$A,cath$F,cath$M,pch=16,col=cath$affinity)
+#' legend('topleft',legend=c('Cascades','Iceland'),pch=16,col=c(1,2))
+NULL

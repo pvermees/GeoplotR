@@ -7,7 +7,7 @@
 	"type": "xyz",
 	"reference": "Barker1979",
   
-	"cords": {
+	"coords": {
 		"Line1":[
 		  [90,10,0],
 		  [53.5,28.5,18],

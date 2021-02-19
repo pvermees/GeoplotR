@@ -62,6 +62,7 @@ DApredict <- function(fit,dat){
 rpartpredict <- utils::getFromNamespace("predict.rpart", "rpart")
 rparttext <- utils::getFromNamespace("text.rpart", "rpart")
 
+# automatically converts wt% to ppm if necessary
 get_training_data <- function(cols){
     out <- NULL
     cnames <- names(training)

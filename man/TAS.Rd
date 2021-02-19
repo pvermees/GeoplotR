@@ -4,7 +4,17 @@
 \alias{TAS}
 \title{TAS diagram}
 \usage{
-TAS(Na2O, K2O, SiO2, plot = TRUE, labels = FALSE, volcanic = TRUE, ...)
+TAS(
+  Na2O,
+  K2O,
+  SiO2,
+  plot = TRUE,
+  xlim = c(35, 90),
+  ylim = c(0, 20),
+  labels = FALSE,
+  volcanic = TRUE,
+  ...
+)
 }
 \arguments{
 \item{Na2O}{vector with Na\eqn{_2}O concentrations (wt\%)}
@@ -15,6 +25,10 @@ TAS(Na2O, K2O, SiO2, plot = TRUE, labels = FALSE, volcanic = TRUE, ...)
 
 \item{plot}{logical. If \code{FALSE}, suppresses the graphical
 output.}
+
+\item{xlim}{x-axis limits}
+
+\item{ylim}{y-axis limits}
 
 \item{labels}{logical. Label to mark the different fields of the
 TAS diagram.}

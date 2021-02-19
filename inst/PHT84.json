@@ -7,7 +7,7 @@
   "type": "xy",
   "reference": " Reference: Pearce, J. A., Harris, N. B. W., and Tindle, A. G., 1984, Trace Element Discrimination Diagrams for the Tectonic Interpretation of Granitic Rocks: Journal of Petrology, v. 25, no. 4, p. 956-983.  ",
 
-  "cords0": {
+  "coords0": {
     "BaseLines": [
       [
         [2, 80],
@@ -40,7 +40,7 @@
       [3, 1]
     ]
   },
-  "cords1": {
+  "coords1": {
     "BaseLines": [
       [
         [0.5, 140],
@@ -73,7 +73,7 @@
       [2, 1]
     ]
   },
-  "cords2": {
+  "coords2": {
     "BaseLines": [
       [
         [1, 2000],
@@ -103,7 +103,7 @@
     ]
   },
 
-  "cords3": {
+  "coords3": {
     "BaseLines": [
       [
         [0.55, 20],

@@ -1,0 +1,19 @@
+construct_BF <- function(){
+    uv <- alr(AFM[,-1])
+    ith <- which(AFM[,'affinity']=='th')
+    ica <- which(AFM[,'affinity']=='ca')
+    th <- uv[ith,]
+    ca <- uv[ica,]
+    thfit <- lm(th[,'log(M/F)'] ~ th[,'log(A/F)'])
+    cafit <- lm(ca[,'log(M/F)'] ~ ca[,'log(A/F)'])
+    ac <- coef(thfit)[c(2,1)] # swap for consistency with Wikipedia formula 
+    bd <- coef(cafit)[c(2,1)] # for intersection of two lines
+    mca <- cafit$coefficients[2]
+    mth <- thfit$coefficients[2]
+    m0 <- tan(atan(mth)+atan(mca))/2
+    x0 <- (bd[2]-ac[2])/(ac[1]-bd[1])
+    y0 <- ac[1]*(bd[2]-ac[2])/(ac[1]-bd[1]) + ac[2]
+    mca <- bd[1]
+    mth <- ac[1]
+    m0 <- tan((atan(mca) + atan(mth))/2)
+}

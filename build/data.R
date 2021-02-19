@@ -1,4 +1,5 @@
 setwd('~/Documents/Programming/R/GeoplotR/')
+source('R/AFM.R')
 source('R/tectodisc.R')
 source('R/toolbox.R')
 
@@ -8,10 +9,13 @@ save(training,file="data/training.rda",version=2)
 test <- read.csv('inst/test.csv',header=TRUE,check.names=FALSE)
 save(test,file="data/test.rda",version=2)
 
+cath <- read.csv('inst/cath.csv',header=TRUE)
+save(cath,file="data/cath.rda",version=2)
+
 .TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
-.AbOrAn <- IsoplotR:::fromJSON(file='inst/AbOrAn.json')
+.AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
 .AlFeTiMg <- IsoplotR:::fromJSON(file='inst/AlFeTiMg.json')
-.Pearson <- IsoplotR:::fromJSON(file='inst/Pearson.json')
+.PHT84 <- IsoplotR:::fromJSON(file='inst/PHT84.json')
 
 am <- read.csv('inst/atomicmass.csv',header=FALSE)
 .atomicmass <- am[,2]
@@ -56,6 +60,8 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
                   method="class", control=my.control)
 .tectotree_ratios <- prune(unpruned, cp=0.015)
 
-save(.TiZrY_LDA,.TiZrY_QDA,.atomicmass,.oxides,.TAS,.AbOrAn,
-     .AlFeTiMg,.Pearson,.tectotree_all,.tectotree_HFS,
-     .tectotree_ratios,file="R/sysdata.rda",version=2)
+.BF <- construct_BF(cath)
+
+save(.TiZrY_LDA,.TiZrY_QDA,.atomicmass,.oxides,.TAS,.AnAbOr,
+     .AlFeTiMg,.PHT84,.tectotree_all,.tectotree_HFS,
+     .tectotree_ratios,.BF,file="R/sysdata.rda",version=2)
