@@ -3,7 +3,7 @@
 #' @param Ti vector with Ti (ppm) or TiO2 (wt\%) concentrations
 #' @param Zr vector with Zr concentrations (ppm)
 #' @param Y vector with Y concentrations (ppm)
-#' @param units 3-element vector indicating whether the Ti, Zr and Y
+#' @param unit 3-element vector indicating whether the Ti, Zr and Y
 #'     concentrations are supplied as ppm or weight percent.
 #' @param type either \code{'LDA'} for linear discriminant analysis,
 #'     \code{'QDA'} for quadratic discriminant analysis, or
@@ -26,15 +26,15 @@
 #' @examples
 #' data(test,package='GeoplotR')
 #' TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],
-#'       units=c('wt%','ppm','ppm'),
+#'       unit=c('wt%','ppm','ppm'),
 #'       type='QDA',plot='ternary')
 #' @export
-TiZrY <- function(Ti,Zr,Y,units=c('wt%','ppm','ppm'),
+TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,unit=c('wt%','ppm','ppm'),
                   type=c('LDA','QDA','Pearce'),
                   plot=c('none','ternary','logratio'),...){
-    if (identical(units[1],'wt%')) Ti <- wtpct2ppm(Ti,'TiO2')
-    if (identical(units[2],'wt%')) Zr <- wtpct2ppm(Zr,'ZrO2')
-    if (identical(units[3],'wt%')) Y <- wtpct2ppm(Y,'Y2O3')
+    if (identical(unit[1],'wt%')) Ti <- wtpct2ppm(Ti,'TiO2')
+    if (identical(unit[2],'wt%')) Zr <- wtpct2ppm(Zr,'ZrO2')
+    if (identical(unit[3],'wt%')) Y <- wtpct2ppm(Y,'Y2O3')
     if (type[1]%in%c('LDA','QDA')){ # discriminant analysis
         if (identical(type[1],'LDA')) da <- .TiZrY_LDA
         else da <- .TiZrY_QDA
@@ -42,7 +42,7 @@ TiZrY <- function(Ti,Zr,Y,units=c('wt%','ppm','ppm'),
         out <- DA(uv=uv,da=da,type=type[1],plot=plot,
                   f=c(1/100,1,3),labels=c('Ti','Zr','Y'),...)
     } else if (identical(type,'Pearce')) { # legacy
-        
+        out <- TiZrY_nominal(Ti=Ti,Zr=Zr,Y=Y,...)
     } else {
         stop('invalid type')
     }

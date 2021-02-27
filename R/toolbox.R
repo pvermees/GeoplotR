@@ -45,7 +45,7 @@ alr <- function(dat,inverse=FALSE){
         den <- 1+rowSums(exp(dat),na.rm=TRUE)
         out <- num/den        
     } else {
-        out <- log(dat[,-1])-log(dat[,1])
+        out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')
     }
     out
 }
@@ -94,4 +94,19 @@ get_training_data <- function(cols){
         out <- c(out,training[cols[isother]])
     }
     as.data.frame(out,check.names=FALSE)
+}
+
+lty <- function(ltype){
+    if (ltype=='dashed') return(2)
+    else if (ltype=='dotted') return(3)
+    else return(1)
+}
+
+# XY = points, xy = polygon
+in_polygon <- function(pts,pol){
+    if (any(is.na(pts))) return(FALSE)
+    ch1 <- chull(pol[,1],pol[,2])
+    ch2 <- chull(c(pol[,1],pts[1]),c(pol[,2],pts[2]))
+    if (identical(sort(ch1),sort(ch2))) return(TRUE)
+    else return(FALSE)
 }

@@ -24,9 +24,9 @@ names(.atomicmass) <- am[,1]
 .oxides <- read.csv('inst/oxides.csv',header=FALSE,row.names=1)
 colnames(.oxides) <- c('cation','ncat','nO')
 
+.TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
 attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
-
 .TiZrY_QDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
 attributes(.TiZrY_QDA$fit$terms)$.Environment <- NULL
 
