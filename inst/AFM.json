@@ -1,0 +1,49 @@
+{
+    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
+    "date": "2021-2-27",
+    "version": "0.03",
+    "author": "Fred Yu, Pieter Vermeesch",
+    "title": "AFM",
+    "type": "xyz",
+    "axis":["A(K2O+Na2O)","F(FeOT)","M(MgO)"],
+    "reference": "Maitre, R. W. L., Streckeisen, A., Zanettin, B., Bas, M. J. L., Bonin, B., and Bateman, P., 2004, Igneous Rocks: A Classification and Glossary of Terms: Cambridge University Press, v. -1, no. 70, p. 93–120.",
+    "lines": {
+	"line": [
+	    [11, 39, 50],
+	    [14, 50, 36],
+	    [18, 56, 26],
+	    [28, 52, 20],
+	    [40,45, 15],
+	    [70, 26, 4]
+	]
+    },
+    "label_coords": {
+	"TH" : [10,70,10],
+	"CA" : [40,40,20],
+	"rh" : [70,20,10],
+	"da" : [25,45,20],
+	"an" : [35,35,30],
+	"ba" : [20,40,40]
+    },
+    "line_type": {
+	"line":"solid"
+    },
+    "labels": {
+	"TH" : "tholeiitic",
+	"CA" : "calc-alkaline",
+	"rh" : "rhyolite",
+	"da" : "dacite",
+	"an" : "andesite",
+	"ba" : "basalt"
+    },
+    "angle": {
+	"TH" : 0,
+	"CA" : 0,
+	"rh" : 0,
+	"da" : 0,
+	"an" : 0,
+	"ba" : 0 
+    }
+    
+}
+

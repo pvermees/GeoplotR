@@ -1,6 +1,6 @@
 {
-    "date": "2021-02-01",
-    "version": "0.02",
+    "date": "2021-02-27",
+    "version": "0.04",
     "author": "Fred Yu, Pieter Vermeesch",
     "title": "AnAbOr",
     "type": "xyz",
@@ -22,7 +22,7 @@
 	    [0,70,30]
 	]
     },
-    "line_type": {
+    "line_type":{
 	"1": "solid",
 	"2": "solid",
 	"3": "solid"
@@ -37,60 +37,40 @@
 	"Tona":[
 	    [30,70,0],
 	    [20,60,20],
-	    [48,32,20],
-	    [70,30,0]
-	],
-	"(Tona)":[
 	    [80,0,20],
-	    [48,32,20],
-	    [70,30,0],
 	    [100,0,0]
 	],
 	"Grano":[
-	    [48,32,20],
+	    [80,0,20],
 	    [20,60,20],
 	    [17.5,57.5,25],
 	    [15,50,35],
-	    [39,26,35]
-	],
-	"(Grano)":[
-	    [80,0,20],
-	    [48,32,20],
-	    [39,26,35],
 	    [65,0,35]
 	],
 	"Grani":[
-	    [39,26,35],
+	    [65,0,35],
 	    [0,0,100],
 	    [0,70,30],
 	    [17.5,57.5,25],
 	    [15,50,35]
-	],
-	"(Grani)":[
-	    [65,0,35],
-	    [0,0,100],
-	    [39,26,35]
 	]
     },
-    "names": {
-	"Trond": "Trondhjemite",
-	"Tona": "Tonalite",
-	"(Tona)": "Tonalite",
-	"Grano": "Granodiorite",
-	"(Grano)": "(Granodiorite)",
-	"Grani": "Granite",
-	"(Grani)": "(Granite)"
+    "label_coords": {
+	"Tron": [10,75,15],
+	"Tona": [40,50,10],
+	"Grano": [30,42.5,27.5],
+	"Grani": [15,25,60]
     },
     "labels": {
-	"Trondhjemite": [10,75,15],
-	"Tonalite": [40,50,10],
-	"Granodiorite": [30,42.5,27.5],
-	"Granite": [15,25,60]
+	"Tron": "Trondhjemite",
+	"Tona": "Tonalite",
+	"Grano": "Granodiorite",
+	"Grani": "Granite"
     },
     "angle": {
-	"Trondhjemite": 0,
-	"Tonalite": 60,
-	"Granodiorite": 60,
-	"Granite": 0
+	"Tron": 0,
+	"Tona": 60,
+	"Grano": 60,
+	"Grani": 0
     }
 }

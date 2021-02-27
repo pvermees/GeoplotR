@@ -12,17 +12,19 @@ save(test,file="data/test.rda",version=2)
 cath <- read.csv('inst/cath.csv',header=TRUE)
 save(cath,file="data/cath.rda",version=2)
 
-.TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
-.AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
-.AlFeTiMg <- IsoplotR:::fromJSON(file='inst/AlFeTiMg.json')
-.PHT84 <- IsoplotR:::fromJSON(file='inst/PHT84.json')
-
 am <- read.csv('inst/atomicmass.csv',header=FALSE)
 .atomicmass <- am[,2]
 names(.atomicmass) <- am[,1]
 
 .oxides <- read.csv('inst/oxides.csv',header=FALSE,row.names=1)
 colnames(.oxides) <- c('cation','ncat','nO')
+
+.TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
+.AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
+.YNb <- IsoplotR:::fromJSON(file='inst/Pearce_Y-Nb.json')
+.YNbRb <- IsoplotR:::fromJSON(file='inst/Pearce_Y+Nb-Rb.json')
+.YbTa <- IsoplotR:::fromJSON(file='inst/Pearce_Yb-Ta.json')
+.YbTaRb <- IsoplotR:::fromJSON(file='inst/Pearce_Yb+Ta-Rb.json')
 
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)

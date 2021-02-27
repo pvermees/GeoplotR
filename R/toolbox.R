@@ -43,7 +43,7 @@ alr <- function(dat,inverse=FALSE){
     if (inverse){
         num <- cbind(1,exp(dat))
         den <- 1+rowSums(exp(dat),na.rm=TRUE)
-        out <- num/den        
+        out <- sweep(num,1,den,'/')
     } else {
         out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')
     }
@@ -103,7 +103,7 @@ lty <- function(ltype){
 }
 
 # XY = points, xy = polygon
-in_polygon <- function(pts,pol){
+inside <- function(pts,pol){
     if (any(is.na(pts))) return(FALSE)
     ch1 <- chull(pol[,1],pol[,2])
     ch2 <- chull(c(pol[,1],pts[1]),c(pol[,2],pts[2]))
