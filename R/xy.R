@@ -26,36 +26,53 @@ TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,xlim=c(35,80),
                      xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...))
 }
 
-#' @title Y-Nb diagram
-#' @description Y-Nb tectonic discrimination diagram for granites
+#' @title Pearce et al. (1984)
+#' @name Pearce1984
+#' @description tectonic discrimination diagram for granites
 #' @param Y vector with Y concentrations (ppm)
 #' @param Nb vector with Nb concentrations (ppm)
+#' @param Yb vector with Yb concentrations (ppm)
+#' @param Ta vector with Ta concentrations (ppm)
+#' @param Rb vector with Rb concentrations (ppm)
 #' @param xlim x-axis limits
 #' @param ylim y-axis limits
 #' @param ... additional arguments to the generic \code{points}
 #'     function, may include the logical argument \code{show.labels}
 #'     which labels the fields in the diagram.
-#' @return a vector with tectonic affinities
 #' @references Pearce, J. A., Harris, N. B. W., and Tindle, A. G.,
-#' 1984, "Trace Element Discrimination Diagrams
-#' for the Tectonic Interpretation of Granitic Rocks":
-#' Journal of Petrology, v. 25, no. 4, p. 956-983.
+#'     1984,
+#'     "Trace Element Discrimination Diagrams for the Tectonic Interpretation of Granitic Rocks":
+#'     Journal of Petrology, v. 25, no. 4, p. 956-983.
 #' @examples
 #' data(test,package='GeoplotR')
+#' @return a vector with tectonic affinities
+#' @export
+NULL
+#' @rdname Pearce1984
+#' @examples
 #' YNb(Y=test[,'Y'],Nb=test[,'Nb'])
 #' @export
 YNb <- function(Y=NULL,Nb=NULL,xlim=c(1,1000),ylim=c(1,1000),...){
     invisible(xyplot(json=.YNb,X=Y,Y=Nb,xlim=xlim,ylim=ylim,
                      xlab='Y (ppm)',ylab='Nb (ppm)',log='xy',...))
 }
+#' @rdname Pearce1984
+#' @examples
+#' YNbRb(Y=test[,'Y'],Nb=test[,'Nb'],Rb=test[,'Rb'])
 YNbRb <- function(Y=NULL,Nb=NULL,Rb=NULL,xlim=c(1,1000),ylim=c(1,1000),...){
     invisible(xyplot(json=.YNbRb,X=Y+Nb,Y=Rb,xlim=xlim,ylim=ylim,
                      xlab='(Y + Nb)(ppm)',ylab='Rb (ppm)',log='xy',...))    
 }
+#' @rdname Pearce1984
+#' @examples
+#' YbTa(Yb=test[,'Yb'],Ta=test[,'Ta'])
 YbTa <- function(Yb=NULL,Ta=NULL,xlim=c(0.1,100),ylim=c(0.1,100),...){
     invisible(xyplot(json=.YbTa,X=Yb,Y=Ta,xlim=xlim,ylim=ylim,
                      xlab='Yb (ppm)',ylab='Ta (ppm)',log='xy',...))
 }
+#' @rdname Pearce1984
+#' @examples
+#' YbTaRb(Yb=test[,'Yb'],Ta=test[,'Ta'],Rb=test[,'Rb'])
 YbTaRb <- function(Yb=NULL,Ta=NULL,Rb=NULL,xlim=c(0.9,110),ylim=c(1,1000),...){
     invisible(xyplot(json=.YbTaRb,X=Yb+Ta,Y=Rb,xlim=xlim,ylim=ylim,
                      xlab='(Yb + Ta)(ppm)',ylab='Rb (ppm)',log='xy',...))    
@@ -85,7 +102,7 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(x,na.rm=TRUE),
             out[matched] <- json$labels[[pname]]
             col[matched] <- i+1
         }
-        ternarypoints(XY,pch=21,bg=col,...)        
+        points(XY,pch=21,bg=col,...)        
     }
     if (show.labels){
         for (lname in names(json$labels)){

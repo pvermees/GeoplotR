@@ -17,8 +17,9 @@ construct_BF <- function(cath){
     list(th0=th0,ca0=ca0,mth=mth,mca=mca,m0=m0,dm=dm,x0=x0,y0=y0)
 }
 
-#' @title BF
-#' @description Bowen-Fenner index
+#' @title Bowen-Fenner index
+#' @description Bowen-Fenner index for tholeiitic and calc-alkaline
+#'     magma series
 #' @param A vector with (Na\eqn{_2}O+K\eqn{_2}O) concentrations (in
 #'     wt\%)
 #' @param F vector with (FeO + FeO\eqn{_2}O\eqn{_3}) concentrations
@@ -29,7 +30,7 @@ construct_BF <- function(cath){
 #'     compositions (Vermeesch and Pease, 2021).
 #' @references Vermeesch, P. and Pease, V. A genetic classification of
 #'     the tholeiitic and calc-alkaline magma series, Geochemical
-#'     Perspective Letters (in review). 
+#'     Perspective Letters (in review).
 #' @examples
 #' data(cath,package='GeoplotR')
 #' bfi <- BF(cath$A,cath$F,cath$M)

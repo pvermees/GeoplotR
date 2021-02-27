@@ -2,8 +2,10 @@
 
 export(AFM)
 export(BF)
+export(Pearce1984)
 export(TAS)
 export(TiZrY)
+export(YNb)
 export(cart)
 export(conconv)
 export(ppm2wtpct)

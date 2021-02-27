@@ -2,7 +2,7 @@
 % Please edit documentation in R/AFM.R
 \name{BF}
 \alias{BF}
-\title{BF}
+\title{Bowen-Fenner index}
 \usage{
 BF(A, F, M)
 }
@@ -21,7 +21,8 @@ the Bowen-Fenner indices of the samples, where positive
     compositions (Vermeesch and Pease, 2021).
 }
 \description{
-Bowen-Fenner index
+Bowen-Fenner index for tholeiitic and calc-alkaline
+    magma series
 }
 \examples{
 data(cath,package='GeoplotR')
