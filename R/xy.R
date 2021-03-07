@@ -18,12 +18,14 @@
 #' data(test,package='GeoplotR')
 #' TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
 #' @export
-TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,xlim=c(35,80),
-                ylim=c(0,15),volcanic=TRUE,...){
+TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
+                xlim=c(35,80),ylim=c(0,15),
+                volcanic=TRUE,short=TRUE,...){
     xlab <- expression('SiO'[2])
     ylab <- expression('Na'[2]*'O+K'[2]*'O')
     invisible(xyplot(json=.TAS,X=SiO2,Y=Na2O+K2O,
-                     xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...))
+                     xlim=xlim,ylim=ylim,
+                     short=short,xlab=xlab,ylab=ylab,...))
 }
 
 #' @title Pearce et al. (1984)
@@ -66,7 +68,7 @@ YNbRb <- function(Y=NULL,Nb=NULL,Rb=NULL,xlim=c(1,1000),ylim=c(1,1000),...){
 #' @rdname Pearce1984
 #' @examples
 #' YbTa(Yb=test[,'Yb'],Ta=test[,'Ta'])
-YbTa <- function(Yb=NULL,Ta=NULL,xlim=c(0.1,100),ylim=c(0.1,100),...){
+YbTa <- function(Yb=NULL,Ta=NULL,xlim=c(0.1,100),ylim=c(0.05,100),...){
     invisible(xyplot(json=.YbTa,X=Yb,Y=Ta,xlim=xlim,ylim=ylim,
                      xlab='Yb (ppm)',ylab='Ta (ppm)',log='xy',...))
 }
@@ -80,35 +82,44 @@ YbTaRb <- function(Yb=NULL,Ta=NULL,Rb=NULL,xlim=c(0.9,110),ylim=c(1,1000),...){
 
 xyplot <- function(json,X=NULL,Y=NULL,xlim=range(x,na.rm=TRUE),
                    ylim=range(y,na.rm=TRUE),xlab='x',ylab='y',
-                   show.labels=FALSE,log='',...){
+                   show.labels=FALSE,log='',
+                   short=FALSE,test.polygons=FALSE,...){
     graphics::plot(xlim,ylim,type='n',
                    xlab=xlab,ylab=ylab,bty='n',log=log)
-    for (lname in names(json$lines)){
-        xy <- matrix(unlist(json$lines[[lname]]),ncol=2,byrow=TRUE)
-        graphics::lines(xy,lty=lty(json$line_type[[lname]]))
+    if (test.polygons){
+        for (pname in names(json$polygons)){
+            xy <-  matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
+            graphics::polygon(xy)
+        }
+    } else {
+        for (lname in names(json$lines)){
+            xy <- matrix(unlist(json$lines[[lname]]),ncol=2,byrow=TRUE)
+            graphics::lines(xy,lty=lty(json$line_type[[lname]]))
+        }
     }
     if ( is.null(X) | is.null(Y) ){
         out <- NULL
     } else {
-        XY <- cbind(X,Y)
-        ns <- nrow(XY)
+        pts <- cbind(X,Y)
+        ns <- nrow(pts)
         out <- rep(NA,ns)
         col <- rep(1,ns)
         pnames <- names(json$polygons)
         for (i in 1:length(json$polygons)){
             pname <- pnames[i]
-            xy <- matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
-            matched <- apply(XY,MARGIN=1,FUN=inside,pol=xy)
+            pol <- matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
+            matched <- inside(pts=pts,pol=pol)
             out[matched] <- json$labels[[pname]]
             col[matched] <- i+1
         }
-        points(XY,pch=21,bg=col,...)        
+        points(pts,pch=21,bg=col,...)        
     }
     if (show.labels){
         for (lname in names(json$labels)){
             xy <- matrix(unlist(json$label_coords[[lname]]),ncol=2,byrow=TRUE)
-            graphics::text(xy,labels=json$labels[[lname]],
-                           srt=json$angle[[lname]],pos=1)
+            if (short) lab <- lname
+            else lab <- json$labels[[lname]]
+            graphics::text(xy,labels=lab,srt=json$angle[[lname]],pos=1)
         }
     }
     invisible(out)

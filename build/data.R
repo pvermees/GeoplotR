@@ -65,5 +65,5 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
 .BF <- construct_BF(cath)
 
 save(.TiZrY_LDA,.TiZrY_QDA,.atomicmass,.oxides,.TAS,.AnAbOr,
-     .AlFeTiMg,.PHT84,.tectotree_all,.tectotree_HFS,
-     .tectotree_ratios,.BF,file="R/sysdata.rda",version=2)
+     .tectotree_all,.tectotree_HFS,.tectotree_ratios,.BF,
+     file="R/sysdata.rda",version=2)

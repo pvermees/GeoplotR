@@ -29,7 +29,7 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
         for (i in 1:length(json$polygons)){
             pname <- pnames[i]
             xyz <- matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
-            matched <- apply(XY,MARGIN=1,FUN=inside,pol=xyz2xy(xyz))
+            matched <- inside(pts=XY,pol=xyz2xy(xyz))
             out[matched] <- json$labels[[pname]]
             col[matched] <- i+1
         }

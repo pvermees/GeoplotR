@@ -102,11 +102,34 @@ lty <- function(ltype){
     else return(1)
 }
 
-# XY = points, xy = polygon
+# This uses the ray-casting algorithm to decide whether the point is inside
+# the given polygon. See https://en.wikipedia.org/wiki/Point_in_polygon
 inside <- function(pts,pol){
-    if (any(is.na(pts))) return(FALSE)
-    ch1 <- chull(pol[,1],pol[,2])
-    ch2 <- chull(c(pol[,1],pts[1]),c(pol[,2],pts[2]))
-    if (identical(sort(ch1),sort(ch2))) return(TRUE)
-    else return(FALSE)
+    nv <- nrow(pol)
+    if (!identical(pol[1,],pol[nv,])){
+        pol <- rbind(pol,pol[1,]) # close the polygon
+        nv <- nv + 1
+    }
+    if (class(pts)=='matrix'){
+        np <- nrow(pts)
+        x <- pts[,1]
+        y <- pts[,2]
+    } else {
+        np <- 1
+        x <- pts[1]
+        y <- pts[2]
+    }
+    out <- rep(FALSE,np)
+    for (i in 1:nv){
+        j <- (i + 1) %% nv
+        xp0 <- pol[i,1]
+        yp0 <- pol[i,2]
+        xp1 <- pol[j,1]
+        yp1 <- pol[j,2]
+        crosses <- which((yp0 <= y) & (yp1 > y) | (yp1 <= y) & (yp0 > y))
+        cross <- (xp1 - xp0) * (y[crosses] - yp0) / (yp1 - yp0) + xp0
+        change <- crosses[cross < x[crosses]]
+        out[change] <- !out[change]
+    }
+    out
 }

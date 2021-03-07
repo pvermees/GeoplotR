@@ -1,10 +1,8 @@
 #' @title Ti-Zr-Y
 #' @description Ti-Zr-Y tectonic discrimination diagram
-#' @param Ti vector with Ti (ppm) or TiO2 (wt\%) concentrations
+#' @param Ti vector with Ti concentrations (ppm)
 #' @param Zr vector with Zr concentrations (ppm)
 #' @param Y vector with Y concentrations (ppm)
-#' @param unit 3-element vector indicating whether the Ti, Zr and Y
-#'     concentrations are supplied as ppm or weight percent.
 #' @param type either \code{'LDA'} for linear discriminant analysis,
 #'     \code{'QDA'} for quadratic discriminant analysis, or
 #'     \code{'Pearce'} for the nominal decision boundaries of Pearce
@@ -25,16 +23,13 @@
 #'     p. 290-300.
 #' @examples
 #' data(test,package='GeoplotR')
-#' TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],
-#'       unit=c('wt%','ppm','ppm'),
+#' TiZrY(Ti=wtpct2ppm(test[,'TiO2']),
+#'       Zr=test[,'Zr'],Y=test[,'Y'],
 #'       type='QDA',plot='ternary')
 #' @export
-TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,unit=c('wt%','ppm','ppm'),
+TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
                   type=c('LDA','QDA','Pearce'),
                   plot=c('none','ternary','logratio'),...){
-    if (identical(unit[1],'wt%')) Ti <- wtpct2ppm(Ti,'TiO2')
-    if (identical(unit[2],'wt%')) Zr <- wtpct2ppm(Zr,'ZrO2')
-    if (identical(unit[3],'wt%')) Y <- wtpct2ppm(Y,'Y2O3')
     if (type[1]%in%c('LDA','QDA')){ # discriminant analysis
         if (identical(type[1],'LDA')) da <- .TiZrY_LDA
         else da <- .TiZrY_QDA
