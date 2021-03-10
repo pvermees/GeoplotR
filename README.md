@@ -27,13 +27,14 @@ Quadratic discriminant analysis of Ti-Zr-Y data:
 ```
 library(GeoplotR)
 data(test,package='GeoplotR')
-TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],type='QDA',plot='ternary')
+TiZrY(Ti=wtpct2ppm(test[,'TiO2'],oxide='TiO2'),
+      Zr=test[,'Zr'],Y=test[,'Y'],type='QDA',plot='ternary')
 ```
 
 Total-Alkali-Silica diagram:
 
 ```
-out <- TAS(Na2O=test[,'Na2O'],K2O=test[,'K2O'],SiO2=test[,'SiO2'],pch=16)
+out <- TAS(Na2O=test[,'Na2O'],K2O=test[,'K2O'],SiO2=test[,'SiO2'])
 ```
 
 Where `out` lists the classification of each sample in `test`.  
