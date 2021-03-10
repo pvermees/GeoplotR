@@ -27,8 +27,7 @@ Quadratic discriminant analysis of Ti-Zr-Y data:
 ```
 library(GeoplotR)
 data(test,package='GeoplotR')
-TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],
-      units=c('wt%','ppm','ppm'),type='QDA',plot='ternary')
+TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],type='QDA',plot='ternary')
 ```
 
 Total-Alkali-Silica diagram:

@@ -1,0 +1,36 @@
+{
+    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",//前面的 comment 就是备注，意思是这个条目是说对该文件的简单介绍
+    "date": "2021-1-31",//这就是年月日，用来记录变更日期
+    "version": "0.02",//这个是版本，版本号从小到大
+    "author": "fred yu",//这个是作者，是说谁编辑了这个文件，如果第二次有其他人编辑，就在后面再加上即可
+    "title": "TAS",//这是说本文件对应的图解名称
+    "type": "xy",//这是对应的图解类型，xy就是平面图解，xyz就是三角图解
+    "axis":["SiO2","K2O+Na2O"],//这里说的是两个坐标轴，和前面的xy对应，第一个是横轴，第二个是纵轴，如果xyz的图则是三个分别对应了xyz
+    "reference": "Maitre, R. W. L., Streckeisen, A., Zanettin, B., Bas, M. J. L., Bonin, B., and Bateman, P., 2004, Igneous Rocks: A Classification and Glossary of Terms: Cambridge University Press, v. -1, no. 70, p. 93–120.",
+    //上面这个 reference 就是说本图解的文献出处
+    "line_coords": {// 这个就是线条的坐标
+	"F": [//这是某一个线条的名称
+	    [41, 0],
+	    [41, 3],
+	    [41, 79],
+	    [69, 8],
+	    [77.3, 0]
+	]
+    },//一定要注意，键值对  和 另一个键值对 之间要有逗号分割，必须是英文的符号！
+    "label_coords": {//这个是分类类别标签在图上的位置
+	"F":  [40, 12] //这就是一个标签，他放在40，12 这个坐标位置
+    },
+    "line_type": {//这是说线条类型
+	"F": "solid",//实线
+	"N": "dashed"//虚线
+    },
+    "polygons": {//多边形，用来圈定一个类别的范围，辅助分类的
+	"F": [[0,0,0],[0,1,0]]
+    },
+    "labels": {
+	"F" : "Foidite"//这是分类标签的具体文本
+    },
+    "angle": {
+	"F" : 0//这是分类标签在图上的倾斜角度
+    }//一定注意，最后的这里不加逗号，只在键值对 和键值对 之间加逗号
+}

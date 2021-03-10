@@ -5,13 +5,11 @@
 \title{TAS diagram}
 \usage{
 TAS(
-  Na2O,
-  K2O,
-  SiO2,
-  plot = TRUE,
-  xlim = c(35, 90),
-  ylim = c(0, 20),
-  labels = FALSE,
+  Na2O = NULL,
+  K2O = NULL,
+  SiO2 = NULL,
+  xlim = c(35, 80),
+  ylim = c(0, 15),
   volcanic = TRUE,
   ...
 )
@@ -23,20 +21,15 @@ TAS(
 
 \item{SiO2}{vector with SiO\eqn{_2} concentrations (wt\%)}
 
-\item{plot}{logical. If \code{FALSE}, suppresses the graphical
-output.}
-
 \item{xlim}{x-axis limits}
 
 \item{ylim}{y-axis limits}
 
-\item{labels}{logical. Label to mark the different fields of the
-TAS diagram.}
-
 \item{volcanic}{logical. Set to \code{FALSE} for plutonic rocks.}
 
 \item{...}{additional arguments to the generic \code{points}
-function.}
+function, may include the logical argument \code{show.labels}
+which labels the fields in the diagram.}
 }
 \value{
 a vector with rock types
@@ -47,4 +40,10 @@ Total Alkali Silica diagram
 \examples{
 data(test,package='GeoplotR')
 TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
+}
+\references{
+Le Maitre, R. W., Streckeisen, A., Zanettin, B.,
+Bas, M. J. L., Bonin, B., and Bateman, P., 2004,
+"Igneous Rocks: A Classification and Glossary of Terms":
+Cambridge University Press, v. -1, no. 70, p. 93–120.
 }
