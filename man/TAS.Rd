@@ -11,6 +11,7 @@ TAS(
   xlim = c(35, 80),
   ylim = c(0, 15),
   volcanic = TRUE,
+  short = TRUE,
   ...
 )
 }
@@ -27,6 +28,9 @@ TAS(
 
 \item{volcanic}{logical. Set to \code{FALSE} for plutonic rocks.}
 
+\item{short}{use short labels when using the additional argument
+\code{show.labels=TRUE}}
+
 \item{...}{additional arguments to the generic \code{points}
 function, may include the logical argument \code{show.labels}
 which labels the fields in the diagram.}
@@ -42,8 +46,8 @@ data(test,package='GeoplotR')
 TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
 }
 \references{
-Le Maitre, R. W., Streckeisen, A., Zanettin, B.,
-Bas, M. J. L., Bonin, B., and Bateman, P., 2004,
-"Igneous Rocks: A Classification and Glossary of Terms":
-Cambridge University Press, v. -1, no. 70, p. 93–120.
+Le Maitre, R. W., Streckeisen, A., Zanettin, B., Bas,
+    M. J. L., Bonin, B., and Bateman, P., 2004,
+    "Igneous Rocks: A Classification and Glossary of Terms":
+    Cambridge University Press, v. -1, no. 70, p. 93–120.
 }

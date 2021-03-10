@@ -119,6 +119,7 @@ inside <- function(pts,pol){
         x <- pts[1]
         y <- pts[2]
     }
+    igood <- which(!(is.na(x)|is.na(y)))
     out <- rep(FALSE,np)
     for (i in 1:nv){
         j <- i %% nv + 1
@@ -127,8 +128,8 @@ inside <- function(pts,pol){
         xp1 <- pol[j,1]
         yp1 <- pol[j,2]
         crosses <- (yp0 <= y) & (yp1 > y) | (yp1 <= y) & (yp0 > y)
-        if (any(crosses,na.rm=TRUE)){
-            icrosses <- which(crosses)
+        if (any(crosses[igood])){
+            icrosses <- igood[which(crosses[igood])]
             cross <- (xp1 - xp0) * (y[icrosses] - yp0) / (yp1 - yp0) + xp0
             change <- icrosses[cross < x[icrosses]]
             out[change] <- !out[change]

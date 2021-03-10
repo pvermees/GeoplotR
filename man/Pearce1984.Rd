@@ -19,7 +19,7 @@ YNbRb(
   ...
 )
 
-YbTa(Yb = NULL, Ta = NULL, xlim = c(0.1, 100), ylim = c(0.1, 100), ...)
+YbTa(Yb = NULL, Ta = NULL, xlim = c(0.1, 100), ylim = c(0.05, 100), ...)
 
 YbTaRb(
   Yb = NULL,
@@ -64,7 +64,7 @@ YbTaRb(Yb=test[,'Yb'],Ta=test[,'Ta'],Rb=test[,'Rb'])
 }
 \references{
 Pearce, J. A., Harris, N. B. W., and Tindle, A. G.,
-    1984,
-    "Trace Element Discrimination Diagrams for the Tectonic Interpretation of Granitic Rocks":
-    Journal of Petrology, v. 25, no. 4, p. 956-983.
+    1984, "Trace Element Discrimination Diagrams for the Tectonic
+    Interpretation of Granitic Rocks": Journal of Petrology,
+    v. 25, no. 4, p. 956-983.
 }

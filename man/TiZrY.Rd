@@ -8,21 +8,17 @@ TiZrY(
   Ti = NULL,
   Zr = NULL,
   Y = NULL,
-  unit = c("wt\%", "ppm", "ppm"),
   type = c("LDA", "QDA", "Pearce"),
   plot = c("none", "ternary", "logratio"),
   ...
 )
 }
 \arguments{
-\item{Ti}{vector with Ti (ppm) or TiO2 (wt\%) concentrations}
+\item{Ti}{vector with Ti concentrations (ppm)}
 
 \item{Zr}{vector with Zr concentrations (ppm)}
 
 \item{Y}{vector with Y concentrations (ppm)}
-
-\item{unit}{3-element vector indicating whether the Ti, Zr and Y
-concentrations are supplied as ppm or weight percent.}
 
 \item{type}{either \code{'LDA'} for linear discriminant analysis,
 \code{'QDA'} for quadratic discriminant analysis, or
@@ -48,8 +44,8 @@ Ti-Zr-Y tectonic discrimination diagram
 }
 \examples{
 data(test,package='GeoplotR')
-TiZrY(Ti=test[,'TiO2'],Zr=test[,'Zr'],Y=test[,'Y'],
-      unit=c('wt\%','ppm','ppm'),
+TiZrY(Ti=wtpct2ppm(test[,'TiO2']),
+      Zr=test[,'Zr'],Y=test[,'Y'],
       type='QDA',plot='ternary')
 }
 \references{
