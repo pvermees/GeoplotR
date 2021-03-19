@@ -12,8 +12,8 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,show.labels=TRUE,short=TRUE,...
 xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
                     labels=c('X','Y','Z'),short=FALSE,
                     show.labels=FALSE,test.polygons=FALSE,...){
-    p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
-    ternaryplot(f=f,labels=labels)
+    oldpar <- graphics::par(mar=rep(2,4),xpd=NA)
+    ternaryplot(f=f,labels=labels,...)
     if (test.polygons){
         for (pname in names(json$polygons)){
             xyz <-  matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
@@ -52,6 +52,6 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
             graphics::text(xyz2xy(xyz),labels=lab,srt=json$angle[[lname]],pos=1)
         }
     }
-    graphics::par(p)
+    graphics::par(oldpar)
     invisible(out)
 }

@@ -1,7 +1,7 @@
 {
     "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
-    "date": "2020-2-27",
-    "version": "0.04",
+    "date": "2020-3-10",
+    "version": "0.05",
     "author": "Fred Yu, Pieter Vermeesch",
     "title": "Pearce Diagram Y-Nb",
     "type": "xy",
@@ -32,19 +32,19 @@
 	"line4":"dashed"
     },
     "polygons":{
-	"WPG" :[[1, 2000],[25, 25],[1000, 400],[1000,2000]],
-	"ORG" :[[1000,400],[25, 25],[50, 10],[1000, 100]],
-	"VAG" :[[40, 1],[50,10],[1000, 100],[1000,1]]
+	"WPG" :[[1, 2000], [25, 25],[1000, 400],[1000,2000]],
+	"ORG" :[[1000,400],[25, 25], [50, 10], [1000, 100]],
+	"VAG+syn-COLG" :[[40, 1],[50,10], [1000, 100],[1000,1]]
     },
     "label_coords": {
-	"VAG": [0.5,1.5],
-	"WPG": [2,2],
-	"ORG": [2.2,0.5]
+	"VAG+syn-COLG": [10,10],
+	"WPG": [50, 400],
+	"ORG": [200, 10]
     },
     "labels": {
-	"VAG": "VAG+syn-COLG",
-	"WPG": "WPG",
-	"ORG": "ORG"
+	"VAG+syn-COLG" : "VAG+syn-COLG",
+	"WPG":"WPG",
+	"ORG":"ORG"
     },
     "angle": {
 	"VAG" : 0,
