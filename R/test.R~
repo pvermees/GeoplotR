@@ -1,0 +1,6 @@
+xytest <- function(fname,xlim=NA,ylim=NA,log='',short=FALSE,polygons=FALSE,...){
+    json <- IsoplotR:::fromJSON(file=fname)
+    out <- xyplot(json,xlim,ylim,show.labels=TRUE,
+                  short=short,test.polygons=polygons,...)
+    invisible(out)
+}
