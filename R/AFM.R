@@ -1,20 +1,94 @@
-construct_BF <- function(cath){
-    uv <- alr(cath[,-1])
+# aa*x + bb*y + cc = 0
+point2line <- function(xy,aa,bb,cc){
+    x <- xy[1]
+    y <- xy[2]
+    x0 <- (bb*(bb*x-aa*y)-aa*cc)/(aa^2+bb^2)
+    y0 <- (aa*(aa*y-bb*x)-bb*cc)/(aa^2+bb^2)
+    c(x0,y0)
+}
+lAMFi <- function(p){
+    out <- list()
+    out$a1 <- p[1]-p[2]*p[3]
+    out$b1 <- p[3]
+    out$a2 <- p[1]+(1-p[4])*p[5]-p[2]*p[4]
+    out$b2 <- p[4]
+    out$xy0 <- p[1:2]
+    out$xyi <- c((out$a2-out$a1)/(out$b1-out$b2),
+    (out$b1*out$a2-out$a1*out$b2)/(out$b1-out$b2))
+    xyp <- point2line(out$xyi,aa=out$b2,bb=-1,cc=out$xy0[2]-out$b2*out$xy0[1])
+    out$xy1 <- (out$xyi+xyp)/2
+    out
+}
+# xy = 2-column matrix
+nearestpoints <- function(xy,par,th=TRUE){
+    # xy = 2-element vector
+    nearestpoint <- function(xy,par,th=TRUE){
+        p <- lAMFi(par)
+        if (th){
+            xyp1 <- point2line(xy,p$b1,-1,p$a1)
+            xyp2 <- point2line(xy,p$b2,-1,p$a2)
+            if (xyp1[2]>p$xy0[2]){ # above initial ratios
+                out <- p$xy0
+            } else {
+                offside1 <- (xyp1[2]<p$xyi[2])
+                offside2 <- (xyp2[1]<p$xyi[1])
+                if (offside1){
+                    if (offside2) out <- p$xyi
+                    else out <- xyp2
+                } else if (offside2){
+                    out <- xyp1
+                } else {
+                    d1 <- sqrt(sum((xy-xyp1)^2))
+                    d2 <- sqrt(sum((xy-xyp2)^2))
+                    if (d1<d2) out <- xyp1
+                    else out <- xyp2
+                }
+            }
+        } else {
+            out <- point2line(xy,par[4],-1,par[1]-par[4]*par[2])
+            if (out[1]<p$xy0[1]) out <- p$xy0
+        }
+        out
+    }
+    t(apply(xy,1,nearestpoint,par=par,th=th))
+}
+fitcath <- function(init,uvca,uvth){
+    misfit <- function(p,xy,th=TRUE){
+        xy0 <- nearestpoints(xy,p,th=th)
+        d <- sqrt(rowSums((xy-xy0)^2))
+        sum(d)
+    }
+    cathmisfit <- function(p,uvca,uvth){
+        misfit(p,uvca,th=FALSE) + misfit(p,uvth,th=TRUE)
+    }
+    optim(init,cathmisfit,uvca=uvca,uvth=uvth)$par
+}
+
+construct_twostage <- function(cath,p=c(0.5,-2,-3,-0.5,-1)){
+    FAM <- cbind(cath[,'FeOT'],cath[,'Na2O']+cath[,'K2O'],cath[,'MgO'])
+    uv <- alr(FAM)    
     ith <- which(cath[,'affinity']=='th')
     ica <- which(cath[,'affinity']=='ca')
-    th <- uv[ith,]
-    ca <- uv[ica,]
-    thfit <- stats::lm(th[,'M'] ~ th[,'A'])
-    cafit <- stats::lm(ca[,'M'] ~ ca[,'A'])
-    th0 <- thfit$coefficients[1]
-    ca0 <- cafit$coefficients[1]
-    mth <- thfit$coefficients[2]
-    mca <- cafit$coefficients[2]
-    m0 <- tan((atan(mca)+atan(mth))/2)
-    dm <- tan((atan(mca)-atan(mth))/2)
-    x0 <- (ca0-th0)/(mth-mca)
-    y0 <- mth*x0 + th0
-    list(th0=th0,ca0=ca0,mth=mth,mca=mca,m0=m0,dm=dm,x0=x0,y0=y0)
+    fit <- fitcath(p,uvca=uv[ica,],uvth=uv[ith,])
+    lAMFi(fit)
+}
+construct_BF <- function(cath){
+    orthofit <- function(ab,uv){
+        uvp <- t(apply(uv,1,point2line,aa=ab[2],bb=-1,cc=ab[1]))
+        sqrt(sum((uv-uvp)^2))
+    }
+    FAM <- cbind(cath[,'FeOT'],cath[,'Na2O']+cath[,'K2O'],cath[,'MgO'])
+    uv <- alr(FAM)
+    ith <- which(cath[,'affinity']=='th')
+    ica <- which(cath[,'affinity']=='ca')
+    cafit <- optim(c(0,0),orthofit,uv=uv[ith,])$par
+    thfit <- optim(c(0,0),orthofit,uv=uv[ica,])$par
+    m0 <- tan((atan(cafit[2])+atan(thfit[2]))/2)
+    dm <- tan((atan(cafit[2])-atan(thfit[2]))/2)
+    x0 <- (cafit[1]-thfit[1])/(thfit[2]-cafit[2])
+    y0 <- thfit[2]*x0 + thfit[1]
+    list(th0=thfit[1],ca0=cafit[1],mth=thfit[2],
+         mca=cafit[2],m0=m0,dm=dm,x0=x0,y0=y0)
 }
 
 #' @title Bowen-Fenner index
@@ -33,7 +107,7 @@ construct_BF <- function(cath){
 #'     Perspective Letters (in review).
 #' @examples
 #' data(cath,package='GeoplotR')
-#' bfi <- BF(cath$A,cath$F,cath$M)
+#' bfi <- BF(A=cath$Na2O+cath$K2O,F=cath$FeOT,M=cath$MgO)
 #' oldpar <- par(mfrow=c(2,1))
 #' on.exit(par(oldpar))
 #' hist(bfi[cath$affinity=='ca'])
@@ -60,6 +134,12 @@ BF <- function(A,F,M){
 #' @param asp the y/x aspect ratio, see \code{plot.window}.
 #' @param bw the smoothing bandwidth to be used for the kernel density
 #'     estimate. See \code{density}.
+#' @param decision logical. If \code{TRUE}, adds Vermeesch and Pease's
+#'     two-stage decision boundary between the calc-alkaline and
+#'     tholeiitic magma series to the plot.
+#' @param dlty line type of the decision boundary.
+#' @param dlwd line width of the decision boundary.
+#' @param dcol colour of the decision boundary.
 #' @param ... additional arguments for the generic \code{points}
 #'     function.
 #' @return the Bowen-Fenner indices of the samples, where positive
@@ -67,10 +147,10 @@ BF <- function(A,F,M){
 #'     compositions (Vermeesch and Pease, 2021).
 #' @references Irvine, T. N. and Baragar, W. A guide to the chemical
 #'     classification of the common volcanic rocks. Canadian Journal
-#'     of Earth Sciences, 8(5):523–548, 1971.
+#'     of Earth Sciences, 8(5):523--548, 1971.
 #'
 #' Kuno, H. Differentiation of basalt magmas. Basalts: The Poldervaart
-#'     treatise on rocks of basaltic composition, pages 623–688, 1968.
+#'     treatise on rocks of basaltic composition, pages 623--688, 1968.
 #'
 #' Vermeesch, P. and Pease, V. A genetic classification of the
 #' tholeiitic and calc-alkaline magma series, Geochemical Perspective
@@ -79,24 +159,62 @@ BF <- function(A,F,M){
 #' @examples
 #' data(cath,package='GeoplotR')
 #' Cascades <- (cath$affinity=='ca')
-#' AFM(cath$A[Cascades],cath$F[Cascades],cath$M[Cascades],
-#'     ternary=FALSE,radial=TRUE)
+#' AFM(A=(cath$Na2O+cath$K2O)[Cascades],
+#'     F=cath$FeOT[Cascades],M=cath$MgO[Cascades])
 #' @export
-AFM <- function(A,F,M,ternary=TRUE,radial=FALSE,bty='n',asp=1,bw="nrd0",...){
+AFM <- function(A,F,M,ternary=TRUE,radial=FALSE,bty='n',asp=1,xpd=FALSE,
+                bw="nrd0",decision=TRUE,dlty=2,dlwd=1.5,dcol='blue',...){
+    miss <- (missing(A)|missing(F)|missing(M))
+    if (decision){
+        nuv <- 20
+        u1 <- seq(from=.twostage$xy0[1],to=.twostage$xy1[1],length.out=nuv)
+        v1 <- seq(from=.twostage$xy0[2],to=.twostage$xy1[2],length.out=nuv)
+        u2 <- seq(from=.twostage$xy1[1],to=10*diff(.twostage$xy1),length.out=nuv)
+        v2 <- .twostage$xy1[2] + (u2-.twostage$xy1[1])*.twostage$b2
+        uv <- cbind(c(u1,u2),c(v1,v2))
+    }
     if (ternary){
-        ternaryplot(labels=c('F','A','M'))
-        xyz <- cbind(F=F,A=A,M=M)
-        graphics::points(xyz2xy(xyz),...)
+        ternaryplot(labels=c('F','A','M'),xpd=xpd)
+        if (!miss){
+            xyz <- cbind(F=F,A=A,M=M)
+            graphics::points(xyz2xy(xyz),...)
+        }
+        if (decision){
+            graphics::lines(xyz2xy(alr(uv,inverse=TRUE)),
+                            lty=dlty,lwd=dlwd,col=dcol)
+        }
     } else {
         if (radial){
-            radialBF(A,F,M,bty=bty,bw=bw,asp=asp,...)
+            radialBF(A,F,M,bty=bty,bw=bw,asp=asp,xpd=xpd,...)
         } else {
-            graphics::plot(x=log(A/F),y=log(M/F),
-                           xlab='ln(A/F)',ylab='ln(M/F)',
-                           bty=bty,asp=asp,...)
+            if (!miss){
+                graphics::plot(x=log(A/F),y=log(M/F),xlab='ln(A/F)',
+                               ylab='ln(M/F)',bty=bty,asp=asp,xpd=xpd,...)
+            } else {
+                graphics::plot(c(-3,2),c(-3,1),type='n',xlab='ln(A/F)',
+                               ylab='ln(M/F)',bty=bty,asp=asp,xpd=xpd,...)
+            }
+            if (decision){
+                graphics::lines(uv,lty=dlty,lwd=dlwd,col=dcol)
+            }
         }
     }
-    invisible(BF(A,F,M))
+    if (miss){
+        out <- NULL
+    } else if (radial){
+        out <- BF(A,F,M)
+    } else {
+        x <- log(A/F)
+        y <- log(M/F)
+        left <- (x < .twostage$xy1[1])
+        right <- !left
+        below <- function(x,y,a,b){ y < a + b*x }
+        isTH <- ((left & below(x,y,.twostage$a1,.twostage$b1)) |
+                 (right & below(x,y,.twostage$a2,.twostage$b2)))
+        out <- rep('CA',length(A))
+        out[isTH] <- "TH"
+    }
+    invisible(out)
 }
 
 radialBF <- function(A,F,M,bw="nrd0",asp=1,bty='n',...){

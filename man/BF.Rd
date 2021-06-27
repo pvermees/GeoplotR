@@ -26,7 +26,7 @@ Bowen-Fenner index for tholeiitic and calc-alkaline
 }
 \examples{
 data(cath,package='GeoplotR')
-bfi <- BF(cath$A,cath$F,cath$M)
+bfi <- BF(A=cath$Na2O+cath$K2O,F=cath$FeOT,M=cath$MgO)
 oldpar <- par(mfrow=c(2,1))
 on.exit(par(oldpar))
 hist(bfi[cath$affinity=='ca'])

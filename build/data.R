@@ -1,4 +1,4 @@
-setwd('~/Documents/Programming/GeoplotR/')
+setwd('~/Documents/Programming/R/GeoplotR/')
 source('R/AFM.R')
 source('R/tectodisc.R')
 source('R/toolbox.R')
@@ -73,5 +73,8 @@ tosave <- c(tosave,'.tectotree_ratios')
 
 .BF <- construct_BF(cath)
 tosave <- c(tosave,'.BF')
+
+.twostage <- construct_twostage(cath)
+tosave <- c(tosave,'.twostage')
 
 save(list=tosave,file="R/sysdata.rda",version=2)

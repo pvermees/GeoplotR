@@ -13,6 +13,10 @@ AFM(
   bty = "n",
   asp = 1,
   bw = "nrd0",
+  decision = TRUE,
+  dlty = 2,
+  dlwd = 1.5,
+  dcol = "blue",
   ...
 )
 }
@@ -39,6 +43,16 @@ which is drawn about plots. See \code{par}.}
 \item{bw}{the smoothing bandwidth to be used for the kernel density
 estimate. See \code{density}.}
 
+\item{decision}{logical. If \code{TRUE}, adds Vermeesch and Pease's
+two-stage decision boundary between the calc-alkaline and
+tholeiitic magma series to the plot.}
+
+\item{dlty}{line type of the decision boundary.}
+
+\item{dlwd}{line width of the decision boundary.}
+
+\item{dcol}{colour of the decision boundary.}
+
 \item{...}{additional arguments for the generic \code{points}
 function.}
 }
@@ -53,16 +67,16 @@ A-F-M diagram
 \examples{
 data(cath,package='GeoplotR')
 Cascades <- (cath$affinity=='ca')
-AFM(cath$A[Cascades],cath$F[Cascades],cath$M[Cascades],
-    ternary=FALSE,radial=TRUE)
+AFM(A=(cath$Na2O+cath$K2O)[Cascades],
+    F=cath$FeOT[Cascades],M=cath$MgO[Cascades])
 }
 \references{
 Irvine, T. N. and Baragar, W. A guide to the chemical
     classification of the common volcanic rocks. Canadian Journal
-    of Earth Sciences, 8(5):523–548, 1971.
+    of Earth Sciences, 8(5):523--548, 1971.
 
 Kuno, H. Differentiation of basalt magmas. Basalts: The Poldervaart
-    treatise on rocks of basaltic composition, pages 623–688, 1968.
+    treatise on rocks of basaltic composition, pages 623--688, 1968.
 
 Vermeesch, P. and Pease, V. A genetic classification of the
 tholeiitic and calc-alkaline magma series, Geochemical Perspective
