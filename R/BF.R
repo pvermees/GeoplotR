@@ -28,7 +28,11 @@ nearestpoint <- function(xy,p){
 
 BF <- function(A,F,M,T,twostage=TRUE){
     if (!missing(F)){
-        out <- BF_Fe(A,F,M,twostage=twostage)
+        if (twostage){
+            out <- BF_Fe2(A,F,M)
+        } else {
+            out <- BF_Fe1(A,F,M)
+        }
     } else if (!missing(T)){
         out <- BF_Ti(A,T,M)
     } else {
@@ -36,26 +40,28 @@ BF <- function(A,F,M,T,twostage=TRUE){
     }
     out
 }
-BF_Fe <- function(A,F,M,twostage=TRUE,project=FALSE){    
+BF_Fe1 <- function(A,F,M,project=FALSE){
     uv <- alr(cbind(F,A,M))
-    p <- c(-0.8,-0.3,-1.45,-1,-6,-0.6)
-    BF_helper(uv,p=p,twostage=twostage,project=project)
+    BF_helper(uv,pars=.BF_Fe1,twostage=FALSE)
+}
+BF_Fe2 <- function(A,F,M,project=FALSE){    
+    uv <- alr(cbind(F,A,M))
+    BF_helper(uv,pars=.BF_Fe2,twostage=TRUE,project=project)
 }
 BF_Ti <- function(A,T,M,project=FALSE){
     uv <- alr(cbind(T,A,M))
-    p <- c(1,1.4,0,0.65,2.5,-0.35)
-    BF_helper(uv,p=p,project=project)
+    BF_helper(uv,pars=.BF_Ti,project=project)
 }
-BF_helper <- function(uv,p=p,twostage=FALSE,project=FALSE){
+BF_helper <- function(uv,pars,twostage=FALSE,project=FALSE){
     if (twostage){
-        xica <- p[1]
-        yica <- p[2]
-        xith <- p[3]
-        yith <- p[4]
+        xica <- pars$p[1]
+        yica <- pars$p[2]
+        xith <- pars$p[3]
+        yith <- pars$p[4]
         xib <- (xica+xith)/2
         yib <- (yica+yith)/2
-        b1 <- p[5]
-        b2 <- p[6]
+        b1 <- pars$p[5]
+        b2 <- pars$p[6]
         ns <- nrow(uv)
         if (project){
             out <- matrix(NA,nrow=ns,ncol=2)
@@ -95,7 +101,7 @@ BF_helper <- function(uv,p=p,twostage=FALSE,project=FALSE){
             }
         }
     } else {
-        out <- 9.57 * atan((uv[,2]-2.12)/(uv[,1]+3.84)) + 6.98
+        out <- pars$p[1]*atan((uv[,2]-pars$xy0[2])/(uv[,1]-pars$xy0[1]))+pars$p[2]
     }
     out
 }

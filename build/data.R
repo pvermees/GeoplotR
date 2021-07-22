@@ -71,4 +71,13 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
 .tectotree_ratios <- prune(unpruned, cp=0.015)
 tosave <- c(tosave,'.tectotree_ratios')
 
+.BF_Fe1 <- list(p=c(9.57,-6.98),
+                xy0=c(-3.84,2.12))
+.BF_Fe2 <- list(p=c(-0.8,-0.3,-1.45,-1,-6,-0.6),
+                xyi=c(-1.125,-0.65),
+                b=c(6.0,0.6),
+                d=0.5*(1.87-0.78)/sqrt(0.6^2+1))
+.BF_Ti <- list(p=c(1,1.4,0,0.65,2.5,-0.35))
+tosave <- c(tosave,'.BF_Fe1','.BF_Fe2','.BF_Ti')
+
 save(list=tosave,file="R/sysdata.rda",version=2)

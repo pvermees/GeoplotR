@@ -21,6 +21,8 @@ AFM(
   dlwd = 1.5,
   dcol = "blue",
   padding = 0.15,
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 }
@@ -55,7 +57,8 @@ which is drawn about plots. See \code{par}.}
 
 \item{asp}{the y/x aspect ratio, see \code{plot.window}.}
 
-\item{xpd}{clip the plot region? See \code{par} for further details.}
+\item{xpd}{clip the plot region? See \code{par} for further
+details.}
 
 \item{bw}{the smoothing bandwidth to be used for the kernel density
 estimate. See \code{density}.}
@@ -68,6 +71,12 @@ estimate. See \code{density}.}
 
 \item{padding}{fractional measure of distance between the data and
 the kernel density estimate.}
+
+\item{xlim}{the x axis limits of the plot (see \code{plot.default}
+for details).}
+
+\item{ylim}{the y axis limits of the plot (see \code{plot.default}
+for details).}
 
 \item{...}{additional arguments for the generic \code{points}
 function.}

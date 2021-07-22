@@ -95,13 +95,12 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
             if (twostage){
                 uvp <- BF_Fe(A,F,M,twostage=twostage,project=TRUE)
                 minu <- min(uvp[,1])
-                maxu <- max(uvp[,1])+padding*(max(uvp[,1])+1.125)
+                maxu <- max(uvp[,1])+padding*(max(uvp[,1])-.BF_Fe2$xyi[1])
             } else {
-                xy0 <- c(-3.84,2.12)
-                r <- sqrt(rowSums(sweep(uv,2,xy0,'-')^2))
+                r <- sqrt(rowSums(sweep(uv,2,.BF_Fe1$xy0,'-')^2))
                 R <- max(r)*(1+padding)
                 minu <- min(uv[,1])
-                maxu <- xy0[1]+R*cos(-6.98/9.57)
+                maxu <- .BF_Fe1$xy0[1]+R*cos(.BF_Fe1$p[2]/.BF_Fe1$p[1])
             }
             minv <- min(uv[,2])
             maxv <- max(uv[,2])
@@ -109,14 +108,18 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
         if (decision){
             nuv <- 100
             if (twostage){
-                u1 <- seq(from=min(-1.125,minu),to=-1.125,length.out=nuv)
-                u2 <- seq(from=-1.125,to=max(-1.125,maxu),length.out=nuv)
-                v1 <- -0.65-6*(u1+1.125)
-                v2 <- -0.65-0.6*(u2+1.125)
+                u1 <- seq(from=min(.BF_Fe2$xyi[1],minu),
+                          to=.BF_Fe2$xyi[1],length.out=nuv)
+                u2 <- seq(from=.BF_Fe2$xyi[1],
+                          to=max(.BF_Fe2$xyi[1],maxu),length.out=nuv)
+                v1 <- .BF_Fe2$xyi[2]-.BF_Fe2$b[1]*(u1-.BF_Fe2$xyi[1])
+                v2 <- .BF_Fe2$xyi[2]-.BF_Fe2$b[2]*(u2-.BF_Fe2$xyi[1])
                 uvd <- cbind(c(u1,u2),c(v1,v2))
             } else {
-                u <- seq(from=-3.84,to=max(-3.84,maxu),length.out=nuv)
-                v <- 2.12 + tan(-6.98/9.57)*(u+3.84)
+                u <- seq(from=.BF_Fe1$xy0[1],
+                         to=max(.BF_Fe1$xy0[1],maxu),length.out=nuv)
+                v <- .BF_Fe1$xy0[2] +
+                    tan(.BF_Fe1$p[2]/.BF_Fe1$p[1])*(u-.BF_Fe1$xy0[1])
                 uvd <- cbind(u,v)
             }
         }
@@ -136,19 +139,19 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
                 if (twostage){
                     alpha <- atan(0.6)
                     # 1. density
-                    d <- 0.5*(1.87-0.78)/sqrt(0.6^2+1)
-                    D <- d*dens$x
+                    D <- .BF_Fe2$d*dens$x
                     xed <- maxu + D*sin(alpha)
-                    yed <- (-0.65-0.6*(maxu+1.125)) + D*cos(alpha)
+                    yed <- (-0.65-0.6*(maxu-.BF_Fe2$xyi[1])) + D*cos(alpha)
                     r <- (maxu-minu)/cos(alpha)
                     normdens <- r*padding*dens$y/max(dens$y)
                     xd <- xed + normdens*cos(alpha)
                     yd <- yed - normdens*sin(alpha)
                     # 2. ticks
                     ticks <- pretty(dens$x)
-                    Dt <- d*ticks
+                    Dt <- .BF_Fe2$d*ticks
                     xt0 <- maxu + Dt*sin(alpha)
-                    yt0 <- (-0.65-0.6*(maxu+1.125)) + Dt*cos(alpha)
+                    yt0 <- Dt*cos(alpha) +
+                        (.BF_Fe2$xyi[2]-.BF_Fe2$b[2]*(maxu-.BF_Fe2$xyi[1]))
                     xt1 <- xt0 - r*0.02*cos(alpha)
                     yt1 <- yt0 + r*0.02*sin(alpha)
                     # 3. axis
@@ -157,20 +160,20 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
                 } else {
                     # 1. density
                     Rd <- R*padding*dens$y/max(dens$y)
-                    alpha <- (dens$x-6.98)/9.57
-                    xd <- xy0[1]+(R+Rd)*cos(alpha)
-                    yd <- xy0[2]+(R+Rd)*sin(alpha)
+                    alpha <- (dens$x+.BF_Fe1$p[2])/.BF_Fe1$p[1]
+                    xd <- .BF_Fe1$xy0[1]+(R+Rd)*cos(alpha)
+                    yd <- .BF_Fe1$xy0[2]+(R+Rd)*sin(alpha)
                     # 2. ticks
                     ticks <- pretty(dens$x)
-                    beta <- (ticks-6.98)/9.57
-                    xt0 <- xy0[1]+R*cos(beta)
-                    yt0 <- xy0[2]+R*sin(beta)                    
-                    xt1 <- xy0[1]+R*0.98*cos(beta)
-                    yt1 <- xy0[2]+R*0.98*sin(beta)
+                    beta <- (ticks+.BF_Fe1$p[2])/.BF_Fe1$p[1]
+                    xt0 <- .BF_Fe1$xy0[1]+R*cos(beta)
+                    yt0 <- .BF_Fe1$xy0[2]+R*sin(beta)                    
+                    xt1 <- .BF_Fe1$xy0[1]+R*0.98*cos(beta)
+                    yt1 <- .BF_Fe1$xy0[2]+R*0.98*sin(beta)
                     # 3. arc
                     gamma <- seq(from=min(beta),to=max(beta),length.out=50)
-                    xr <- xy0[1]+R*cos(gamma)
-                    yr <- xy0[2]+R*sin(gamma)
+                    xr <- .BF_Fe1$xy0[1]+R*cos(gamma)
+                    yr <- .BF_Fe1$xy0[2]+R*sin(gamma)
                 }
                 maxu <- max(xd)
                 minv <- min(yd)
