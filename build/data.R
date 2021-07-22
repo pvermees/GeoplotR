@@ -71,10 +71,4 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
 .tectotree_ratios <- prune(unpruned, cp=0.015)
 tosave <- c(tosave,'.tectotree_ratios')
 
-.BF <- construct_BF(cath)
-tosave <- c(tosave,'.BF')
-
-.twostage <- construct_twostage(cath)
-tosave <- c(tosave,'.twostage')
-
 save(list=tosave,file="R/sysdata.rda",version=2)

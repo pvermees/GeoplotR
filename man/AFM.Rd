@@ -9,14 +9,18 @@ AFM(
   F,
   M,
   ternary = TRUE,
-  radial = FALSE,
+  twostage = TRUE,
+  plot = TRUE,
+  kde = TRUE,
+  decision = TRUE,
   bty = "n",
   asp = 1,
+  xpd = FALSE,
   bw = "nrd0",
-  decision = TRUE,
   dlty = 2,
   dlwd = 1.5,
   dcol = "blue",
+  padding = 0.15,
   ...
 )
 }
@@ -31,27 +35,39 @@ wt\%)}
 
 \item{ternary}{logical. If \code{FALSE}, produces a logratio plot.}
 
-\item{radial}{logical. If \code{TRUE}, adds a kernel density
-estimate of the Bowen-Fenner indices on a radial scale. Not
-used if \code{ternary=FALSE}.}
+\item{twostage}{logical. If \code{TRUE}, applies the two-stage
+magma evolution model of Vermeesch and Pease (2021). Otherwise
+applies the single stage model.}
+
+\item{plot}{logical. If \code{FALSE}, omits the graphical output
+and only returns the Bowen-Fenner indices of the sample.}
+
+\item{kde}{logical. If \code{TRUE}, adds a kernel density estimate
+of the Bowen-Fenner indices on a radial scale. Not used if
+\code{ternary=FALSE}.}
+
+\item{decision}{logical. If \code{TRUE}, adds the decision boundary
+between the tholeiitic and calc-alkaline magma series to the
+plot.}
 
 \item{bty}{A character string that determines the type of `box'
 which is drawn about plots. See \code{par}.}
 
 \item{asp}{the y/x aspect ratio, see \code{plot.window}.}
 
+\item{xpd}{clip the plot region? See \code{par} for further details.}
+
 \item{bw}{the smoothing bandwidth to be used for the kernel density
 estimate. See \code{density}.}
-
-\item{decision}{logical. If \code{TRUE}, adds Vermeesch and Pease's
-two-stage decision boundary between the calc-alkaline and
-tholeiitic magma series to the plot.}
 
 \item{dlty}{line type of the decision boundary.}
 
 \item{dlwd}{line width of the decision boundary.}
 
 \item{dcol}{colour of the decision boundary.}
+
+\item{padding}{fractional measure of distance between the data and
+the kernel density estimate.}
 
 \item{...}{additional arguments for the generic \code{points}
 function.}
@@ -66,9 +82,29 @@ A-F-M diagram
 }
 \examples{
 data(cath,package='GeoplotR')
-Cascades <- (cath$affinity=='ca')
-AFM(A=(cath$Na2O+cath$K2O)[Cascades],
-    F=cath$FeOT[Cascades],M=cath$MgO[Cascades])
+oldpar <- par(mfrow=c(2,2))
+on.exit(par(oldpar))
+
+A <- cath[,'Na2O']+cath[,'K2O']
+F <- cath[,'FeOT']
+M <- cath[,'MgO']
+tern <- c(TRUE,FALSE,TRUE,FALSE)
+stag <- c(TRUE,TRUE,FALSE,FALSE)
+for (i in 1:4){
+    AFM(A,F,M,ternary=tern[i],decision=TRUE,twostage=stag[i],
+        pch=21,bw=0.2,padding=0.15,bg=cath[,'affinity'])
+}
+
+dev.new()
+CA <- (cath$affinity=='ca')
+TH <- (cath$affinity=='th')
+fitCA <- AFM(A[CA],F[CA],M[CA],plot=FALSE)
+fitTH <- AFM(A[TH],F[TH],M[TH],plot=FALSE)
+d1 <- density(fitCA)
+d2 <- density(fitTH)
+matplot(cbind(d1$x,d2$x),cbind(d1$y,d2$y),type='l',lty=1)
+legend('topright',legend=c('Cascades','Iceland'),lty=1)
+
 }
 \references{
 Irvine, T. N. and Baragar, W. A guide to the chemical
