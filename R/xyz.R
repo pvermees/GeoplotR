@@ -42,7 +42,11 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
             out[matched] <- json$labels[[pname]]
             col[matched] <- i+1
         }
-        ternarypoints(uv,pch=21,bg=col,...)
+        args <- list(...)
+        args$uv <- uv
+        args$pch <- 21
+        args$bg <- col
+        do.call(ternarypoints, args)
     }
     if (show.labels){
         for (lname in names(json$labels)){

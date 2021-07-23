@@ -57,7 +57,11 @@ DA <- function(uv,da,type=c('LDA','QDA'),
         for (cont in da$contours){
             graphics::lines(cont)
         }
-        graphics::points(x=dat[,1],y=dat[,2],col=out$class,...)
+        args <- list(...)
+        args$x <- dat[,1]
+        args$y <- dat[,2]
+        args$col <- out$class
+        do.call(graphics::points, args)
     }
     if (identical(plot,'ternary')){
         p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
@@ -68,7 +72,10 @@ DA <- function(uv,da,type=c('LDA','QDA'),
             ternarylines(fcont)
         }
         fdat <- sweep(dat,2,fcorr,'+')
-        ternarypoints(fdat,col=out$class,...)
+        args <- list(...)
+        args$uv <- fdat
+        args$col <- out$class
+        do.call(ternarypoints, args)
         graphics::par(p)
     }
     invisible(out)
