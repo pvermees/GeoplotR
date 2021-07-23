@@ -1,4 +1,4 @@
-ternaryplot <- function(f=rep(1,3),labels=c('X','Y','Z'),...){
+ternaryplot <- function(labels=c('X','Y','Z'),f=rep(1,3),...){
     corners <- rbind(c(1,0,0),c(0,1,0),c(0,0,1),c(1,0,0))
     xy <- xyz2xy(corners)
     graphics::plot(xy,type='l',asp=1,axes=FALSE,
@@ -10,12 +10,16 @@ ternaryplot <- function(f=rep(1,3),labels=c('X','Y','Z'),...){
         graphics::text(xy[i,,drop=FALSE],labels=lab,pos=position[i],...)
     }
 }
-ternarylines <- function(uv,...){
-    xyz <- alr(uv,inverse=TRUE)
+ternarylines <- function(uv,f=rep(1,3),...){
+    uvt <- uv - log(f[1])
+    uvt <- sweep(uvt,2,log(f[2:3]),'+')
+    xyz <- alr(uvt,inverse=TRUE)
     graphics::lines(xyz2xy(xyz),...)
 }
-ternarypoints <- function(uv,...){
-    xyz <- alr(uv,inverse=TRUE)
+ternarypoints <- function(uv,f=rep(1,3),...){
+    uvt <- uv - log(f[1])
+    uvt <- sweep(uvt,2,log(f[2:3]),'+')
+    xyz <- alr(uvt,inverse=TRUE)
     graphics::points(xyz2xy(xyz),...)
 }
 

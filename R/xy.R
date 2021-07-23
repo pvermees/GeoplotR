@@ -121,7 +121,7 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
             out[matched] <- json$labels[[pname]]
             col[matched] <- i+1
         }
-        graphics::points(pts,pch=21,bg=col,...)        
+        graphics::points(pts,pch=21,bg=col,...)
     }
     if (show.labels){
         for (lname in names(json$labels)){

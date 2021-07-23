@@ -40,31 +40,31 @@ out <- TAS(Na2O=test[,'Na2O'],K2O=test[,'K2O'],SiO2=test[,'SiO2'])
 Where `out` lists the classification of each sample in `test`.  
 
 Plot basalt compositions from Iceland and the Cascade Mountains on an
-A-F-M diagram:
+A-F-M diagram, and mark the two-stage calc-alkaline/tholeiitic
+decision boundary of Vermeesch and Pease (Geochemical Perspective
+Letters, 2021) on it:
 
 ```
 data(cath,package='GeoplotR')
-ca <- cath[cath$affinity=='ca',]
-AFM(cath$A,cath$F,cath$M,pch=16,col=cath$affinity)
-legend('topleft',legend=c('Cascades','Iceland'),pch=16,col=c(1,2))
+A <- cath[,'Na2O']+cath[,'K2O']
+F <- cath[,'FeOT']
+M <- cath[,'MgO']
+AFM(A,F,M,ternary=TRUE,decision=TRUE,
+    twostage=TRUE,pch=21,bg=cath[,'affinity'])
+legend('topleft',legend=c('Cascades','Iceland'),
+       pch=21,pt.bg=c(1,2))
 ```
 
-Calculate the *Bowen-Fenner* index of the data:
+Plot the Iceland data in logratio space and visualise their
+*Bowen-Fenner* indices as a kernel density estimate:
 
 ```
-bfi <- BF(cath$A,cath$F,cath$M)
-oldpar <- par(mfrow=c(2,1))
-hist(bfi[cath$affinity=='ca'])
-hist(bfi[cath$affinity=='th'])
-par(oldpar)
-```
-
-Plot the Cascades data on a logratio plot and project a kernel density
-estimate of the Bowen-Fenner indices on a radial scale:
-
-```
-Cascades <- (cath$affinity=='ca')
-AFM(cath$A[Cascades],cath$F[Cascades],cath$M[Cascades],ternary=FALSE,radial=TRUE)
+data(cath,package='GeoplotR')
+TH <- (cath[,'affinity']=='th')
+A <- cath[TH,'Na2O']+cath[TH,'K2O']
+F <- cath[TH,'FeOT']
+M <- cath[TH,'MgO']
+AFM(A,F,M,ternary=FALSE,decision=TRUE,twostage=TRUE)
 ```
 
 ## Author

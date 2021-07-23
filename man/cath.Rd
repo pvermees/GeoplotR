@@ -11,7 +11,10 @@ Calc-alkaline and tholeiitic data from the Cascade
 \examples{
 data(cath,package='GeoplotR')
 ca <- cath[cath$affinity=='ca',]
-AFM(cath$A,cath$F,cath$M,pch=16,col=cath$affinity)
+A <- cath[,'Na2O']+cath[,'K2O']
+F <- cath[,'FeOT']
+M <- cath[,'MgO']
+AFM(A,F,M,pch=16,col=cath$affinity)
 legend('topleft',legend=c('Cascades','Iceland'),pch=16,col=c(1,2))
 }
 \references{
