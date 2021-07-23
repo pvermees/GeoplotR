@@ -102,7 +102,7 @@ tern <- c(TRUE,FALSE,TRUE,FALSE)
 stag <- c(TRUE,TRUE,FALSE,FALSE)
 for (i in 1:4){
    AFM(A,F,M,ternary=tern[i],decision=TRUE,twostage=stag[i],
-   pch=21,bw=0.2,padding=0.15,bg=cath[,'affinity'])
+       pch=21,bw=0.2,padding=0.15,bg=cath[,'affinity'])
 }
 
 par(oldpar)
