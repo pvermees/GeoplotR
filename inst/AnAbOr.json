@@ -4,6 +4,7 @@
     "author": "Fred Yu, Pieter Vermeesch",
     "title": "AnAbOr",
     "type": "xyz",
+    "log": "false",
     "reference": "Barker1979",
     "lines": {
 	"1":[

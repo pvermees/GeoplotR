@@ -1,4 +1,4 @@
-#' tectonic discrimination by decision tree
+#' @title tectonic discrimination by decision tree
 #' @description Classification And Regression Trees (CART) of basalts
 #'     from ocean islands (OIB), mid-oceanic ridges (MORB) and island
 #'     arcs (IAB).
@@ -48,6 +48,10 @@
 #' If \code{type="matrix"}: a matrix of the full responses, i.e. the
 #' concatenation of at least the predicted class, the class counts at
 #' that node in the fitted tree, and the class probabilities.
+#' 
+#' @examples
+#' data(test,package='GeoplotR')
+#' tree <- cart(test,option=1,plot=TRUE)
 #' @export
 cart <- function(dat,option=1,type=c("class","prob","vector","matrix"),
                  plot=FALSE,...){

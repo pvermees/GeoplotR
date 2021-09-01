@@ -1,0 +1,73 @@
+{
+    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
+    "date": "2021-8-6",
+    "version": "0.01",
+    "author": "fred yu",
+    "title": "Sr/Y_Y",
+    "type": "xy",
+    "log": "false",
+    "axis":["Y ppm","Sr/Y ppm"],    
+    "reference": "Hansen, J., Skjerlie, K.P., Pedersen, R.B., and De La Rosa, J., 2002, Crustal melting in the lower parts of island arcs: an example from the Bremanger Granitoid Complex, west Norwegian Caledonides; Contributions to Mineralogy and Petrology, v. 143, p. 316-335.",
+    "line_coords": {
+        "Archean TTG suites and more recent adakites": 
+            [
+                [12,25],
+                [12,5],
+                [50,5],
+                [50,25],
+                [14,75]
+            ],
+        "Classical volcanic arcs":  
+            [ 
+                [5,450],
+                [1,450],
+                [1,75],
+                [5,25],
+                [12,25],
+                [14,75]
+            ]
+        },
+    "label_coords": {
+        "Archean TTG suites and more recent adakites": 
+            [ 10,200],
+        "Classical volcanic arcs":  
+            [ 30,25]
+    },
+    "line_type": {
+        "Archean TTG suites and more recent adakites": 
+        "solid",
+        "Classical volcanic arcs":  
+        "solid"
+    },
+    "polygons": {
+        "Archean TTG suites and more recent adakites": 
+        [
+            [12,25],
+            [12,5],
+            [50,5],
+            [50,25],
+            [14,75]
+        ],
+        "Classical volcanic arcs":  
+        [
+            [5,450],
+            [1,450],
+            [1,75],
+            [5,25],
+            [12,25],
+            [14,75]
+        ]
+    },
+    "labels": { 
+        "Archean TTG suites and more recent adakites": 
+        "Archean TTG suites and more recent adakites",
+        "Classical volcanic arcs":  
+        "Classical volcanic arcs"
+    },
+    "angle": {
+        "Archean TTG suites and more recent adakites": 
+        0,
+        "Classical volcanic arcs":  
+        0
+    }
+}

@@ -91,8 +91,8 @@ YbTaRb <- function(Yb=NULL,Ta=NULL,Rb=NULL,xlim=c(0.9,110),ylim=c(1,1000),...){
 
 xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
                    ylim=range(Y,na.rm=TRUE),xlab='x',ylab='y',
-                   show.labels=FALSE,log='',
-                   short=FALSE,test.polygons=FALSE,...){
+                   show.labels=FALSE,log='',short=FALSE,
+                   test.polygons=FALSE,smooth=FALSE,...){
     graphics::plot(xlim,ylim,type='n',
                    xlab=xlab,ylab=ylab,bty='n',log=log)
     if (test.polygons){
@@ -103,7 +103,10 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
     } else {
         for (lname in names(json$lines)){
             xy <- matrix(unlist(json$lines[[lname]]),ncol=2,byrow=TRUE)
-            graphics::lines(xy,lty=lty(json$line_type[[lname]]))
+            if (smooth) shape <- 1
+            else shape <- 0
+            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,
+                              lty=lty(json$line_type[[lname]]))
         }
     }
     if ( is.null(X) | is.null(Y) ){
