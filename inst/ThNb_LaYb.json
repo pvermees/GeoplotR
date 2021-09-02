@@ -1,5 +1,5 @@
 {
-    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",//前面的 comment 就是备注，意思是这个条目是说对该文件的简单介绍
+    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
     "date": "2021-8-6",
     "version": "0.01",
     "author": "fred yu",
@@ -9,7 +9,7 @@
     "axis":["La'/Yb ppm","Th/Nb ppm"],    
     "reference": "Hollocher et al., 2012 Discriminants for MORB, ocean island, and a variety of arc-type basalts",
    
-    "line_coords": {
+    "lines": {
         "Oceanic arcs": 
             [
                 [0.4,0.095],

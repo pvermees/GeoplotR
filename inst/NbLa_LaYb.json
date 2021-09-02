@@ -8,7 +8,7 @@
     "log": "true",
     "axis":["La/Yb ppm","Nb'/La ppm"],
     "reference": "Hollocher et al., 2012 Discriminants for MORB, ocean island, and a variety of arc-type basalts",
-    "line_coords": {
+    "lines": {
         "MORB": 
         [
             [0.4,0.5],
