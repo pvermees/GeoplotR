@@ -9,7 +9,7 @@
     "axis":["Y ppm","Sr/Y ppm"],    
     "reference": "Hansen, J., Skjerlie, K.P., Pedersen, R.B., and De La Rosa, J., 2002, Crustal melting in the lower parts of island arcs: an example from the Bremanger Granitoid Complex, west Norwegian Caledonides; Contributions to Mineralogy and Petrology, v. 143, p. 316-335.",
     "lines": {
-        "Archean TTG suites and more recent adakites": 
+        "Classical volcanic arcs": 
             [
                 [12,25],
                 [12,5],
@@ -17,14 +17,15 @@
                 [50,25],
                 [14,75]
             ],
-        "Classical volcanic arcs":  
+        "Archean TTG suites and more recent adakites":  
             [ 
                 [5,450],
                 [1,450],
                 [1,75],
                 [5,25],
                 [12,25],
-                [14,75]
+                [14,75],
+                [5,450]
             ]
         },
     "label_coords": {
@@ -40,7 +41,7 @@
         "solid"
     },
     "polygons": {
-        "Archean TTG suites and more recent adakites": 
+        "Classical volcanic arcs": 
         [
             [12,25],
             [12,5],
@@ -48,7 +49,7 @@
             [50,25],
             [14,75]
         ],
-        "Classical volcanic arcs":  
+        "Archean TTG suites and more recent adakites":  
         [
             [5,450],
             [1,450],

@@ -1,5 +1,5 @@
 {
-    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
+    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",//前面的 comment 就是备注，意思是这个条目是说对该文件的简单介绍
     "date": "2021-8-6",
     "version": "0.01",
     "author": "fred yu",
@@ -19,7 +19,6 @@
         "Continental arcs":  
             [
                 [5.5,5],
-                [1.9,0.113],
                 [7.15,0.13],
                 [20,5]
             ],
@@ -46,7 +45,7 @@
         "Oceanic arcs":  [1, 1] ,
         "Continental arcs":  [8, 1] ,
         "Alkaline arcs":  [50, 1] ,
-        "MORB":  [1, 0.0212] ,
+        "MORB":  [1, 0.05] ,
         "Oceanic islands":  [30, 0.02] 
     },
     "line_type": {
@@ -83,7 +82,7 @@
                 [0.4,0.095],
                 [7.15,0.13],
                 [1.5,0.02],
-                [0.4,0.002]
+                [0.4,0.02]
             ],
         "Oceanic islands":  
             [

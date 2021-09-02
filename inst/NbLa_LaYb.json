@@ -12,7 +12,6 @@
         "MORB": 
         [
             [0.4,0.5],
-            [1.75,0.598],
             [2.44,0.622],
             [6,3]
         ], 
@@ -27,7 +26,7 @@
     "Oceanic islands":  
         [                
             [6,3],
-            [1.75,0.598],
+            [2.44,0.622],
             [10,0.739]
         ]     ,
     "Continental arcs":  
@@ -48,10 +47,10 @@
         },
     "label_coords": {
         "MORB":  [1, 1] ,
-        "Oceanic arcs":  [1, 0.7] ,
-        "Oceanic islands":  [10,1] ,
-        "Continental arcs":  [6, 0.7] ,
-        "Alkaline arcs":  [50, 0.7] 
+        "Oceanic arcs":  [0.3, 0.7] ,
+        "Oceanic islands":  [10,2] ,
+        "Continental arcs":  [5, 0.5] ,
+        "Alkaline arcs":  [40, 0.3] 
     },
     "line_type": {
         "Oceanic arcs":  "solid"        ,
@@ -64,7 +63,6 @@
         "MORB": 
             [
                 [0.4,0.5],
-                [1.75,0.598],
                 [2.44,0.622],
                 [6,3],
                 [0.4,3]
@@ -81,8 +79,9 @@
         "Oceanic islands":  
             [                
                 [6,3],
-                [1.75,0.598],
+                [2.44,0.622],
                 [10,0.739],
+                [80,0.95],
                 [80,3]
             ]     ,
         "Continental arcs":  

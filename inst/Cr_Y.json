@@ -79,13 +79,13 @@
             ]
         },
     "label_coords": {
-        "Boninites":  [7, 1000] ,
+        "Boninites":  [8, 1000] ,
         "Arc tholeiites":  [20, 20] ,
-        "MORB":  [35, 300] 
+        "MORB":  [60, 180] 
     },
     "line_type": {
-        "Boninites":  "solid",
-        "Arc tholeiites":  "solid",
+        "Boninites":  "solid"        ,
+        "Arc tholeiites":  "solid"       ,
         "MORB":  "solid"         
     },
     "polygons": {
