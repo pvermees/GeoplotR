@@ -4,15 +4,7 @@
 \alias{CrY}
 \title{Cr-Y}
 \usage{
-CrY(
-  Cr,
-  Y,
-  xlim = c(1, 100),
-  ylim = c(1, 10000),
-  show.labels = TRUE,
-  short = TRUE,
-  ...
-)
+CrY(Cr, Y, xlim = c(1, 100), ylim = c(1, 10000), show.labels = TRUE, ...)
 }
 \arguments{
 \item{Cr}{vector with Cr concentrations (ppm)}
@@ -22,6 +14,9 @@ CrY(
 \item{xlim}{x-axis limits}
 
 \item{ylim}{y-axis limits}
+
+\item{show.labels}{logical. If \code{TRUE}, labels the polygonal
+decision fields with text strings.}
 
 \item{...}{additional arguments to the generic \code{points}
 function, may include the logical argument \code{show.labels}

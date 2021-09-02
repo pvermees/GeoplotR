@@ -5,9 +5,11 @@
 #' @param Y vector with Y concentrations (ppm)
 #' @param xlim x-axis limits
 #' @param ylim y-axis limits
+#' @param show.labels logical. If \code{TRUE}, labels the polygonal
+#'     decision fields with text strings.
 #' @param ... additional arguments to the generic \code{points}
 #'     function, may include the logical argument \code{show.labels}
-#'     which labels the fields in the diagram. 
+#'     which labels the fields in the diagram.
 #' @return a vector with tectonic affinities
 #' @references Dilek, Y., Furnes, H., and Shallo, M., 2007,
 #'     Suprasubduction zone ophiolite formation along the periphery of
@@ -16,13 +18,9 @@
 #' data(test,package='GeoplotR')
 #' CrY(Cr=test[,'Cr'],Y=test[,'Y'])
 #' @export
-CrY <- function(Cr,Y,xlim=c(1,100),ylim=c(1,10000),
-                show.labels=TRUE,short=TRUE,...){
-    if (missing(xlab)) xlab <- 'Cr'
-    if (missing(ylab)) ylab <- 'Y'
-    invisible(xyplot(json=.CrY,X=Cr,Y=Y,log='xy',
-                     xlim=xlim,ylim=ylim,short=short,
-                     xlab=xlab,ylab=ylab,...))
+CrY <- function(Cr,Y,xlim=c(1,100),ylim=c(1,10000),show.labels=TRUE,...){
+    invisible(xyplot(json=.CrY,X=Cr,Y=Y,log='xy',xlim=xlim,ylim=ylim,
+                     show.labels=show.labels,xlab='Cr',ylab='Y',...))
 }
 
 #' @title TAS diagram

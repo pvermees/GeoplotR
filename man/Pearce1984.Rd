@@ -8,26 +8,31 @@
 \alias{YbTaRb}
 \title{Pearce et al. (1984)}
 \usage{
-YNb(Y = NULL, Nb = NULL, xlim = c(1, 1000), ylim = c(1, 1000), xlab, ylab, ...)
+YNb(
+  Y = NULL,
+  Nb = NULL,
+  show.labels = TRUE,
+  xlim = c(1, 1000),
+  ylim = c(1, 1000),
+  ...
+)
 
 YNbRb(
   Y = NULL,
   Nb = NULL,
   Rb = NULL,
+  show.labels = TRUE,
   xlim = c(1, 1000),
   ylim = c(1, 1000),
-  xlab,
-  ylab,
   ...
 )
 
 YbTa(
   Yb = NULL,
   Ta = NULL,
+  show.labels = TRUE,
   xlim = c(0.1, 100),
   ylim = c(0.05, 100),
-  xlab,
-  ylab,
   ...
 )
 
@@ -35,10 +40,9 @@ YbTaRb(
   Yb = NULL,
   Ta = NULL,
   Rb = NULL,
+  show.labels = TRUE,
   xlim = c(0.9, 110),
   ylim = c(1, 1000),
-  xlab,
-  ylab,
   ...
 )
 }
@@ -47,17 +51,15 @@ YbTaRb(
 
 \item{Nb}{vector with Nb concentrations (ppm)}
 
+\item{show.labels}{logical. If \code{TRUE}, labels the polygonal
+fields with their respective tectonic affinities.}
+
 \item{xlim}{x-axis limits}
 
 \item{ylim}{y-axis limits}
 
-\item{xlab}{(optional) x-axis label}
-
-\item{ylab}{(optional) y-axis label}
-
 \item{...}{additional arguments to the generic \code{points}
-function, may include the logical argument \code{show.labels}
-which labels the fields in the diagram.}
+function.}
 
 \item{Rb}{vector with Rb concentrations (ppm)}
 
@@ -80,7 +82,7 @@ YbTaRb(Yb=test[,'Yb'],Ta=test[,'Ta'],Rb=test[,'Rb'])
 }
 \references{
 Pearce, J. A., Harris, N. B. W., and Tindle, A. G.,
-    1984, "Trace Element Discrimination Diagrams for the Tectonic
-    Interpretation of Granitic Rocks": Journal of Petrology,
-    v. 25, no. 4, p. 956-983.
+    1984,
+    "Trace Element Discrimination Diagrams for the Tectonic Interpretation of Granitic Rocks":
+    Journal of Petrology, v. 25, no. 4, p. 956-983.
 }
