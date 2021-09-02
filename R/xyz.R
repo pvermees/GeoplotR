@@ -1,5 +1,25 @@
+#' @title An-Ab-Or
+#' @description An-Ab-Or diagram for tonalite, trondhjemite,
+#'     granodiorite, and granite according to Barker (1979).
+#' @param An vector with normative anorthite concentrations (wt\%)
+#' @param Ab vector with normative albite concentrations (wt\%)
+#' @param Or vector with normative orthoclase concentrations (wt\%)
+#' @param show.labels logical. If \code{TRUE}, labels the
+#'     discrimination fields on the plot.
+#' @param ... additional arguments for the generic \code{points}
+#'     function.
+#' @return a list with labels, indicating whether the input data are
+#'     tonalite, trondhjemite, granodiorite, granite.
+#' @references Barker, F., 1979, Trondhjemite: Definition,
+#'     environment, and hypotheses of origin: p. 1-12, in Barker, F.,
+#'     ed., Trondhjemites, Dacites, and Related Rocks, Elsevier,
+#'     Amsterdam, 659 p.
+#' @examples
+#' AnAbOr(An=c(70,75,73),Ab=c(20,10,27),Or=c(10,15,0))
+#' @export
 AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
-    invisible(xyzplot(json=.AnAbOr,X=An,Y=Ab,Z=Or,labels=c('An','Ab','Or'),
+    invisible(xyzplot(json=.AnAbOr,X=Ab,Y=An,Z=Or,
+                      labels=c('An','Ab','Or'),
                       show.labels=show.labels,...))
 }
 

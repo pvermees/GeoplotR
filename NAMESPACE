@@ -2,7 +2,9 @@
 
 export(AFM)
 export(ATM)
+export(AnAbOr)
 export(BF)
+export(CrY)
 export(TAS)
 export(TiZrY)
 export(YNb)

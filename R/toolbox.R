@@ -104,7 +104,7 @@ lty <- function(ltype){
 
 # This uses the ray-casting algorithm to decide whether the point is inside
 # the given polygon. See https://en.wikipedia.org/wiki/Point_in_polygon
-inside <- function(pts,pol){
+inside <- function(pts,pol,log=''){
     nv <- nrow(pol)
     if (identical(pol[1,],pol[nv,])){
         pol <- pol[-1,] # remove the duplicate vertex
@@ -118,6 +118,14 @@ inside <- function(pts,pol){
         np <- 1
         x <- pts[1]
         y <- pts[2]
+    }
+    if (log%in%c('x','xy')){
+        pol[,1] <- log(pol[,1])
+        x <- log(x)
+    }
+    if (log%in%c('x','xy')){
+        pol[,2] <- log(pol[,2])
+        y <- log(y)
     }
     igood <- which(!(is.na(x)|is.na(y)))
     out <- rep(FALSE,np)
@@ -136,4 +144,11 @@ inside <- function(pts,pol){
         }
     }
     out
+}
+
+angle <- function(a){
+    usr <- graphics::par('usr')
+    dx <- usr[2]-usr[1]
+    dy <- usr[4]-usr[3]
+    atan(tan(a*pi/180)*dx/dy)*180/pi
 }

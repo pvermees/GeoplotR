@@ -1,6 +1,6 @@
 setwd('~/Documents/Programming/R/GeoplotR/')
 source('R/AFM.R')
-source('R/tectodisc.R')
+source('R/DA.R')
 source('R/toolbox.R')
 
 tosave <- NULL
@@ -25,11 +25,12 @@ tosave <- c(tosave,'.oxides')
 
 .TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
 .AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
+.CrY <- IsoplotR:::fromJSON(file='inst/Cr_Y.json')
 .YNb <- IsoplotR:::fromJSON(file='inst/Pearce_Y-Nb.json')
 .YNbRb <- IsoplotR:::fromJSON(file='inst/Pearce_Y+Nb-Rb.json')
 .YbTa <- IsoplotR:::fromJSON(file='inst/Pearce_Yb-Ta.json')
 .YbTaRb <- IsoplotR:::fromJSON(file='inst/Pearce_Yb+Ta-Rb.json')
-tosave <- c(tosave,'.TAS','.AnAbOr','.YNb','.YNbRb','.YbTa','.YbTaRb')
+tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.YNb','.YNbRb','.YbTa','.YbTaRb')
 
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)

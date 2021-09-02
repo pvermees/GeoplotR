@@ -24,21 +24,22 @@
 #' fn <- system.file('TiZrY.json',package='GeoplotR')
 #' xyztest(fn)
 #' @export
-xytest <- function(fname,xlim=NA,ylim=NA,log='',
+xytest <- function(fname,xlim=NULL,ylim=NULL,log='',
                    short=FALSE,smooth=FALSE,polygons=FALSE,...){
     json <- IsoplotR:::fromJSON(file=fname)
-    if (any(is.na(xlim)) & any(is.na(ylim))){
+    if (is.null(xlim) | is.null(ylim)){
         xy <- NULL
-        for (pname in names(json$polygons)){
-            XY <- matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
+        for (pname in names(json$lines)){
+            XY <- matrix(unlist(json$lines[[pname]]),ncol=2,byrow=TRUE)
             xy <-  rbind(xy,XY)
         }
-        xlim <- range(xy[,1])
-        ylim <- range(xy[,2])
+        if (is.null(xlim)) xlim <- range(xy[,1])
+        if (is.null(ylim)) ylim <- range(xy[,2])
     }
     out <- xyplot(json,xlim=xlim,ylim=ylim,show.labels=TRUE,
                   short=short,test.polygons=polygons,
                   smooth=smooth,log=log,...)
+    graphics::title(main=fname)
     invisible(out)
 }
 
@@ -60,5 +61,6 @@ xyztest <- function(fname,short=FALSE,polygons=FALSE,smooth=FALSE,...){
     json <- IsoplotR:::fromJSON(file=fname)
     out <- xyzplot(json,short=short,show.labels=TRUE,
                    test.polygons=polygons,smooth=smooth,...)
+    graphics::title(main=fname)
     invisible(out)
 }
