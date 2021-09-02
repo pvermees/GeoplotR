@@ -10,6 +10,7 @@ xytest(
   ylim = NA,
   log = "",
   short = FALSE,
+  smooth = FALSE,
   polygons = FALSE,
   ...
 )
@@ -32,6 +33,9 @@ xytest(
 \code{'xy'} log-log plot}
 
 \item{short}{logical. If \code{TRUE}, uses short labels}
+
+\item{smooth}{logical. If \code{TRUE}, plots lines as
+\code{xspline}s.}
 
 \item{polygons}{logical. If \code{TRUE} plots the decision
 polygons. If \code{TRUE}, plots the decision lines}

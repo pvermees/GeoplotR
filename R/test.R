@@ -16,13 +16,16 @@
 #' @param short logical. If \code{TRUE}, uses short labels
 #' @param polygons logical. If \code{TRUE} plots the decision
 #'     polygons. If \code{TRUE}, plots the decision lines
+#' @param smooth logical. If \code{TRUE}, plots lines as
+#'     \code{xspline}s.
 #' @param ... additional arguments to the generic plot function
 #' @return a list of text strings
 #' @examples
 #' fn <- system.file('TiZrY.json',package='GeoplotR')
 #' xyztest(fn)
 #' @export
-xytest <- function(fname,xlim=NA,ylim=NA,log='',short=FALSE,polygons=FALSE,...){
+xytest <- function(fname,xlim=NA,ylim=NA,log='',
+                   short=FALSE,smooth=FALSE,polygons=FALSE,...){
     json <- IsoplotR:::fromJSON(file=fname)
     if (any(is.na(xlim)) & any(is.na(ylim))){
         xy <- NULL
@@ -34,7 +37,8 @@ xytest <- function(fname,xlim=NA,ylim=NA,log='',short=FALSE,polygons=FALSE,...){
         ylim <- range(xy[,2])
     }
     out <- xyplot(json,xlim=xlim,ylim=ylim,show.labels=TRUE,
-                  short=short,test.polygons=polygons,log=log,...)
+                  short=short,test.polygons=polygons,
+                  smooth=smooth,log=log,...)
     invisible(out)
 }
 

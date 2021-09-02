@@ -4,7 +4,7 @@
 \alias{xyztest}
 \title{xyz testing function}
 \usage{
-xyztest(fname, short = FALSE, polygons = FALSE, ...)
+xyztest(fname, short = FALSE, polygons = FALSE, smooth = FALSE, ...)
 }
 \arguments{
 \item{fname}{path to a json file}
@@ -13,6 +13,9 @@ xyztest(fname, short = FALSE, polygons = FALSE, ...)
 
 \item{polygons}{logical. If \code{TRUE} plots the decision
 polygons. If \code{TRUE}, plots the decision lines}
+
+\item{smooth}{logical. If \code{TRUE}, plots lines as
+\code{xspline}s.}
 
 \item{...}{additional arguments to the generic plot function}
 }
