@@ -3,6 +3,51 @@ AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
                       show.labels=show.labels,...))
 }
 
+#' @title Ti-Zr-Y
+#' @description Ti-Zr-Y tectonic discrimination diagram
+#' @param Ti vector with Ti concentrations (ppm)
+#' @param Zr vector with Zr concentrations (ppm)
+#' @param Y vector with Y concentrations (ppm)
+#' @param type either \code{'LDA'} for linear discriminant analysis,
+#'     \code{'QDA'} for quadratic discriminant analysis, or
+#'     \code{'Pearce'} for the nominal decision boundaries of Pearce
+#'     and Cann (1973). The latter option has not been implemented
+#'     yet.
+#' @param plot either \code{'none'} to omit the plot, \code{'ternary'}
+#'     for a ternary diagram, or \code{'logratio'} for a bivariate
+#'     logratio plot
+#' @param ... additional arguments for the generic \code{points}
+#'     function.
+#' @return if \code{type='LDA'} or \code{type='QDA'}, a list with
+#'     components \code{class}, \code{posterior} and \code{x};
+#'     otherwise a table with labels for \code{MORB}, \code{IAB} and
+#'     \code{OIB}.
+#' @references Pearce, J. A., and Cann, J. R., 1973, Tectonic setting
+#'     of basic volcanic rocks determined using trace element
+#'     analyses: Earth and Planetary Science Letters, v. 19, no. 2,
+#'     p. 290-300.
+#' @examples
+#' data(test,package='GeoplotR')
+#' TiZrY(Ti=wtpct2ppm(test[,'TiO2']),
+#'       Zr=test[,'Zr'],Y=test[,'Y'],
+#'       type='QDA',plot='ternary')
+#' @export
+TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
+                  type=c('LDA','QDA','Pearce'),
+                  plot=c('none','ternary','logratio'),...){
+    if (type[1]%in%c('LDA','QDA')){ # discriminant analysis
+        if (identical(type[1],'LDA')) da <- .TiZrY_LDA
+        else da <- .TiZrY_QDA
+        uv <- alr(cbind(Ti,Zr,Y))
+        out <- DA(uv=uv,da=da,type=type[1],plot=plot,
+                  f=c(1/100,1,3),labels=c('Ti','Zr','Y'),...)
+    } else if (identical(type,'Pearce')) { # legacy
+        out <- TiZrY_nominal(Ti=Ti,Zr=Zr,Y=Y,...)
+    } else {
+        stop('invalid type')
+    }
+    invisible(out)
+}
 TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,show.labels=TRUE,short=TRUE,...){
     invisible(xyzplot(json=.TiZrY_nominal,X=Ti,Y=Zr,Z=Y,f=c(0.01,1,3),
                       labels=c('Ti','Zr','Y'),short=short,
@@ -11,7 +56,8 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,show.labels=TRUE,short=TRUE,...
 
 xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
                     labels=c('X','Y','Z'),short=FALSE,
-                    show.labels=FALSE,test.polygons=FALSE,...){
+                    show.labels=FALSE,test.polygons=FALSE,
+                    smooth=FALSE,...){
     oldpar <- graphics::par(mar=rep(2,4),xpd=NA)
     ternaryplot(f=f,labels=labels,...)
     if (test.polygons){
@@ -22,7 +68,11 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
     } else {
         for (lname in names(json$lines)){
             xyz <- matrix(unlist(json$lines[[lname]]),ncol=3,byrow=TRUE)
-            graphics::lines(xyz2xy(xyz),lty=lty(json$line_type[[lname]]))
+            xy <- xyz2xy(xyz)
+            if (smooth) shape <- 1
+            else shape <- 0
+            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,
+                              lty=lty(json$line_type[[lname]]))
         }
     }
     if (is.null(X) | is.null(Y) | is.null(Z)){

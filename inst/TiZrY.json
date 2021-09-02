@@ -5,6 +5,7 @@
     "author": "Fred Yu, Pieter Vermeesch",
     "title": "Ti/100-Zr-Y*3",
     "type": "xyz",
+    "log": "false",
     "axis":["Ti/100","Zr","Y*3"],
     "reference": "Barker 1979, Pearce and Cann 1973",
     "notice":"coords below is Ti/100, Zr, Y*3, not original Ti,Zr,Y. ",   

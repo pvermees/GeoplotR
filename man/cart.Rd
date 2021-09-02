@@ -71,3 +71,7 @@ Classification And Regression Trees (CART) of basalts
     from ocean islands (OIB), mid-oceanic ridges (MORB) and island
     arcs (IAB).
 }
+\examples{
+data(test,package='GeoplotR')
+tree <- cart(test,option=1,plot=TRUE)
+}
