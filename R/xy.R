@@ -119,7 +119,8 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
             pname <- pnames[i]
             pol <- matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
             matched <- inside(pts=pts,pol=pol,log=log)
-            out[matched] <- json$labels[[pname]]
+            out[matched] <- ifelse(is.na(out[matched]),json$labels[[pname]],
+                                   paste0(out[matched],' OR ',json$labels[[pname]]))
             col[matched] <- i+1
         }
         graphics::points(pts,pch=21,bg=col,...)

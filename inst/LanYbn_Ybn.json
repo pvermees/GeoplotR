@@ -34,8 +34,8 @@
         ]
     },
     "label_coords": {
-        "TTG+adakites": [ 10,120],
-        "arcs": [ 15,40]
+        "TTG+adakites": [2.5,50],
+        "arcs": [12.5,20]
     },
     "line_type": {
         "TTG+adakites": "solid",
