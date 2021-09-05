@@ -77,15 +77,15 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,show.labels=TRUE,short=TRUE,...
 xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
                     labels=c('X','Y','Z'),short=FALSE,
                     show.labels=FALSE,test.polygons=FALSE,
-                    smooth=FALSE,...){
+                    smooth=FALSE,bg,dlwd=1,dcol='black',...){
     oldpar <- graphics::par(mar=rep(2,4),xpd=NA)
     ternaryplot(f=f,labels=labels,...)
     if (test.polygons){
-        col <- 2
+        pcol <- 2
         for (pname in names(json$polygons)){
             xyz <-  matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
-            graphics::polygon(xyz2xy(xyz),col=col)
-            col <- col+1
+            graphics::polygon(xyz2xy(xyz),col=pcol)
+            pcol <- pcol+1
         }
     } else {
         for (lname in names(json$lines)){
@@ -93,8 +93,8 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
             xy <- xyz2xy(xyz)
             if (smooth) shape <- 1
             else shape <- 0
-            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,
-                              lty=lty(json$line_type[[lname]]))
+            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,border=dcol,
+                              lty=lty(json$line_type[[lname]]),lwd=dlwd)
         }
     }
     if (is.null(X) | is.null(Y) | is.null(Z)){
@@ -105,7 +105,8 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
         XY <- xyz2xy(alr(uv,inverse=TRUE))
         ns <- nrow(XY)
         out <- rep(NA,ns)
-        col <- rep(1,ns)
+        missingbg <- missing(bg)
+        if (missingbg) bg <- rep(1,ns)
         pnames <- names(json$polygons)
         for (i in 1:length(json$polygons)){
             pname <- pnames[i]
@@ -113,9 +114,9 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
             matched <- inside(pts=XY,pol=xyz2xy(xyz))
             out[matched] <- ifelse(is.na(out[matched]),json$labels[[pname]],
                                    paste0(out[matched],' OR ',json$labels[[pname]]))
-            col[matched] <- i+1
+            if (missingbg) bg[matched] <- i+1
         }
-        ternarypoints(uv,pch=21,bg=col,...)
+        ternarypoints(uv,bg=bg,...)
     }
     if (show.labels){
         for (lname in names(json$labels)){

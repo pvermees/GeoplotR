@@ -5,12 +5,14 @@
 #' @param F vector with (FeO + FeO\eqn{_2}O\eqn{_3}) concentrations
 #'     (in wt\%)
 #' @param M vector with MgO concentrations (in wt\%)
+#' @param genetic logical. If \code{TRUE}, uses the logratio fit of
+#'     Vermeesch and Pease (2021). Otherwise uses the empirical fit of
+#'     Irvine and Baragar (1971).
 #' @param ternary logical. If \code{FALSE}, produces a logratio plot.
 #' @param twostage logical. If \code{TRUE}, applies the two-stage
 #'     magma evolution model of Vermeesch and Pease (2021). Otherwise
-#'     applies the single stage model.
-#' @param plot logical. If \code{FALSE}, omits the graphical output
-#'     and only returns the Bowen-Fenner indices of the sample.
+#'     applies the single stage model. Only used if
+#'     \code{genetic=TRUE}.
 #' @param kde logical. If \code{TRUE}, adds a kernel density estimate
 #'     of the Bowen-Fenner indices on a radial scale. Not used if
 #'     \code{ternary=FALSE}.
@@ -24,7 +26,6 @@
 #'     details.
 #' @param bw the smoothing bandwidth to be used for the kernel density
 #'     estimate. See \code{density}.
-#' @param dlty line type of the decision boundary.
 #' @param dlwd line width of the decision boundary.
 #' @param dcol colour of the decision boundary.
 #' @param padding fractional measure of distance between the data and
@@ -45,19 +46,30 @@
 #' Kuno, H. Differentiation of basalt magmas. Basalts: The Poldervaart
 #'     treatise on rocks of basaltic composition, pages 623--688, 1968.
 #'
+#' Irvine, T.N. and Baragar, W.R.A., 1971. A guide to the chemical
+#' classification of the common volcanic rocks. Canadian journal of
+#' earth sciences, 8(5), pp.523-548.
+#'
 #' Vermeesch, P. and Pease, V. A genetic classification of the
 #' tholeiitic and calc-alkaline magma series, Geochemical Perspective
 #' Letters.
 #' 
 #' @examples
 #' data(cath,package='GeoplotR')
-#' 
-#' oldpar <- par(mfrow=c(2,2),mar=c(4,4,0,0))
 #'
 #' A <- cath[,'Na2O']+cath[,'K2O']
 #' F <- cath[,'FeOT']
 #' M <- cath[,'MgO']
 #' 
+#' # 1. Irvine and Baragar (1971):
+#' 
+#' AFM(A=A,F=F,M=M,genetic=FALSE,
+#'     bg=cath[,'affinity'],dcol='blue',pch=21)
+#' 
+#' # 2. Vermeesch and Pease (2021):
+#' 
+#' oldpar <- par(mfrow=c(2,2),mar=c(4,4,0,0))
+#'
 #' tern <- c(TRUE,FALSE,TRUE,FALSE)
 #' stag <- c(TRUE,TRUE,FALSE,FALSE)
 #' for (i in 1:4){
@@ -66,33 +78,24 @@
 #' }
 #'
 #' par(oldpar)
-#'
-#' CA <- (cath$affinity=='ca')
-#' TH <- (cath$affinity=='th')
-#' fitCA <- AFM(A[CA],F[CA],M[CA],plot=FALSE)
-#' fitTH <- AFM(A[TH],F[TH],M[TH],plot=FALSE)
-#' d1 <- density(fitCA)
-#' d2 <- density(fitTH)
-#' matplot(cbind(d1$x,d2$x),cbind(d1$y,d2$y),
-#'         type='l',lty=1,col=c('red','black'),
-#'         xlab='BF',ylab='')
-#' legend('topleft',legend=c('Cascades','Iceland'),
-#'        lty=1,col=c('red','black'))
 #' 
 #' @export
-AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
-                decision=TRUE,bty='n',asp=1,xpd=FALSE,bw="nrd0",
-                dlty=2,dlwd=1.5,dcol='blue',padding=0.15,
-                xlim=NULL,ylim=NULL,...){
+AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
+                kde=TRUE,decision=TRUE,bty='n',asp=1,
+                xpd=FALSE,bw="nrd0",dlwd=1.5,dcol='blue',
+                padding=0.15,xlim=NULL,ylim=NULL,...){
     miss <- (missing(A)|missing(F)|missing(M))
     if (miss){
+        A <- NULL
+        F <- NULL
+        M <- NULL
         out <- NULL
         kde <- FALSE
-    } else {
+    } else if (genetic){
         uv <- alr(cbind(F,A,M))
         out <- BF(A=A,F=F,M=M,twostage=twostage)
     }
-    if (plot){
+    if (genetic){
         if (miss | ternary){
             minu <- -10
             maxu <- 10
@@ -134,7 +137,7 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
                 ternarypoints(uv,...)
             }
             if (decision){
-                ternarylines(uvd,lty=dlty,lwd=dlwd,col=dcol)
+                ternarylines(uvd,lty=1,lwd=dlwd,col=dcol)
             }
         } else {
             if (kde){
@@ -193,7 +196,7 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
                                xlim=xlim,ylim=ylim)
             }
             if (decision){
-                graphics::lines(uvd,lty=dlty,lwd=dlwd,col=dcol)
+                graphics::lines(uvd,lty=2,lwd=dlwd,col=dcol)
             }
             if (kde){
                 graphics::lines(xr,yr)
@@ -204,6 +207,9 @@ AFM <- function(A,F,M,ternary=TRUE,twostage=TRUE,plot=TRUE,kde=TRUE,
                 graphics::text(x=xt1,y=yt1,labels=ticks,pos=2)
             }
         }
+    } else {
+        out <- xyzplot(json=.AFM,X=F,Y=A,Z=M,labels=c('F','A','M'),
+                       dlwd=dlwd,dcol=dcol,...)
     }
     invisible(out)
 }

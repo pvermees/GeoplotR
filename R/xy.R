@@ -18,7 +18,7 @@
 #'     14(9), pp.753-756.
 #' @examples
 #' data(test,package='GeoplotR')
-#' LaYbTb(La_n=100,Yb_n=10)
+#' LaYb(La_n=100,Yb_n=10)
 #' @export
 LaYb <- function(La_n,Yb_n,xlim=c(0,25),
                    ylim=c(0,160),show.labels=TRUE,...){
@@ -88,7 +88,8 @@ TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
 xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
                    ylim=range(Y,na.rm=TRUE),xlab='x',ylab='y',
                    show.labels=FALSE,log='',short=FALSE,
-                   test.polygons=FALSE,smooth=FALSE,...){
+                   test.polygons=FALSE,smooth=FALSE,bg,
+                   dlwd=1,dcol='black',...){
     graphics::plot(xlim,ylim,type='n',xlim=xlim,ylim=ylim,
                    xlab=xlab,ylab=ylab,bty='n',log=log)
     if (test.polygons){
@@ -103,8 +104,8 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
             xy <- matrix(unlist(json$lines[[lname]]),ncol=2,byrow=TRUE)
             if (smooth) shape <- 1
             else shape <- 0
-            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,
-                              lty=lty(json$line_type[[lname]]))
+            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,col=dcol,
+                              lwd=dlwd,lty=lty(json$line_type[[lname]]))
         }
     }
     if ( is.null(X) | is.null(Y) ){
@@ -113,7 +114,8 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
         pts <- cbind(X,Y)
         ns <- nrow(pts)
         out <- rep(NA,ns)
-        col <- rep(1,ns)
+        missingbg <- missing(bg)
+        if (missingbg) bg <- rep(1,ns)
         pnames <- names(json$polygons)
         for (i in 1:length(json$polygons)){
             pname <- pnames[i]
@@ -121,9 +123,9 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
             matched <- inside(pts=pts,pol=pol,log=log)
             out[matched] <- ifelse(is.na(out[matched]),json$labels[[pname]],
                                    paste0(out[matched],' OR ',json$labels[[pname]]))
-            col[matched] <- i+1
+            if (missingbg) bg[matched] <- i+1
         }
-        graphics::points(pts,pch=21,bg=col,...)
+        graphics::points(pts,bg=bg,...)
     }
     if (show.labels){
         for (lname in names(json$labels)){
