@@ -19,6 +19,7 @@
         "Continental arcs":  
             [
                 [5.5,5],
+                [1.9,0.113],
                 [7.15,0.13],
                 [20,5]
             ],
@@ -43,10 +44,10 @@
         },
     "label_coords": {
         "Oceanic arcs":  [1, 1] ,
-        "Continental arcs":  [8, 1] ,
-        "Alkaline arcs":  [50, 1] ,
+        "Continental arcs":  [7, 1] ,
+        "Alkaline arcs":  [30, 1] ,
         "MORB":  [1, 0.05] ,
-        "Oceanic islands":  [30, 0.02] 
+        "Oceanic islands":  [30, 0.05] 
     },
     "line_type": {
         "Oceanic arcs":  "solid"        ,

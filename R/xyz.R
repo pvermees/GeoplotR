@@ -81,9 +81,11 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
     oldpar <- graphics::par(mar=rep(2,4),xpd=NA)
     ternaryplot(f=f,labels=labels,...)
     if (test.polygons){
+        col <- 2
         for (pname in names(json$polygons)){
             xyz <-  matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
-            graphics::polygon(xyz2xy(xyz))
+            graphics::polygon(xyz2xy(xyz),col=col)
+            col <- col+1
         }
     } else {
         for (lname in names(json$lines)){

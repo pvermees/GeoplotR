@@ -46,11 +46,11 @@
         ]       
         },
     "label_coords": {
-        "MORB":  [1, 1] ,
-        "Oceanic arcs":  [0.3, 0.7] ,
-        "Oceanic islands":  [10,2] ,
-        "Continental arcs":  [5, 0.5] ,
-        "Alkaline arcs":  [40, 0.3] 
+        "MORB": [1,1],
+        "Oceanic arcs":  [1,0.3],
+        "Oceanic islands": [15,2],
+        "Continental arcs": [5, 0.5],
+        "Alkaline arcs": [40, 0.3] 
     },
     "line_type": {
         "Oceanic arcs":  "solid"        ,
@@ -67,7 +67,6 @@
                 [6,3],
                 [0.4,3]
             ], 
-
         "Oceanic arcs": 
             [
                 [0.4,0.5],

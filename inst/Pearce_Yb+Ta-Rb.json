@@ -30,10 +30,10 @@
 	]
     },
     "label_coords": {
-	"syn-COLG" : [1, 1000],
+	"syn-COLG" : [2, 1000],
 	"VAG": [2, 40],
-	"WPG": [20, 100],
-	"ORG": [200, 10]
+	"WPG": [30, 200],
+	"ORG": [30, 10]
     },
     "line_type": {
 	"line1":"solid",

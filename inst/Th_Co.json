@@ -9,77 +9,105 @@
     "axis":["Co ppm(reverse)","Th ppm(log)"],    
     "reference": "Hastie, A.R., Kerr, A.C.,  Pearce, J.A., Mitchell, S.F., 2007, Classification of Altered Volcanic Island Arc Rocks using Immobile Trace Elements: Development of the Th-Co Discrimination Diagram.  Journal of Petrology, v. 48, p. 2341-2357.",
     "lines": {
-        "Basalts - Basaltic Andesite - Andesite": 
-            [
-                [38.4,0.01],
-                [24,100]
-            ],
-        "Dacite - Rhyolite - Latite - Trachyte":  
-            [
-                [23,0.01],
-                [7,100]
-            ],
-        "High-K and Shoshonitic": 
-            [
-                [70,2.2],
-                [0,9]
-            ],
-        "Calc-Alkaline": 
-            [   
-                [70,2.2],
-                [0,1.35]
-            ]
-        },
+        "B-BAA": 
+        [
+            [38.4,0.01],
+            [24,100]
+        ],
+        "BAA-DRLT":  
+        [
+            [23,0.01],
+            [7,100]
+        ],
+        "HKS-CA": 
+        [
+            [70,2.2],
+            [0,9]
+        ],
+        "CA-IAT": 
+        [
+            [70,0.245],
+            [0,1.35]
+        ]
+    },
     "label_coords": {
-
-        "Basalts - Basaltic Andesite - Andesite": 
-            [ 40,1 ],
-        "Dacite - Rhyolite - Latite - Trachyte":  
-            [20,10],
-        "High-K and Shoshonitic": 
-            [ 60,10 ],
-        "Calc-Alkaline": 
-            [60,1 ],
-        "Island Arc Tholeiite": 
-            [60,0.1]
+        "B":
+	[40,1],
+	"BAA": 
+        [25,1],
+        "DRLT":  
+        [10,1],
+        "HKS": 
+        [55,10],
+        "CA": 
+        [55,1],
+        "IAT": 
+        [55,0.1]
     },
     "line_type": {
-        "Basalts - Basaltic Andesite - Andesite": 
-        "solid",
-        "Dacite - Rhyolite - Latite - Trachyte":  
-        "solid",
-        "High-K and Shoshonitic": 
-        "solid",
-        "Calc-Alkaline": 
-        "solid",
-        "Island Arc Tholeiite": 
-        "solid"
+        "B-BAA": "solid",
+        "BAA-DRLT": "solid",
+        "HKS-CA": "solid",
+        "CA-IAT": "solid"
     },
     "polygons": {
-        
+        "B": 
+        [
+            [70,0.01],
+	    [38.4,0.01],
+	    [24,100],
+	    [70,100]
+        ],
+        "BAA": 
+        [
+	    [38.4,0.01],
+            [23,0.01],
+            [7,100],
+	    [24,100],
+        ],
+        "DRLT": 
+        [
+	    [23,0.01],
+	    [7,100],
+	    [0,100],
+	    [0,0.01]
+	],
+        "HKS":
+        [
+            [70,2.2],
+            [0,9],
+	    [0,100],
+	    [70,100]
+        ],
+        "CA":  
+        [
+            [70,2.2],
+            [0,9],
+            [0,1.35],
+	    [70,0.245]
+        ],
+        "IAT":  
+        [
+            [0,1.35],
+	    [70,0.245],
+	    [70,0.01],
+	    [0,0.01]
+        ]
     },
     "labels": { 
-        "Basalts - Basaltic Andesite - Andesite": 
-        "Basalts - Basaltic Andesite - Andesite",
-        "Dacite - Rhyolite - Latite - Trachyte":  
-        "Dacite - Rhyolite - Latite - Trachyte",
-        "High-K and Shoshonitic": 
-        "High-K and Shoshonitic",
-        "Calc-Alkaline": 
-        "Calc-Alkaline",
-        "Island Arc Tholeiite": 
-        "Island Arc Tholeiite"    
+        "B": "Basalts",
+	"BAA": "Basaltic Andesite - Andesite",
+        "DRLT":  "Dacite - Rhyolite - Latite - Trachyte",
+        "HKS": "High-K and Shoshonitic",
+        "CA": "Calc-Alkaline",
+        "IAT": "Island Arc Tholeiite"    
     },
     "angle": {
-        "Basalts - Basaltic Andesite - Andesite": 
-        70,
-        "Dacite - Rhyolite - Latite - Trachyte":  
-        70,
-        "High-K and Shoshonitic": 
-        20,
-        "Calc-Alkaline": 
-        20,
-        "Island Arc Tholeiite": 
-        20 
+	"B": -15,
+	"BAA": -15,
+        "DRLT": -15,
+        "HKS": -0.4,
+        "CA": -0.4,
+        "IAT": -0.4
     }
 }

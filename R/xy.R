@@ -1,3 +1,33 @@
+#' @title La/Yb-Yb
+#' @description (La/Yb)_N vs. Yb_N diagram of Martin (1986), which
+#'     discriminates between Archean TTG suite and more modern
+#'     adakites on the one hand, and classical island arcs on the
+#'     other hand.
+#' @param La_n vector with chondritic normalised La concentrations
+#' @param Yb_n vector with chondritic normalised Yb concentrations
+#' @param xlim x-axis limits
+#' @param ylim y-axis limits
+#' @param show.labels logical. If \code{TRUE}, labels the polygonal
+#'     decision fields with text strings.
+#' @param ... additional arguments to the generic \code{points}
+#'     function, may include the logical argument \code{show.labels}
+#'     which labels the fields in the diagram.
+#' @return a vector with tectonic affinities
+#' @references Martin, H., 1986. Effect of steeper Archean geothermal
+#'     gradient on geochemistry of subduction-zone magmas. Geology,
+#'     14(9), pp.753-756.
+#' @examples
+#' data(test,package='GeoplotR')
+#' LaYbTb(La_n=100,Yb_n=10)
+#' @export
+LaYb <- function(La_n,Yb_n,xlim=c(0,25),
+                   ylim=c(0,160),show.labels=TRUE,...){
+    xlab <- expression('Yb'[n])
+    ylab <- expression('La'[n]*'/Yb'[n])
+    invisible(xyplot(json=.LaYb,X=Yb_n,Y=La_n/Yb_n,xlim=xlim,ylim=ylim,
+                     show.labels=show.labels,xlab=xlab,ylab=ylab,...))
+}
+
 #' @title Cr-Y
 #' @description Cr vs Y discriminant for MORB, IAT, and boninites of
 #'     Dilek et al. (2007)
