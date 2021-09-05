@@ -1,19 +1,10 @@
-DA <- function(uv,da,type=c('LDA','QDA'),
-               plot=c('ternary','logratio'),
-               f=rep(1,3),labels=c('X','Y','Z'),...){
+DA <- function(uv,da,ternary=TRUE,f=rep(1,3),
+               labels=c('X','Y','Z'),pch=21,bg=NULL,...){
     dat <- stats::na.omit(data.frame(u=uv[,1],v=uv[,2]))
     out <- DApredict(da$fit,dat)
-    if (identical(plot,'logratio')){
-        xy <- do.call("rbind",da$contours)
-        xlab <- paste0('ln[',labels[2],'/',labels[1],']')
-        ylab <- paste0('ln[',labels[3],'/',labels[1],']')
-        graphics::plot(xy,type='n',xlab=xlab,ylab=ylab)
-        for (cont in da$contours){
-            graphics::lines(cont)
-        }
-        graphics::points(x=dat[,1],y=dat[,2],col=out$class,...)
-    }
-    if (identical(plot,'ternary')){
+    if (is.null(bg)) bg <- out$class
+    else bg <- rep(1,nrow(uv))
+    if (ternary){
         p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
         ternaryplot(f=f,labels=labels)
         fcorr <- log(f[-1])-log(f[1])
@@ -22,8 +13,17 @@ DA <- function(uv,da,type=c('LDA','QDA'),
             ternarylines(fcont)
         }
         fdat <- sweep(dat,2,fcorr,'+')
-        ternarypoints(fdat,col=out$class,...)
+        ternarypoints(fdat,bg=bg,pch=pch,...)
         graphics::par(p)
+    } else {
+        xy <- do.call("rbind",da$contours)
+        xlab <- paste0('ln[',labels[2],'/',labels[1],']')
+        ylab <- paste0('ln[',labels[3],'/',labels[1],']')
+        graphics::plot(xy,type='n',xlab=xlab,ylab=ylab)
+        for (cont in da$contours){
+            graphics::lines(cont)
+        }
+        graphics::points(x=dat[,1],y=dat[,2],pch=pch,bg=bg,...)
     }
     invisible(out)
 }

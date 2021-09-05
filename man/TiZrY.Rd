@@ -10,6 +10,7 @@ TiZrY(
   Y = NULL,
   type = c("LDA", "QDA", "Pearce"),
   plot = c("none", "ternary", "logratio"),
+  show.labels = FALSE,
   ...
 )
 }

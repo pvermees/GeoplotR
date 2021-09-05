@@ -88,16 +88,16 @@ TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
 xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
                    ylim=range(Y,na.rm=TRUE),xlab='x',ylab='y',
                    show.labels=FALSE,log='',short=FALSE,
-                   test.polygons=FALSE,smooth=FALSE,bg,
-                   dlwd=1,dcol='black',...){
+                   test.polygons=FALSE,smooth=FALSE,bg=NULL,
+                   pch=21,dlwd=1,dcol='black',...){
     graphics::plot(xlim,ylim,type='n',xlim=xlim,ylim=ylim,
                    xlab=xlab,ylab=ylab,bty='n',log=log)
     if (test.polygons){
-        col <- 2
+        pcol <- 2
         for (pname in names(json$polygons)){
             xy <-  matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
-            graphics::polygon(xy,col=col)
-            col <- col+1
+            graphics::polygon(xy,col=pcol)
+            pcol <- pcol+1
         }
     } else {
         for (lname in names(json$lines)){
@@ -114,7 +114,7 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
         pts <- cbind(X,Y)
         ns <- nrow(pts)
         out <- rep(NA,ns)
-        missingbg <- missing(bg)
+        missingbg <- is.null(bg)
         if (missingbg) bg <- rep(1,ns)
         pnames <- names(json$polygons)
         for (i in 1:length(json$polygons)){
@@ -125,7 +125,7 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
                                    paste0(out[matched],' OR ',json$labels[[pname]]))
             if (missingbg) bg[matched] <- i+1
         }
-        graphics::points(pts,bg=bg,...)
+        graphics::points(pts,bg=bg,pch=pch,...)
     }
     if (show.labels){
         for (lname in names(json$labels)){

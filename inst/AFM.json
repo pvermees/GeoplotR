@@ -65,16 +65,16 @@
 	    [0,1,0]
 	]
     },
-    "label_coords": {
-	"TH" : [70,10,10],
-	"CA" : [30,35,35]
-    },
     "line_type": {
 	"line":"solid"
     },
     "labels": {
 	"TH" : "tholeiitic",
 	"CA" : "calc-alkaline"
+    },
+    "label_coords": {
+	"TH" : [70,10,10],
+	"CA" : [30,35,35]
     },
     "angle": {
 	"TH" : 0,

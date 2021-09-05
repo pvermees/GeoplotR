@@ -17,11 +17,15 @@ AFM(
   asp = 1,
   xpd = FALSE,
   bw = "nrd0",
+  pch = 21,
+  bg = NULL,
   dlwd = 1.5,
   dcol = "blue",
   padding = 0.15,
   xlim = NULL,
   ylim = NULL,
+  show.labels = FALSE,
+  short = TRUE,
   ...
 )
 }
@@ -64,6 +68,12 @@ details.}
 \item{bw}{the smoothing bandwidth to be used for the kernel density
 estimate. See \code{density}.}
 
+\item{pch}{plotting character. See the documentation of
+\code{points()} for details.}
+
+\item{bg}{background colour for the plot symbols. If \code{NULL},
+uses the assigned classes.}
+
 \item{dlwd}{line width of the decision boundary.}
 
 \item{dcol}{colour of the decision boundary.}
@@ -76,6 +86,12 @@ for details).}
 
 \item{ylim}{the y axis limits of the plot (see \code{plot.default}
 for details).}
+
+\item{show.labels}{logical. If \code{TRUE}, labels the tholeiitic
+and calc-alkaline fields.}
+
+\item{short}{logical. If \code{TRUE}, uses abbreviated labels (only
+used if \code{show.labels} is \code{TRUE}).}
 
 \item{...}{additional arguments for the generic \code{points}
 function.}

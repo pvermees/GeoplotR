@@ -26,6 +26,10 @@
 #'     details.
 #' @param bw the smoothing bandwidth to be used for the kernel density
 #'     estimate. See \code{density}.
+#' @param pch plotting character. See the documentation of
+#'     \code{points()} for details.
+#' @param bg background colour for the plot symbols. If \code{NULL},
+#'     uses the assigned classes.
 #' @param dlwd line width of the decision boundary.
 #' @param dcol colour of the decision boundary.
 #' @param padding fractional measure of distance between the data and
@@ -34,6 +38,10 @@
 #'     for details).
 #' @param ylim the y axis limits of the plot (see \code{plot.default}
 #'     for details).
+#' @param show.labels logical. If \code{TRUE}, labels the tholeiitic
+#'     and calc-alkaline fields.
+#' @param short logical. If \code{TRUE}, uses abbreviated labels (only
+#'     used if \code{show.labels} is \code{TRUE}).
 #' @param ... additional arguments for the generic \code{points}
 #'     function.
 #' @return the Bowen-Fenner indices of the samples, where positive
@@ -82,8 +90,9 @@
 #' @export
 AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
                 kde=TRUE,decision=TRUE,bty='n',asp=1,
-                xpd=FALSE,bw="nrd0",dlwd=1.5,dcol='blue',
-                padding=0.15,xlim=NULL,ylim=NULL,...){
+                xpd=FALSE,bw="nrd0",pch=21,bg=NULL,dlwd=1.5,
+                dcol='blue',padding=0.15,xlim=NULL,ylim=NULL,
+                show.labels=FALSE,short=TRUE,...){
     miss <- (missing(A)|missing(F)|missing(M))
     if (miss){
         A <- NULL
@@ -94,6 +103,7 @@ AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
     } else if (genetic){
         uv <- alr(cbind(F,A,M))
         out <- BF(A=A,F=F,M=M,twostage=twostage)
+        if (is.null(bg)) bg <- ((out>0)+1)
     }
     if (genetic){
         if (miss | ternary){
@@ -134,7 +144,7 @@ AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
         if (ternary){
             ternaryplot(labels=c('F','A','M'),xpd=xpd)
             if (!miss){
-                ternarypoints(uv,...)
+                ternarypoints(uv,pch=pch,bg=bg,...)
             }
             if (decision){
                 ternarylines(uvd,lty=1,lwd=dlwd,col=dcol)
@@ -189,7 +199,7 @@ AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
                 graphics::plot(x=c(minu,maxu),y=c(minv,maxv),type='n',
                                xlab='ln(A/F)',ylab='ln(M/F)',
                                bty=bty,asp=asp,xpd=xpd,xlim=xlim,ylim=ylim)
-                graphics::points(uv,...)
+                graphics::points(uv,pch=pch,bg=bg,...)
             } else {
                 graphics::plot(c(-3,2),c(-3,1),type='n',xlab='ln(A/F)',
                                ylab='ln(M/F)',bty=bty,asp=asp,xpd=xpd,
@@ -207,9 +217,14 @@ AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
                 graphics::text(x=xt1,y=yt1,labels=ticks,pos=2)
             }
         }
+        if (decision){
+            plotlabels(diagram='AFM',ternary=ternary,
+                       show.labels=show.labels,short=short)
+        }
     } else {
         out <- xyzplot(json=.AFM,X=F,Y=A,Z=M,labels=c('F','A','M'),
-                       dlwd=dlwd,dcol=dcol,...)
+                       dlwd=dlwd,dcol=dcol,pch=pch,bg=bg,
+                       show.labels=show.labels,short=short,...)
     }
     invisible(out)
 }
