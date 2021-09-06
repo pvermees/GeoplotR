@@ -39,10 +39,10 @@
     },
     "polygons": {
 	"syn-COLG": [[0.55, 20], [3, 2],[0.1, 0.35],[0.1,20]],
-	"VAG": [[0.1, 0.35], [3, 2],[5,1],[5,0.05],[0.1,0.05]],
+	"VAG": [[0.1, 0.35], [3, 2],[5,1],[5,0.01],[0.1,0.01]],
 	"WPG1":[[0.55, 20], [3, 2], [100,20]],
 	"WPG2": [[100,20],[3, 2], [5, 1],[100,7]],
-	"ORG":[[5, 0.05], [5, 1],[100,7],[100,0.05]]
+	"ORG":[[5, 0.01], [5, 1],[100,7],[100,0.01]]
     },
     "label_coords": {
 	"syn-COLG": [0.5, 3],
@@ -52,11 +52,11 @@
 	"ORG": [20, 0.7]
     },
     "labels": {
-	"syn-COLG": "syn-COLG",
-	"VAG":"VAG",
-	"WPG1":"WPG",
-	"WPG2":"WPG (anomalous ridges)",
-	"ORG":"ORG"
+	"syn-COLG": "Syn-Collision Granite",
+	"VAG":"Volcanic Arc Granite",
+	"WPG1":"Within-Plate Granite",
+	"WPG2":"Within-Plate Granite (anomalous ridges)",
+	"ORG":"Ocean Ridge Granite"
     },
     "angle": {
 	"WPG1" : 0,

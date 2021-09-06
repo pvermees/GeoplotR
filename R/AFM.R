@@ -142,7 +142,7 @@ AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
             }
         }
         if (ternary){
-            ternaryplot(labels=c('F','A','M'),xpd=xpd)
+            ternaryplot(xyzlab=c('F','A','M'),xpd=xpd)
             if (!miss){
                 ternarypoints(uv,pch=pch,bg=bg,...)
             }
@@ -222,7 +222,7 @@ AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,
                        show.labels=show.labels,short=short)
         }
     } else {
-        out <- xyzplot(json=.AFM,X=F,Y=A,Z=M,labels=c('F','A','M'),
+        out <- xyzplot(json=.AFM,X=F,Y=A,Z=M,xyzlab=c('F','A','M'),
                        dlwd=dlwd,dcol=dcol,pch=pch,bg=bg,
                        show.labels=show.labels,short=short,...)
     }

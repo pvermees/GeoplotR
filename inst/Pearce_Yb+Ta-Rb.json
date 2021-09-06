@@ -49,10 +49,10 @@
 	"ORG" :[[6, 1], [6, 8],[200, 400],[200,1]]
     },
     "labels": {
-	"syn-COLG": "syn-COLG",
-	"VAG":"VAG",
-	"WPG":"WPG",
-	"ORG":"ORG"
+	"syn-COLG": "Syn-Collision Granite",
+	"VAG":"Volcanic Arc Granite",
+	"WPG":"Within-Plate Granite",
+	"ORG":"Ocean Ridge Granite"
     },
     "angle": {
 	"WPG" : 0,

@@ -42,13 +42,13 @@
 	"VAG+syn-COLG": [10,10],
 	"WPG1": [50, 400],
 	"WPG2": [150, 60],
-	"ORG": [200, 10]
+	"ORG": [200, 5]
     },
     "labels": {
-	"VAG+syn-COLG" : "VAG+syn-COLG",
-	"WPG1":"WPG",
-	"WPG2":"WPG (anomalous ridges)",
-	"ORG":"ORG"
+	"VAG+syn-COLG" : "Volcanic Arc and syn-Collisional Granites",
+	"WPG1":"Within-Plate Granite",
+	"WPG2":"Within-Plate Granite (anomalous ridges)",
+	"ORG":"Ocean Ridge Granite"
     },
     "angle": {
 	"VAG+syn-COLG" : 0,

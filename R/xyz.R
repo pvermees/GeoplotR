@@ -19,7 +19,6 @@
 #' @export
 AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
     invisible(xyzplot(json=.AnAbOr,X=Ab,Y=An,Z=Or,
-                      labels=c('An','Ab','Or'),
                       show.labels=show.labels,...))
 }
 
@@ -64,8 +63,7 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
         quadratic <- identical(type[1],'QDA')
         if (quadratic) da <- .TiZrY_QDA
         else da <- .TiZrY_LDA
-        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),
-                  labels=c('Ti','Zr','Y'),pch=pch,bg=bg,...)
+        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),pch=pch,bg=bg,...)
         plotlabels(diagram='TiZrY',ternary=ternary,f=c(1/100,1,3),
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
@@ -74,16 +72,15 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
 TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
                           show.labels=TRUE,short=TRUE,...){
     invisible(xyzplot(json=.TiZrY_nominal,X=Ti,Y=Zr,Z=Y,f=c(0.01,1,3),
-                      labels=c('Ti','Zr','Y'),pch=pch,bg=bg,
-                      short=short,show.labels=show.labels,...))
+                      pch=pch,bg=bg,short=short,show.labels=show.labels,...))
 }
 
-xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
-                    labels=c('X','Y','Z'),short=FALSE,
-                    show.labels=FALSE,test.polygons=FALSE,
+xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),xyzlab=NULL,
+                    show.labels=FALSE,short=FALSE,test.polygons=FALSE,
                     smooth=FALSE,pch=21,bg=NULL,dlwd=1,dcol='black',...){
     oldpar <- graphics::par(mar=rep(2,4),xpd=NA)
-    ternaryplot(f=f,labels=labels,...)
+    if (is.null(xyzlab)) xyzlab <- json$axis
+    ternaryplot(f=f,xyzlab=xyzlab,...)
     if (test.polygons){
         pcol <- 2
         for (pname in names(json$polygons)){

@@ -27,7 +27,9 @@ NULL
 #' YNb(Y=test[,'Y'],Nb=test[,'Nb'])
 #' @export
 YNb <- function(Y=NULL,Nb=NULL,show.labels=TRUE,
-                xlim=c(1,1000),ylim=c(1,1000),...){
+                xlim=NULL,ylim=NULL,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Y,m=1,M=1000)
+    if (is.null(ylim)) ylim <- getlimits(x=Nb,m=1,M=1000)
     invisible(xyplot(json=.YNb,X=Y,Y=Nb,show.labels=show.labels,
                      xlim=xlim,ylim=ylim,xlab='Y (ppm)',
                      ylab='Nb (ppm)',log='xy',...))
@@ -38,7 +40,9 @@ YNb <- function(Y=NULL,Nb=NULL,show.labels=TRUE,
 #' YNbRb(Y=test[,'Y'],Nb=test[,'Nb'],Rb=test[,'Rb'])
 #' @export
 YNbRb <- function(Y=NULL,Nb=NULL,Rb=NULL,show.labels=TRUE,
-                  xlim=c(1,1000),ylim=c(1,1000),...){
+                  xlim=NULL,ylim=NULL,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Y+Nb,m=1,M=1000)
+    if (is.null(ylim)) ylim <- getlimits(x=Rb,m=1,M=1000)
     invisible(xyplot(json=.YNbRb,X=Y+Nb,Y=Rb,show.labels=show.labels,
                      xlim=xlim,ylim=ylim,xlab='(Y + Nb)(ppm)',
                      ylab='Rb (ppm)',log='xy',...))    
@@ -48,8 +52,9 @@ YNbRb <- function(Y=NULL,Nb=NULL,Rb=NULL,show.labels=TRUE,
 #' @examples
 #' YbTa(Yb=test[,'Yb'],Ta=test[,'Ta'])
 #' @export
-YbTa <- function(Yb=NULL,Ta=NULL,show.labels=TRUE,
-                 xlim=c(0.1,100),ylim=c(0.05,100),...){
+YbTa <- function(Yb=NULL,Ta=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Yb,m=0.1,M=100)
+    if (is.null(ylim)) ylim <- getlimits(x=Ta,m=0.05,M=100)
     invisible(xyplot(json=.YbTa,X=Yb,Y=Ta,show.labels=show.labels,
                      xlim=xlim,ylim=ylim,xlab='Yb (ppm)',
                      ylab='Ta (ppm)',log='xy',...))
@@ -60,7 +65,9 @@ YbTa <- function(Yb=NULL,Ta=NULL,show.labels=TRUE,
 #' YbTaRb(Yb=test[,'Yb'],Ta=test[,'Ta'],Rb=test[,'Rb'])
 #' @export
 YbTaRb <- function(Yb=NULL,Ta=NULL,Rb=NULL,show.labels=TRUE,
-                   xlim=c(0.9,110),ylim=c(1,1000),...){
+                   xlim=NULL,ylim=NULL,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Yb+Ta,m=0.9,M=110)
+    if (is.null(ylim)) ylim <- getlimits(x=Rb,m=1,M=1000)
     invisible(xyplot(json=.YbTaRb,X=Yb+Ta,Y=Rb,show.labels=show.labels,
                      xlim=xlim,ylim=ylim,xlab='(Yb + Ta)(ppm)',
                      ylab='Rb (ppm)',log='xy',...))    

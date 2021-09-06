@@ -20,8 +20,9 @@
 #' data(test,package='GeoplotR')
 #' LaYb(La_n=100,Yb_n=10)
 #' @export
-LaYb <- function(La_n,Yb_n,xlim=c(0,25),
-                   ylim=c(0,160),show.labels=TRUE,...){
+LaYb <- function(La_n=NULL,Yb_n=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Yb_n,m=0,M=20)
+    if (is.null(ylim)) ylim <- getlimits(x=La_n/Yb_n,m=0,M=160)
     xlab <- expression('Yb'[n])
     ylab <- expression('La'[n]*'/Yb'[n])
     invisible(xyplot(json=.LaYb,X=Yb_n,Y=La_n/Yb_n,xlim=xlim,ylim=ylim,
@@ -48,9 +49,11 @@ LaYb <- function(La_n,Yb_n,xlim=c(0,25),
 #' data(test,package='GeoplotR')
 #' CrY(Cr=test[,'Cr'],Y=test[,'Y'])
 #' @export
-CrY <- function(Cr,Y,xlim=c(1,100),ylim=c(1,10000),show.labels=TRUE,...){
+CrY <- function(Cr=NULL,Y=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Cr,m=1,M=100)
+    if (is.null(ylim)) ylim <- getlimits(x=Y,m=1,M=10000)
     invisible(xyplot(json=.CrY,X=Cr,Y=Y,log='xy',xlim=xlim,ylim=ylim,
-                     show.labels=show.labels,xlab='Cr',ylab='Y',...))
+                     show.labels=show.labels,smooth=TRUE,...))
 }
 
 #' @title TAS diagram
@@ -86,10 +89,12 @@ TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
 }
 
 xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
-                   ylim=range(Y,na.rm=TRUE),xlab='x',ylab='y',
+                   ylim=range(Y,na.rm=TRUE),xlab=NULL,ylab=NULL,
                    show.labels=FALSE,log='',short=FALSE,
                    test.polygons=FALSE,smooth=FALSE,bg=NULL,
                    pch=21,dlwd=1,dcol='black',...){
+    if (is.null(xlab)) xlab <- json$axis[1]
+    if (is.null(ylab)) ylab <- json$axis[2]
     graphics::plot(xlim,ylim,type='n',xlim=xlim,ylim=ylim,
                    xlab=xlab,ylab=ylab,bty='n',log=log)
     if (test.polygons){

@@ -1,12 +1,12 @@
 DA <- function(uv,da,ternary=TRUE,f=rep(1,3),
-               labels=c('X','Y','Z'),pch=21,bg=NULL,...){
+               xyzlab=c('X','Y','Z'),pch=21,bg=NULL,...){
     dat <- stats::na.omit(data.frame(u=uv[,1],v=uv[,2]))
     out <- DApredict(da$fit,dat)
     if (is.null(bg)) bg <- out$class
     else bg <- rep(1,nrow(uv))
     if (ternary){
         p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
-        ternaryplot(f=f,labels=labels)
+        ternaryplot(f=f,xyzlab=xyzlab)
         fcorr <- log(f[-1])-log(f[1])
         for (cont in da$contours){
             fcont <- sweep(cont,2,fcorr,'+')
@@ -17,8 +17,8 @@ DA <- function(uv,da,ternary=TRUE,f=rep(1,3),
         graphics::par(p)
     } else {
         xy <- do.call("rbind",da$contours)
-        xlab <- paste0('ln[',labels[2],'/',labels[1],']')
-        ylab <- paste0('ln[',labels[3],'/',labels[1],']')
+        xlab <- paste0('ln[',xyzlab[2],'/',xyzlab[1],']')
+        ylab <- paste0('ln[',xyzlab[3],'/',xyzlab[1],']')
         graphics::plot(xy,type='n',xlab=xlab,ylab=ylab)
         for (cont in da$contours){
             graphics::lines(cont)

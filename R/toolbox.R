@@ -152,3 +152,14 @@ angle <- function(a){
     dy <- usr[4]-usr[3]
     atan(tan(a*pi/180)*dx/dy)*180/pi
 }
+
+getlimits <- function(x,m,M){
+    if (is.null(x)){
+        out <- c(m,M)
+    } else {
+        out <- range(x,na.rm=TRUE)
+        out[1] <- min(out[1],m)
+        out[2] <- max(out[2],M)
+    }
+    invisible(out)
+}
