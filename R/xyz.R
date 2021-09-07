@@ -114,7 +114,7 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),xyzlab=NULL,
             xyz <- matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
             matched <- inside(pts=XY,pol=xyz2xy(xyz))
             out[matched] <- ifelse(is.na(out[matched]),json$labels[[pname]],
-                                   paste0(out[matched],' OR ',json$labels[[pname]]))
+                                   paste0(out[matched],' + ',json$labels[[pname]]))
             if (missingbg) bg[matched] <- i+1
         }
         ternarypoints(uv,pch=pch,bg=bg,...)

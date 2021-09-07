@@ -156,10 +156,14 @@ angle <- function(a){
 getlimits <- function(x,m,M){
     if (is.null(x)){
         out <- c(m,M)
-    } else {
+    } else if (m<M){
         out <- range(x,na.rm=TRUE)
         out[1] <- min(out[1],m)
         out[2] <- max(out[2],M)
+    } else {
+        out <- range(x,na.rm=TRUE)
+        out[1] <- max(out[2],m)
+        out[2] <- min(out[1],M)        
     }
     invisible(out)
 }

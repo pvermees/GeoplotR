@@ -21,8 +21,9 @@
 #' LaYb(La_n=100,Yb_n=10)
 #' @export
 LaYb <- function(La_n=NULL,Yb_n=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
-    if (is.null(xlim)) xlim <- getlimits(x=Yb_n,m=0,M=20)
-    if (is.null(ylim)) ylim <- getlimits(x=La_n/Yb_n,m=0,M=160)
+    good <- !(is.na(La_n) | is.na(Yb_n))
+    if (is.null(xlim)) xlim <- getlimits(x=Yb_n[good],m=0,M=20)
+    if (is.null(ylim)) ylim <- getlimits(x=La_n[good]/Yb_n[good],m=0,M=160)
     xlab <- expression('Yb'[n])
     ylab <- expression('La'[n]*'/Yb'[n])
     invisible(xyplot(json=.LaYb,X=Yb_n,Y=La_n/Yb_n,xlim=xlim,ylim=ylim,
@@ -53,8 +54,9 @@ LaYb <- function(La_n=NULL,Yb_n=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
 #' SrY(Sr=1000,Y=10)
 #' @export
 SrY <- function(Sr=NULL,Y=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
-    if (is.null(xlim)) xlim <- getlimits(x=Y,m=0,M=60)
-    if (is.null(ylim)) ylim <- getlimits(x=Sr/Y,m=0,M=500)
+    good <- !(is.na(Sr) | is.na(Y))
+    if (is.null(xlim)) xlim <- getlimits(x=Y[good],m=0,M=60)
+    if (is.null(ylim)) ylim <- getlimits(x=Sr[good]/Y[good],m=0,M=500)
     invisible(xyplot(json=.SrY,X=Y,Y=Sr/Y,xlim=xlim,ylim=ylim,
                      show.labels=show.labels,...))
 }
@@ -80,9 +82,41 @@ SrY <- function(Sr=NULL,Y=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
 #' CrY(Cr=test[,'Cr'],Y=test[,'Y'])
 #' @export
 CrY <- function(Cr=NULL,Y=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
-    if (is.null(xlim)) xlim <- getlimits(x=Cr,m=1,M=100)
-    if (is.null(ylim)) ylim <- getlimits(x=Y,m=1,M=10000)
+    good <- !(is.na(Cr) | is.na(Y))
+    if (is.null(xlim)) xlim <- getlimits(x=Cr[good],m=1,M=100)
+    if (is.null(ylim)) ylim <- getlimits(x=Y[good],m=1,M=10000)
     invisible(xyplot(json=.CrY,X=Cr,Y=Y,log='xy',xlim=xlim,ylim=ylim,
+                     show.labels=show.labels,smooth=TRUE,...))
+}
+
+#' @title Th-Co
+#' @description Th vs Co discrimination diagram of Hastie et
+#'     al. (2007) for tholeiitic, calc-alkaline, and more alkaline arc
+#'     series, and basaltic, andesitic, and rhyolitic compositions.
+#' @param Th vector with Th concentrations (ppm)
+#' @param Co vector with Co concentrations (ppm)
+#' @param xlim x-axis limits
+#' @param ylim y-axis limits
+#' @param show.labels logical. If \code{TRUE}, labels the polygonal
+#'     decision fields with text strings.
+#' @param ... additional arguments to the generic \code{points}
+#'     function, may include the logical argument \code{show.labels}
+#'     which labels the fields in the diagram.
+#' @return a vector with tectonic affinities
+#' @references Hastie, A.R., Kerr, A.C., Pearce, J.A., Mitchell, S.F.,
+#'     2007, Classification of Altered Volcanic Island Arc Rocks using
+#'     Immobile Trace Elements: Development of the Th-Co
+#'     Discrimination Diagram.  Journal of Petrology, v. 48,
+#'     p. 2341-2357.
+#' @examples
+#' data(test,package='GeoplotR')
+#' ThCo(Th=test[,'Th'],Co=test[,'Co'])
+#' @export
+ThCo <- function(Th=NULL,Co=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
+    good <- !(is.na(Th) | is.na(Co))
+    if (is.null(xlim)) xlim <- getlimits(x=Co[good],m=70,M=0)
+    if (is.null(ylim)) ylim <- getlimits(x=Th[good],m=0.01,M=100)
+    invisible(xyplot(json=.ThCo,X=Co,Y=Th,log='y',xlim=xlim,ylim=ylim,
                      show.labels=show.labels,smooth=TRUE,...))
 }
 
@@ -109,8 +143,10 @@ CrY <- function(Cr=NULL,Y=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
 #' TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
 #' @export
 TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
-                xlim=c(35,80),ylim=c(0,15),
-                volcanic=TRUE,short=TRUE,...){
+                xlim=NULL,ylim=NULL,volcanic=TRUE,short=TRUE,...){
+    good <- !(is.na(Na2O) | is.na(K2O) | is.na(SiO2))
+    if (is.null(xlim)) xlim <- getlimits(x=SiO2[good],m=35,M=80)
+    if (is.null(ylim)) ylim <- getlimits(x=Na2O[good]+K2O[good],m=0,M=15)
     xlab <- expression('SiO'[2])
     ylab <- expression('Na'[2]*'O+K'[2]*'O')
     invisible(xyplot(json=.TAS,X=SiO2,Y=Na2O+K2O,
@@ -157,7 +193,7 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
             pol <- matrix(unlist(json$polygons[[pname]]),ncol=2,byrow=TRUE)
             matched <- inside(pts=pts,pol=pol,log=log)
             out[matched] <- ifelse(is.na(out[matched]),json$labels[[pname]],
-                                   paste0(out[matched],' OR ',json$labels[[pname]]))
+                                   paste0(out[matched],' + ',json$labels[[pname]]))
             if (missingbg) bg[matched] <- i+1
         }
         graphics::points(pts,bg=bg,pch=pch,...)
