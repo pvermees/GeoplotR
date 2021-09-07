@@ -1,6 +1,6 @@
 setwd('~/Documents/Programming/R/GeoplotR/')
 source('R/AFM.R')
-source('R/tectodisc.R')
+source('R/DA.R')
 source('R/toolbox.R')
 
 tosave <- NULL
@@ -25,18 +25,25 @@ tosave <- c(tosave,'.oxides')
 
 .TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
 .AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
+.CrY <- IsoplotR:::fromJSON(file='inst/Cr_Y.json')
+.LaYb <- IsoplotR:::fromJSON(file='inst/LanYbn_Ybn.json')
+.SrY <- IsoplotR:::fromJSON(file='inst/SrY_Y.json')
+.ThCo <- IsoplotR:::fromJSON(file='inst/Th_Co.json')
 .YNb <- IsoplotR:::fromJSON(file='inst/Pearce_Y-Nb.json')
 .YNbRb <- IsoplotR:::fromJSON(file='inst/Pearce_Y+Nb-Rb.json')
 .YbTa <- IsoplotR:::fromJSON(file='inst/Pearce_Yb-Ta.json')
 .YbTaRb <- IsoplotR:::fromJSON(file='inst/Pearce_Yb+Ta-Rb.json')
-tosave <- c(tosave,'.TAS','.AnAbOr','.YNb','.YNbRb','.YbTa','.YbTaRb')
+.NbLaYb <- IsoplotR:::fromJSON(file='inst/NbLa_LaYb.json')
+tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.LaYb','.SrY',
+            '.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb','.NbLaYb')
 
+.AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
 attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 .TiZrY_QDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
 attributes(.TiZrY_QDA$fit$terms)$.Environment <- NULL
-tosave <- c(tosave,'.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA')
+tosave <- c(tosave,'.AFM','.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA')
 
 library(rpart)
 treedata_all <- training[c(1,5:55)]

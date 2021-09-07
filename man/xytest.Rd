@@ -6,8 +6,8 @@
 \usage{
 xytest(
   fname,
-  xlim = NA,
-  ylim = NA,
+  xlim = NULL,
+  ylim = NULL,
   log = "",
   short = FALSE,
   smooth = FALSE,

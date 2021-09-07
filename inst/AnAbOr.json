@@ -3,6 +3,7 @@
     "version": "0.04",
     "author": "Fred Yu, Pieter Vermeesch",
     "title": "AnAbOr",
+    "axis": ["An","Ab","Or"],
     "type": "xyz",
     "log": "false",
     "reference": "Barker1979",
@@ -59,7 +60,7 @@
     "label_coords": {
 	"Tron": [10,75,15],
 	"Tona": [40,50,10],
-	"Grano": [30,42.5,27.5],
+	"Grano": [35,40,25],
 	"Grani": [15,25,60]
     },
     "labels": {

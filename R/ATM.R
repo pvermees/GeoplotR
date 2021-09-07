@@ -102,7 +102,7 @@ ATM <- function(A,T,M,ternary=TRUE,plot=TRUE,kde=TRUE,
         }
         if (ternary){
             f <- c(5,1,1)
-            ternaryplot(labels=c('T','A','M'),f=f,xpd=xpd)
+            ternaryplot(xyzlab=c('T','A','M'),f=f,xpd=xpd)
             if (!miss){
                 ternarypoints(uv,f=f,...)
             }

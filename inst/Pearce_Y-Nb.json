@@ -5,6 +5,7 @@
     "author": "Fred Yu, Pieter Vermeesch",
     "title": "Pearce Diagram Y-Nb",
     "type": "xy",
+    "log": "true",
     "axis":["Y","Nb"],
     "reference": " Reference: Pearce, J. A., Harris, N. B. W., and Tindle, A. G., 1984, Trace Element Discrimination Diagrams for the Tectonic Interpretation of Granitic Rocks: Journal of Petrology, v. 25, no. 4, p. 956-983.  ",
     "lines": {
@@ -32,39 +33,27 @@
 	"line4":"dashed"
     },
     "polygons":{
-<<<<<<< Updated upstream
-	"WPG" :[[1, 2000],[25, 25],[1000, 400],[1000,2000],[1, 2000]],
-	"ORG" :[[1000,400],[25, 25],[50, 10],[1000, 100],[1000,400]],
-	"VAG" :[[40, 1],[50,10],[1000, 100],[1000,1],[40, 1]]
+        "WPG1" :[[1, 2000], [25, 25],[1000, 400],[1000,2000]],
+        "WPG2" :[[1000,400], [25, 25],[50, 10],[1000,100]],
+        "ORG" :[[1000,1],[1000, 100],[50, 10],[40,1]],
+        "VAG+syn-COLG" :[[40, 1],[50,10], [1,2000],[1,1]]
     },
     "label_coords": {
-	"VAG": [0.5,1.5],
-	"WPG": [2,2],
-	"ORG": [2.2,0.5]
+	"VAG+syn-COLG": [10,10],
+	"WPG1": [50, 400],
+	"WPG2": [150, 60],
+	"ORG": [200, 5]
     },
     "labels": {
-	"VAG": "VAG+syn-COLG",
-	"WPG": "WPG",
-	"ORG": "ORG"
-=======
-	"WPG" :[[1, 2000], [25, 25],[1000, 400],[1000,2000]],
-	"ORG" :[[1000,400],[25, 25], [50, 10], [1000, 100]],
-	"VAG+\n syn-COLG" :[[40, 1],[50,10], [1000, 100],[1000,1]]
-    },
-    "label_coords": {
-    "VAG+\n syn-COLG": [10,10],
-	"WPG": [50, 400],
-	"ORG": [200, 10]
-    },
-    "labels": {
-    "VAG+\n syn-COLG" : "VAG+\n syn-COLG",
-	"WPG":"WPG",
-	"ORG":"ORG"
->>>>>>> Stashed changes
+	"VAG+syn-COLG" : "Volcanic Arc and syn-Collisional Granites",
+	"WPG1":"Within-Plate Granite",
+	"WPG2":"Within-Plate Granite (anomalous ridges)",
+	"ORG":"Ocean Ridge Granite"
     },
     "angle": {
-	"VAG" : 0,
-	"WPG" : 0,
+	"VAG+syn-COLG" : 0,
+	"WPG1" : 0,
+	"WPG2" : 36,
 	"ORG" : 0
     }
 }

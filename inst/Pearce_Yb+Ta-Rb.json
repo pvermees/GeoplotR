@@ -30,10 +30,10 @@
 	]
     },
     "label_coords": {
-	"syn-COLG" : [1, 1000],
+	"syn-COLG" : [2, 1000],
 	"VAG": [2, 40],
-	"WPG": [20, 100],
-	"ORG": [200, 10]
+	"WPG": [30, 200],
+	"ORG": [30, 10]
     },
     "line_type": {
 	"line1":"solid",
@@ -49,10 +49,10 @@
 	"ORG" :[[6, 1], [6, 8],[200, 400],[200,1]]
     },
     "labels": {
-	"syn-COLG": "syn-COLG",
-	"VAG":"VAG",
-	"WPG":"WPG",
-	"ORG":"ORG"
+	"syn-COLG": "Syn-Collision Granite",
+	"VAG":"Volcanic Arc Granite",
+	"WPG":"Within-Plate Granite",
+	"ORG":"Ocean Ridge Granite"
     },
     "angle": {
 	"WPG" : 0,

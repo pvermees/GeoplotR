@@ -1,5 +1,24 @@
+#' @title An-Ab-Or
+#' @description An-Ab-Or diagram for tonalite, trondhjemite,
+#'     granodiorite, and granite according to Barker (1979).
+#' @param An vector with normative anorthite concentrations (wt\%)
+#' @param Ab vector with normative albite concentrations (wt\%)
+#' @param Or vector with normative orthoclase concentrations (wt\%)
+#' @param show.labels logical. If \code{TRUE}, labels the
+#'     discrimination fields on the plot.
+#' @param ... additional arguments for the generic \code{points}
+#'     function.
+#' @return a list with labels, indicating whether the input data are
+#'     tonalite, trondhjemite, granodiorite, granite.
+#' @references Barker, F., 1979, Trondhjemite: Definition,
+#'     environment, and hypotheses of origin: p. 1-12, in Barker, F.,
+#'     ed., Trondhjemites, Dacites, and Related Rocks, Elsevier,
+#'     Amsterdam, 659 p.
+#' @examples
+#' AnAbOr(An=c(70,75,73),Ab=c(20,10,27),Or=c(10,15,0))
+#' @export
 AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
-    invisible(xyzplot(json=.AnAbOr,X=An,Y=Ab,Z=Or,labels=c('An','Ab','Or'),
+    invisible(xyzplot(json=.AnAbOr,X=Ab,Y=An,Z=Or,
                       show.labels=show.labels,...))
 }
 
@@ -34,36 +53,40 @@ AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
 #' @export
 TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
                   type=c('LDA','QDA','Pearce'),
-                  plot=c('none','ternary','logratio'),...){
-    if (type[1]%in%c('LDA','QDA')){ # discriminant analysis
-        if (identical(type[1],'LDA')) da <- .TiZrY_LDA
-        else da <- .TiZrY_QDA
-        uv <- alr(cbind(Ti,Zr,Y))
-        out <- DA(uv=uv,da=da,type=type[1],plot=plot,
-                  f=c(1/100,1,3),labels=c('Ti','Zr','Y'),...)
-    } else if (identical(type,'Pearce')) { # legacy
-        out <- TiZrY_nominal(Ti=Ti,Zr=Zr,Y=Y,...)
+                  ternary=TRUE,pch=21,bg=NULL,
+                  show.labels=FALSE,short=TRUE,...){
+    if (identical(type[1],'Pearce')) {
+        out <- TiZrY_nominal(Ti=Ti,Zr=Zr,Y=Y,pch=pch,bg=bg,
+                             show.labels=show.labels,short=short,...)
     } else {
-        stop('invalid type')
+        uv <- alr(cbind(Ti,Zr,Y))
+        quadratic <- identical(type[1],'QDA')
+        if (quadratic) da <- .TiZrY_QDA
+        else da <- .TiZrY_LDA
+        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),pch=pch,bg=bg,...)
+        plotlabels(diagram='TiZrY',ternary=ternary,f=c(1/100,1,3),
+                   quadratic=quadratic,show.labels=show.labels,short=short)
     }
     invisible(out)
 }
-TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,show.labels=TRUE,short=TRUE,...){
+TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
+                          show.labels=TRUE,short=TRUE,...){
     invisible(xyzplot(json=.TiZrY_nominal,X=Ti,Y=Zr,Z=Y,f=c(0.01,1,3),
-                      labels=c('Ti','Zr','Y'),short=short,
-                      show.labels=show.labels,...))
+                      pch=pch,bg=bg,short=short,show.labels=show.labels,...))
 }
 
-xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
-                    labels=c('X','Y','Z'),short=FALSE,
-                    show.labels=FALSE,test.polygons=FALSE,
-                    smooth=FALSE,...){
+xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),xyzlab=NULL,
+                    show.labels=FALSE,short=FALSE,test.polygons=FALSE,
+                    smooth=FALSE,pch=21,bg=NULL,dlwd=1,dcol='black',...){
     oldpar <- graphics::par(mar=rep(2,4),xpd=NA)
-    ternaryplot(f=f,labels=labels,...)
+    if (is.null(xyzlab)) xyzlab <- json$axis
+    ternaryplot(f=f,xyzlab=xyzlab,...)
     if (test.polygons){
+        pcol <- 2
         for (pname in names(json$polygons)){
             xyz <-  matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
-            graphics::polygon(xyz2xy(xyz))
+            graphics::polygon(xyz2xy(xyz),col=pcol)
+            pcol <- pcol+1
         }
     } else {
         for (lname in names(json$lines)){
@@ -71,8 +94,8 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
             xy <- xyz2xy(xyz)
             if (smooth) shape <- 1
             else shape <- 0
-            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,
-                              lty=lty(json$line_type[[lname]]))
+            graphics::xspline(x=xy[,1],y=xy[,2],shape=shape,border=dcol,
+                              lty=lty(json$line_type[[lname]]),lwd=dlwd)
         }
     }
     if (is.null(X) | is.null(Y) | is.null(Z)){
@@ -83,16 +106,18 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),
         XY <- xyz2xy(alr(uv,inverse=TRUE))
         ns <- nrow(XY)
         out <- rep(NA,ns)
-        col <- rep(1,ns)
+        missingbg <- is.null(bg)
+        if (missingbg) bg <- rep(1,ns)
         pnames <- names(json$polygons)
         for (i in 1:length(json$polygons)){
             pname <- pnames[i]
             xyz <- matrix(unlist(json$polygons[[pname]]),ncol=3,byrow=TRUE)
             matched <- inside(pts=XY,pol=xyz2xy(xyz))
-            out[matched] <- json$labels[[pname]]
-            col[matched] <- i+1
+            out[matched] <- ifelse(is.na(out[matched]),json$labels[[pname]],
+                                   paste0(out[matched],' + ',json$labels[[pname]]))
+            if (missingbg) bg[matched] <- i+1
         }
-        ternarypoints(uv,pch=21,bg=col,...)
+        ternarypoints(uv,pch=pch,bg=bg,...)
     }
     if (show.labels){
         for (lname in names(json$labels)){
