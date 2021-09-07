@@ -27,12 +27,14 @@ tosave <- c(tosave,'.oxides')
 .AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
 .CrY <- IsoplotR:::fromJSON(file='inst/Cr_Y.json')
 .LaYb <- IsoplotR:::fromJSON(file='inst/LanYbn_Ybn.json')
+.SrY <- IsoplotR:::fromJSON(file='inst/SrY_Y.json')
 .YNb <- IsoplotR:::fromJSON(file='inst/Pearce_Y-Nb.json')
 .YNbRb <- IsoplotR:::fromJSON(file='inst/Pearce_Y+Nb-Rb.json')
 .YbTa <- IsoplotR:::fromJSON(file='inst/Pearce_Yb-Ta.json')
 .YbTaRb <- IsoplotR:::fromJSON(file='inst/Pearce_Yb+Ta-Rb.json')
-tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.LaYb',
-            '.YNb','.YNbRb','.YbTa','.YbTaRb')
+.NbLaYb <- IsoplotR:::fromJSON(file='inst/NbLa_LaYb.json')
+tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.LaYb','.SrY',
+            '.YNb','.YNbRb','.YbTa','.YbTaRb','.NbLaYb')
 
 .AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')

@@ -7,7 +7,9 @@
     "type": "xy",
     "log": "false",
     "axis":["Ybn ppm","Lan/Ybn ppm"],    
-    "reference": "Hansen, J., Skjerlie, K.P., Pedersen, R.B., and De La Rosa, J., 2002, Crustal melting in the lower parts of island arcs: an example from the Bremanger Granitoid Complex, west Norwegian Caledonides; Contributions to Mineralogy and Petrology, v. 143, p. 316-335.",
+    "reference": "Martin, H., 1986. Effect of steeper Archean geothermal gradient on
+     geochemistry of subduction-zone magmas. Geology, 14(9),
+     pp.753-756.",
     "lines": {
         "TTG+adakites": 
         [

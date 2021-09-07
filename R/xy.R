@@ -29,6 +29,36 @@ LaYb <- function(La_n=NULL,Yb_n=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
                      show.labels=show.labels,xlab=xlab,ylab=ylab,...))
 }
 
+#' @title Sr/Y-Y
+#' @description (Sr/Y) vs. Y diagram of Drummond (1990), which
+#'     discriminates between Archean TTG suite and more modern
+#'     adakites on the one hand, and classical island arcs on the
+#'     other hand.
+#' @param Sr vector with Sr concentrations (in ppm)
+#' @param Y vector with Y concentrations (in ppm)
+#' @param xlim x-axis limits
+#' @param ylim y-axis limits
+#' @param show.labels logical. If \code{TRUE}, labels the polygonal
+#'     decision fields with text strings.
+#' @param ... additional arguments to the generic \code{points}
+#'     function, may include the logical argument \code{show.labels}
+#'     which labels the fields in the diagram.
+#' @return a vector with tectonic affinities
+#' @references Drummond MS, Defant MJ (1990) A model for
+#'     trondhjemite-tonalite-dacite genesis and crustal growth via
+#'     slab melting: Archean to modern comparisons. J Geophys Res
+#'     95:21503– 21521
+#' @examples
+#' data(test,package='GeoplotR')
+#' SrY(Sr=1000,Y=10)
+#' @export
+SrY <- function(Sr=NULL,Y=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
+    if (is.null(xlim)) xlim <- getlimits(x=Y,m=0,M=60)
+    if (is.null(ylim)) ylim <- getlimits(x=Sr/Y,m=0,M=500)
+    invisible(xyplot(json=.SrY,X=Y,Y=Sr/Y,xlim=xlim,ylim=ylim,
+                     show.labels=show.labels,...))
+}
+
 #' @title Cr-Y
 #' @description Cr vs Y discriminant for MORB, IAT, and boninites of
 #'     Dilek et al. (2007)
