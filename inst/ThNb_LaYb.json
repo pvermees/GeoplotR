@@ -6,105 +6,106 @@
     "title": "Th/Nb_La/Yb",
     "type": "xy",
     "log": "true",
-    "axis":["La'/Yb ppm","Th/Nb ppm"],    
-    "reference": "Hollocher et al., 2012 Discriminants for MORB, ocean island, and a variety of arc-type basalts",
-   
+    "axis":["La/Yb","Th/Nb"],    
+    "reference": "Hollocher et al., 2012 Discriminants for MORB, ocean island, and a
+variety of arc-type basalts",
+    
     "lines": {
-        "Oceanic arcs": 
-            [
-                [0.4,0.095],
-                [1.9,0.113],
-                [5.5,5]
-            ],
-        "Continental arcs":  
-            [
-                [5.5,5],
-                [1.9,0.113],
-                [7.15,0.13],
-                [20,5]
-            ],
-        "Alkaline arcs":  
-            [
-                [20,5],
-                [7.15,0.13],
-                [80,0.4]
-            ],
+        "IAB": 
+        [
+            [0.4,0.095],
+            [1.9,0.113],
+            [5.5,5]
+        ],
+        "CA":  
+        [
+            [5.5,5],
+            [1.9,0.113],
+            [7.15,0.13],
+            [20,5]
+        ],
+        "AA":  
+        [
+            [20,5],
+            [7.15,0.13],
+            [80,0.4]
+        ],
         "MORB": 
-            [
-                [0.4,0.095],
-                [7.15,0.13],
-                [1.5,0.02]
-            ],
-        "Oceanic islands":  
-            [
-                [1.5,0.02],
-                [7.15,0.13],
-                [80,0.4]
-            ] 
-        },
+        [
+            [0.4,0.095],
+            [7.15,0.13],
+            [1.5,0.02]
+        ],
+        "OIB":  
+        [
+            [1.5,0.02],
+            [7.15,0.13],
+            [80,0.4]
+        ] 
+    },
     "label_coords": {
-        "Oceanic arcs":  [1, 1] ,
-        "Continental arcs":  [7, 1] ,
-        "Alkaline arcs":  [30, 1] ,
-        "MORB":  [1, 0.05] ,
-        "Oceanic islands":  [30, 0.05] 
+        "IAB":  [1, 1],
+        "CA":  [7, 1],
+        "AA":  [30, 1],
+        "MORB":  [1, 0.05],
+        "OIB":  [30, 0.05] 
     },
     "line_type": {
-        "Oceanic arcs":  "solid"        ,
-        "Continental arcs":  "solid"       ,
-        "Alkaline arcs": "solid"        ,
-        "MORB":  "solid"       ,
-        "Oceanic islands":  "solid"       
+        "IAB":  "solid",
+        "CA":  "solid",
+        "AA": "solid",
+        "MORB":  "solid",
+        "OIB":  "solid"
     },
     "polygons": {
-        "Oceanic arcs": 
-            [
-                [0.4,0.095],
-                [1.9,0.113],
-                [5.5,5],
-                [0.4,5]
-            ],
-        "Continental arcs":  
-            [
-                [5.5,5],
-                [1.9,0.113],
-                [7.15,0.13],
-                [20,5]
-            ],
-        "Alkaline arcs":  
-            [
-                [20,5],
-                [7.15,0.13],
-                [80,0.4],
-                [80,5]
-            ],
+        "IAB": 
+        [
+            [0.4,0.095],
+            [1.9,0.113],
+            [5.5,5],
+            [0.4,5]
+        ],
+        "CA":  
+        [
+            [5.5,5],
+            [1.9,0.113],
+            [7.15,0.13],
+            [20,5]
+        ],
+        "AA":  
+        [
+            [20,5],
+            [7.15,0.13],
+            [80,0.4],
+            [80,5]
+        ],
         "MORB": 
-            [
-                [0.4,0.095],
-                [7.15,0.13],
-                [1.5,0.02],
-                [0.4,0.02]
-            ],
-        "Oceanic islands":  
-            [
-                [1.5,0.02],
-                [7.15,0.13],
-                [80,0.4],
-                [80,0.02]
-            ] 
+        [
+            [0.4,0.095],
+            [7.15,0.13],
+            [1.5,0.02],
+            [0.4,0.02]
+        ],
+        "OIB":
+        [
+            [1.5,0.02],
+            [7.15,0.13],
+            [80,0.4],
+            [80,0.02]
+        ] 
     },
     "labels": { 
-        "Oceanic arcs":  "Oceanic arcs"        ,
-        "Continental arcs":  "Continental arcs"       ,
-        "Alkaline arcs": "Alkaline arcs"        ,
-        "MORB":  "MORB"       ,
-        "Oceanic islands":  "Oceanic islands"      
+        "IAB":  "Oceanic arcs",
+        "CA":  "Continental arcs",
+        "AA": "Alkaline arcs",
+        "MORB":  "MORB",
+        "OIB":  "Oceanic islands"
     },
     "angle": {
-        "Oceanic arcs": 0     ,
-        "Continental arcs": 0   ,
-        "Alkaline arcs": 0 ,
-        "MORB": 0  ,
-        "Oceanic islands":  0     
+        "IAB": 0,
+        "CA": 0,
+        "AA": 0,
+        "MORB": 0,
+        "OIB":  0
     }
 }
