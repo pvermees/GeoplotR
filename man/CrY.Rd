@@ -4,7 +4,7 @@
 \alias{CrY}
 \title{Cr-Y}
 \usage{
-CrY(Cr, Y, xlim = c(1, 100), ylim = c(1, 10000), show.labels = TRUE, ...)
+CrY(Cr = NULL, Y = NULL, xlim = NULL, ylim = NULL, show.labels = TRUE, ...)
 }
 \arguments{
 \item{Cr}{vector with Cr concentrations (ppm)}

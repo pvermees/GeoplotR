@@ -8,6 +8,8 @@ xytest(
   fname,
   xlim = NULL,
   ylim = NULL,
+  xlab = NULL,
+  ylab = NULL,
   log = "",
   short = FALSE,
   smooth = FALSE,
@@ -21,6 +23,10 @@ xytest(
 \item{xlim}{(optional) 2-element vector with the x-axis limits}
 
 \item{ylim}{(optional) 2-element vetor with the y-axis limits}
+
+\item{xlab}{(optional) x-axis label}
+
+\item{ylab}{(optional) y-axis label}
 
 \item{log}{one of
 

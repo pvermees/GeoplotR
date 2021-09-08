@@ -9,8 +9,11 @@ TiZrY(
   Zr = NULL,
   Y = NULL,
   type = c("LDA", "QDA", "Pearce"),
-  plot = c("none", "ternary", "logratio"),
+  ternary = TRUE,
+  pch = 21,
+  bg = NULL,
   show.labels = FALSE,
+  short = TRUE,
   ...
 )
 }
@@ -27,12 +30,12 @@ TiZrY(
 and Cann (1973). The latter option has not been implemented
 yet.}
 
+\item{...}{additional arguments for the generic \code{points}
+function.}
+
 \item{plot}{either \code{'none'} to omit the plot, \code{'ternary'}
 for a ternary diagram, or \code{'logratio'} for a bivariate
 logratio plot}
-
-\item{...}{additional arguments for the generic \code{points}
-function.}
 }
 \value{
 if \code{type='LDA'} or \code{type='QDA'}, a list with

@@ -4,12 +4,25 @@
 \alias{xyztest}
 \title{xyz testing function}
 \usage{
-xyztest(fname, short = FALSE, polygons = FALSE, smooth = FALSE, ...)
+xyztest(
+  fname,
+  xyzlab = NULL,
+  show.labels = FALSE,
+  short = FALSE,
+  polygons = FALSE,
+  smooth = FALSE,
+  ...
+)
 }
 \arguments{
 \item{fname}{path to a json file}
 
-\item{short}{logical. If \code{TRUE}, uses short labels}
+\item{xyzlab}{(optional) 3-element vector of corner labels.}
+
+\item{show.labels}{logical. If \code{TRUE}, labels the decision
+fields.}
+
+\item{short}{logical. If \code{TRUE}, uses short labels.}
 
 \item{polygons}{logical. If \code{TRUE} plots the decision
 polygons. If \code{TRUE}, plots the decision lines}

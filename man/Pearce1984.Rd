@@ -8,41 +8,27 @@
 \alias{YbTaRb}
 \title{Pearce et al. (1984)}
 \usage{
-YNb(
-  Y = NULL,
-  Nb = NULL,
-  show.labels = TRUE,
-  xlim = c(1, 1000),
-  ylim = c(1, 1000),
-  ...
-)
+YNb(Y = NULL, Nb = NULL, show.labels = TRUE, xlim = NULL, ylim = NULL, ...)
 
 YNbRb(
   Y = NULL,
   Nb = NULL,
   Rb = NULL,
   show.labels = TRUE,
-  xlim = c(1, 1000),
-  ylim = c(1, 1000),
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 
-YbTa(
-  Yb = NULL,
-  Ta = NULL,
-  show.labels = TRUE,
-  xlim = c(0.1, 100),
-  ylim = c(0.05, 100),
-  ...
-)
+YbTa(Yb = NULL, Ta = NULL, xlim = NULL, ylim = NULL, show.labels = TRUE, ...)
 
 YbTaRb(
   Yb = NULL,
   Ta = NULL,
   Rb = NULL,
   show.labels = TRUE,
-  xlim = c(0.9, 110),
-  ylim = c(1, 1000),
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 }
