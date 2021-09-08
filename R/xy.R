@@ -160,6 +160,8 @@ ZrTi <- function(Zr=NULL,Ti=NULL,xlim=NULL,ylim=NULL,
 #' @param xlim x-axis limits
 #' @param ylim y-axis limits
 #' @param volcanic logical. Set to \code{FALSE} for plutonic rocks.
+#' @param show.labels logical. If \code{TRUE}, labels the
+#'     discrimination fields on the plot.
 #' @param short use short labels when using the additional argument
 #'     \code{show.labels=TRUE}.
 #' @param ... additional arguments to the generic \code{points}
@@ -175,7 +177,8 @@ ZrTi <- function(Zr=NULL,Ti=NULL,xlim=NULL,ylim=NULL,
 #' TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
 #' @export
 TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
-                xlim=NULL,ylim=NULL,volcanic=TRUE,short=TRUE,...){
+                xlim=NULL,ylim=NULL,volcanic=TRUE,
+                show.labels=TRUE,short=TRUE,...){
     good <- !(is.na(Na2O) | is.na(K2O) | is.na(SiO2))
     if (is.null(xlim)) xlim <- getlimits(x=SiO2[good],m=35,M=80)
     if (is.null(ylim)) ylim <- getlimits(x=Na2O[good]+K2O[good],m=0,M=15)
@@ -236,7 +239,7 @@ xyplot <- function(json,X=NULL,Y=NULL,xlim=range(X,na.rm=TRUE),
             if (short) lab <- lname
             else lab <- json$labels[[lname]]
             a <- angle(json$angle[[lname]])
-            graphics::text(xy,labels=lab,srt=a,pos=1)
+            graphics::text(xy,labels=lab,srt=a,xpd=TRUE)
         }
     }
     invisible(out)

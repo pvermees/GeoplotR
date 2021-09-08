@@ -38,15 +38,16 @@ tosave <- c(tosave,'.oxides')
 .ZrTi <- IsoplotR:::fromJSON(file='inst/Zr_Ti.json')
 tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.LaYb','.SrY',
             '.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
-            '.NbLaYb','.ZrTi')
+            '.NbLaYb','.ThNbLaYb','.ZrTi')
 
 .AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')
+.QAP <- IsoplotR:::fromJSON(file='inst/QAP.json')
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
 attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 .TiZrY_QDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
 attributes(.TiZrY_QDA$fit$terms)$.Environment <- NULL
-tosave <- c(tosave,'.AFM','.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA')
+tosave <- c(tosave,'.AFM','.QAP','.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA')
 
 library(rpart)
 treedata_all <- training[c(1,5:55)]

@@ -8,8 +8,8 @@ TAS(
   Na2O = NULL,
   K2O = NULL,
   SiO2 = NULL,
-  xlim = c(35, 80),
-  ylim = c(0, 15),
+  xlim = NULL,
+  ylim = NULL,
   volcanic = TRUE,
   short = TRUE,
   ...
@@ -29,7 +29,7 @@ TAS(
 \item{volcanic}{logical. Set to \code{FALSE} for plutonic rocks.}
 
 \item{short}{use short labels when using the additional argument
-\code{show.labels=TRUE}}
+\code{show.labels=TRUE}.}
 
 \item{...}{additional arguments to the generic \code{points}
 function, may include the logical argument \code{show.labels}

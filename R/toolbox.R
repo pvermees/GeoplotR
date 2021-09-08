@@ -167,3 +167,11 @@ getlimits <- function(x,m,M){
     }
     invisible(out)
 }
+
+# helper function to generate .json files
+getXYZ <- function(x,yz){
+    X <- x
+    Z <- (1-x)/(1+yz)
+    Y <- 1-X-Z
+    100*c(X,Y,Z)
+}
