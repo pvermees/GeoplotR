@@ -2,7 +2,15 @@
 
 **GeoplotR** is an **R** package to classify geochemical data.
 
-## Installation
+## Web interface
+
+**GeoplotR** can be run online, offline, and from the command
+line. The easiest way to get started with the program is via its web
+interface:
+
+[http://lgc.es.ucl.ac.uk/geoplotr/](http://lgc.es.ucl.ac.uk/geoplotr/)
+
+## Installation for offline use
 
 You must have **R** installed on your system (see
 [http://r-project.org](http://r-project.org)).  Additionally, to
