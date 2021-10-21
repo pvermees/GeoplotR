@@ -11,6 +11,7 @@ TAS(
   xlim = NULL,
   ylim = NULL,
   volcanic = TRUE,
+  show.labels = TRUE,
   short = TRUE,
   ...
 )
@@ -27,6 +28,9 @@ TAS(
 \item{ylim}{y-axis limits}
 
 \item{volcanic}{logical. Set to \code{FALSE} for plutonic rocks.}
+
+\item{show.labels}{logical. If \code{TRUE}, labels the
+discrimination fields on the plot.}
 
 \item{short}{use short labels when using the additional argument
 \code{show.labels=TRUE}.}
