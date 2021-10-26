@@ -15,6 +15,8 @@
 #'
 #' \code{'xy'} log-log plot
 #'
+#' @param show.labels logical. If \code{TRUE}, labels the decision
+#'     fields.
 #' @param short logical. If \code{TRUE}, uses short labels
 #' @param polygons logical. If \code{TRUE} plots the decision
 #'     polygons. If \code{TRUE}, plots the decision lines
@@ -27,7 +29,7 @@
 #' xyztest(fn)
 #' @export
 xytest <- function(fname,xlim=NULL,ylim=NULL,xlab=NULL,ylab=NULL,log='',
-                   short=FALSE,smooth=FALSE,polygons=FALSE,...){
+                   show.labels=TRUE,short=FALSE,smooth=FALSE,polygons=FALSE,...){
     json <- IsoplotR:::fromJSON(file=fname)
     if (is.null(xlim) | is.null(ylim)){
         xy <- NULL
@@ -38,8 +40,9 @@ xytest <- function(fname,xlim=NULL,ylim=NULL,xlab=NULL,ylab=NULL,log='',
         if (is.null(xlim)) xlim <- range(xy[,1])
         if (is.null(ylim)) ylim <- range(xy[,2])
     }
-    out <- xyplot(json,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,show.labels=TRUE,
-                  short=short,test.polygons=polygons,smooth=smooth,log=log,...)
+    out <- xyplot(json,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,
+                  show.labels=show.labels,short=short,
+                  test.polygons=polygons,smooth=smooth,log=log,...)
     graphics::title(main=fname)
     invisible(out)
 }
@@ -61,7 +64,7 @@ xytest <- function(fname,xlim=NULL,ylim=NULL,xlab=NULL,ylab=NULL,log='',
 #' fn <- system.file('TiZrY.json',package='GeoplotR')
 #' xyztest(fn)
 #' @export
-xyztest <- function(fname,xyzlab=NULL,show.labels=FALSE,short=FALSE,
+xyztest <- function(fname,xyzlab=NULL,show.labels=TRUE,short=FALSE,
                     polygons=FALSE,smooth=FALSE,...){
     json <- IsoplotR:::fromJSON(file=fname)
     out <- xyzplot(json,xyzlab=xyzlab,show.labels=show.labels,
