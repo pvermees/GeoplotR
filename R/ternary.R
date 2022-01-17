@@ -37,7 +37,7 @@ ternaryhelper <- function(uv,type='p',f=rep(1,3),
 }
 
 xyz2xy <- function(xyz){
-    if (class(xyz)%in%c('matrix','data.frame')){
+    if (any(class(xyz)%in%c('matrix','data.frame'))){
         n <- nrow(xyz)
         x <- xyz[,1]
         y <- xyz[,2]
