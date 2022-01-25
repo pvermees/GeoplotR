@@ -9,10 +9,10 @@ output:
 ---
 
 ```{r settings, include = FALSE}
-# rmarkdown::render("~/Documents/Programming/R/GeoplotR/helpers/instructions.Rmd")
+# rmarkdown::render("~/Documents/Programming/R/GeoplotR/build/instructions.Rmd")
 ```
 
-# Getting started
+# Installation
 
 1. Install `R` and `RStudio` from:
    
@@ -32,13 +32,15 @@ typing the following commands at the console:
    remotes::install_github('https://github.com/pvermees/GeoplotR/')
    ```
 
-1. Download `test.R`, `Template.json`, `Cr_Y.json`, `QAP.json` from
-[`github:pvermees/GeoplotR/helpers/`](https://github.com/pvermees/GeoplotR/blob/main/helpers/)
-and save them in a folder on your computer.
+1. Download `helpers.zip` from
+[`github:pvermees/GeoplotR/build/`](https://github.com/pvermees/GeoplotR/blob/main/build/helpers.zip)
+and unzip it to a folder on your computer. `helpers.zip` is an archive
+that contains the following four files: `test.R`, `Template.json`,
+`Cr_Y.json` and `QAP.json`, as well as a copy of these instructions.
 
-# Using the ```Excel` to `json`
+# Getting started
 
-1. You can open the `json` files in `RStudio`. They contain the
+1. You can open the three `json` files in `RStudio`. They contain the
 following information:
 
    (a) `lines`: the coordinates of anchor points on a decision boundary
@@ -56,10 +58,12 @@ following information:
    (f) `angle`: the rotation angle of the labels (one for each item
    `label_coords`)
 
-1. Open `test.R` in `RStudio` and click on the `source` button. This
-should create a PDF document on your computer, in the same folder as
-the `test.R` file. Inspect the contents of the PDF document to
-understand what `test.R` has done.
+1. Open `test.R` in `RStudio` and click on `Session` $\rightarrow$
+`Set Working Directory` $\rightarrow$ `To Source File Location`.
+
+1. Click on the `Source` button. This should create a PDF document on
+your computer, in the same folder as the `test.R` file. Inspect the
+contents of the PDF document to understand what `test.R` has done.
 
 1. Have a look at `Template.json` in `RStudio`:
 
@@ -71,7 +75,7 @@ understand what `test.R` has done.
 
    (d) click on `source` again.
 
-   Do you notice any change?
+   Do you notice any change in the PDF document?
 
 1. `test.R` contains computer code in the `R` language. It uses two
 functions of the `GeoplotR` package named `xytest` and `xyztest`,
@@ -84,7 +88,7 @@ following code at the console:
    ?xyzplot
    ```
 
-# `Excel` to `json`
+# The actual job
 
 1. Visit
 [`https://minerva.union.edu/hollochk/c_petrology/discrim.html`](https://minerva.union.edu/hollochk/c_petrology/discrim.html)
@@ -96,30 +100,31 @@ ternary diagrams.
 produce lines, polygons and labels that reproduce the various plots on
 the website. I have already finished implementing several diagrams,
 whose `json` files you can inspect at
-[github:pvermees/GeoplotR/inst/](https://github.com/pvermees/GeoplotR/tree/main/inst). I
-would like you to make some more, notably:
+[`github:pvermees/GeoplotR/inst/`](https://github.com/pvermees/GeoplotR/tree/main/inst). I
+would like you to make some more of these, notably:
 
-   * Meschede, 1986
+   (a) Meschede, 1986
 
-   * Pearce and Cann, 1973 (except the Ti-Zr-Y diagram, which has
+   (b) Pearce and Cann, 1973 (except the Ti-Zr-Y diagram, which has
      already been implemented)
 
-   * Wood, 1980
+   (c) Wood, 1980
 
-   * Ewart, 1982
+   (d) Ewart, 1982
 
-   * Winchester and Floyd, 1977
+   (e) Winchester and Floyd, 1977
 
-   * Cabanis and Lecolle, 1989
+   (f) Cabanis and Lecolle, 1989
 
-   * Mullen, 1983
+   (g) Mullen, 1983
 
-   * Shervais, 1982
+   (h) Shervais, 1982
 
-   * Pearce and Norry, 1979
+   (i) Pearce and Norry, 1979
 
 1. The best way to build a `json` file is to open `Template.json`,
-save it under a different name and modify its content. Edit `test.R`
-to test your `json` file. Test frequently to catch bugs! So: edit,
+save it under a different name and modify its contents. Edit `test.R`
+to test your `json` file. Test frequently to catch bugs. So: edit,
 test, edit, test, ... until the diagram looks like the one in the
-`Excel` file.
+`Excel` file. I am happy to answer questions, but would advise that
+you try to help each other as well.
