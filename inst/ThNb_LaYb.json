@@ -8,8 +8,7 @@
     "log": "true",
     "axis":["La/Yb","Th/Nb"],    
     "reference": "Hollocher et al., 2012 Discriminants for MORB, ocean island, and a
-variety of arc-type basalts",
-    
+variety of arc-type basalts",    
     "lines": {
         "IAB": 
         [
