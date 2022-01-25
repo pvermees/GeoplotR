@@ -1,0 +1,125 @@
+---
+title: Instructions to create `json` files for `GeoplotR`
+author: Pieter Vermeesch
+output:
+  pdf_document:
+    includes:
+      keep_tex: yes
+    number_sections: yes
+---
+
+```{r settings, include = FALSE}
+# rmarkdown::render("~/Documents/Programming/R/GeoplotR/helpers/instructions.Rmd")
+```
+
+# Getting started
+
+1. Install `R` and `RStudio` from:
+   
+   [`https://rstudio.com/products/rstudio/download/#download`](https://rstudio.com/products/rstudio/download/#download)
+
+1. Start `RStudio` and install the `remotes` package by typing the
+following code at the console (i.e. the '`>`'-symbol):
+
+   ```{r eval=FALSE}
+   install.packages('remotes')
+   ```
+
+1. Now install the latest beta version of the `GeoplotR` package by
+typing the following commands at the console:
+
+   ```{r eval=FALSE}
+   remotes::install_github('https://github.com/pvermees/GeoplotR/')
+   ```
+
+1. Download `test.R`, `Template.json`, `Cr_Y.json`, `QAP.json` from
+[`github:pvermees/GeoplotR/helpers/`](https://github.com/pvermees/GeoplotR/blob/main/helpers/)
+and save them in a folder on your computer.
+
+# Using the ```Excel` to `json`
+
+1. You can open the `json` files in `RStudio`. They contain the
+following information:
+
+   (a) `lines`: the coordinates of anchor points on a decision boundary
+
+   (b) `line_type`: `solid`, `dashed` or `dotted` (one for each item in `lines`)
+
+   (c) `polygons`: the coordinates of the corners of polygons whose edges
+   overlap with the entries in `lines`
+
+   (d) `label_coords`: the coordinates of the labels that are to be
+   placed inside each of the polygons.
+
+   (e) `labels`: the actual labels (one for each item in `label_coords`)
+
+   (f) `angle`: the rotation angle of the labels (one for each item
+   `label_coords`)
+
+1. Open `test.R` in `RStudio` and click on the `source` button. This
+should create a PDF document on your computer, in the same folder as
+the `test.R` file. Inspect the contents of the PDF document to
+understand what `test.R` has done.
+
+1. Have a look at `Template.json` in `RStudio`:
+
+   (a) make any change to any number in this file
+
+   (b) save the file
+
+   (c) go back to the `test.R` tab
+
+   (d) click on `source` again.
+
+   Do you notice any change?
+
+1. `test.R` contains computer code in the `R` language. It uses two
+functions of the `GeoplotR` package named `xytest` and `xyztest`,
+respectively.  You can read more about these functions, and about
+their arguments, in the built-in documentation, by typing the
+following code at the console:
+
+   ```{r eval=FALSE}
+   ?xyplot
+   ?xyzplot
+   ```
+
+# `Excel` to `json`
+
+1. Visit
+[`https://minerva.union.edu/hollochk/c_petrology/discrim.html`](https://minerva.union.edu/hollochk/c_petrology/discrim.html)
+and click on any blue link in it. This should download an `Excel` file
+on your computer containing the anchor points of various binary and
+ternary diagrams.
+
+1. Your job is to use the coordinates in these `Excel` files to
+produce lines, polygons and labels that reproduce the various plots on
+the website. I have already finished implementing several diagrams,
+whose `json` files you can inspect at
+[github:pvermees/GeoplotR/inst/](https://github.com/pvermees/GeoplotR/tree/main/inst). I
+would like you to make some more, notably:
+
+   * Meschede, 1986
+
+   * Pearce and Cann, 1973 (except the Ti-Zr-Y diagram, which has
+     already been implemented)
+
+   * Wood, 1980
+
+   * Ewart, 1982
+
+   * Winchester and Floyd, 1977
+
+   * Cabanis and Lecolle, 1989
+
+   * Mullen, 1983
+
+   * Shervais, 1982
+
+   * Pearce and Norry, 1979
+
+1. The best way to build a `json` file is to open `Template.json`,
+save it under a different name and modify its content. Edit `test.R`
+to test your `json` file. Test frequently to catch bugs! So: edit,
+test, edit, test, ... until the diagram looks like the one in the
+`Excel` file.
