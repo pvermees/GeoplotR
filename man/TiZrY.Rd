@@ -30,12 +30,21 @@ TiZrY(
 and Cann (1973). The latter option has not been implemented
 yet.}
 
+\item{ternary}{logical. If \code{FALSE}, produces a logratio plot.
+Only used if \code{type} is \code{LDA} or \code{QDA}.}
+
+\item{pch}{plot character. See \code{?par} for details.}
+
+\item{bg}{fill colour for the plot character.}
+
+\item{show.labels}{logical. If \code{TRUE}, labels the
+discrimination fields.}
+
+\item{short}{logical. If \code{TRUE}, uses abbreviated labels for
+the discrimination fields.}
+
 \item{...}{additional arguments for the generic \code{points}
 function.}
-
-\item{plot}{either \code{'none'} to omit the plot, \code{'ternary'}
-for a ternary diagram, or \code{'logratio'} for a bivariate
-logratio plot}
 }
 \value{
 if \code{type='LDA'} or \code{type='QDA'}, a list with

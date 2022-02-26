@@ -22,6 +22,10 @@ QAP(
 
 \item{P}{vector with plagioclase feldspar concentrations (\%)}
 
+\item{pch}{plot character. See \code{?par} for details.}
+
+\item{bg}{fill colour of the plot symbols.}
+
 \item{show.labels}{logical. If \code{TRUE}, labels the
 discrimination fields on the plot.}
 
@@ -31,10 +35,6 @@ discrimination fields on the plot.}
 \item{...}{additional arguments to the generic \code{points}
 function, may include the logical argument \code{show.labels}
 which labels the fields in the diagram.}
-
-\item{xlim}{x-axis limits}
-
-\item{ylim}{y-axis limits}
 }
 \value{
 a vector with rock types

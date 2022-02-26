@@ -185,7 +185,7 @@ TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
     xlab <- expression('SiO'[2])
     ylab <- expression('Na'[2]*'O+K'[2]*'O')
     invisible(xyplot(json=.TAS,X=SiO2,Y=Na2O+K2O,
-                     xlim=xlim,ylim=ylim,
+                     xlim=xlim,ylim=ylim,show.labels=show.labels,
                      short=short,xlab=xlab,ylab=ylab,...))
 }
 

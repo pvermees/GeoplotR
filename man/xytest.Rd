@@ -11,6 +11,7 @@ xytest(
   xlab = NULL,
   ylab = NULL,
   log = "",
+  show.labels = TRUE,
   short = FALSE,
   smooth = FALSE,
   polygons = FALSE,
@@ -37,6 +38,9 @@ xytest(
 \code{'y'} semilogarithmic plot with linear x axis and logarithmic y axis
 
 \code{'xy'} log-log plot}
+
+\item{show.labels}{logical. If \code{TRUE}, labels the decision
+fields.}
 
 \item{short}{logical. If \code{TRUE}, uses short labels}
 

@@ -32,9 +32,14 @@ AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
 #'     \code{'Pearce'} for the nominal decision boundaries of Pearce
 #'     and Cann (1973). The latter option has not been implemented
 #'     yet.
-#' @param plot either \code{'none'} to omit the plot, \code{'ternary'}
-#'     for a ternary diagram, or \code{'logratio'} for a bivariate
-#'     logratio plot
+#' @param ternary logical. If \code{FALSE}, produces a logratio plot.
+#'     Only used if \code{type} is \code{LDA} or \code{QDA}.
+#' @param pch plot character. See \code{?par} for details.
+#' @param bg fill colour for the plot character.
+#' @param show.labels logical. If \code{TRUE}, labels the
+#'     discrimination fields.
+#' @param short logical. If \code{TRUE}, uses abbreviated labels for
+#'     the discrimination fields.
 #' @param ... additional arguments for the generic \code{points}
 #'     function.
 #' @return if \code{type='LDA'} or \code{type='QDA'}, a list with
@@ -82,8 +87,8 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
 #' @param Q vector with quartz concentrations (\%)
 #' @param A vector with alkali feldspar concentrations (\%)
 #' @param P vector with plagioclase feldspar concentrations (\%)
-#' @param xlim x-axis limits
-#' @param ylim y-axis limits
+#' @param pch plot character. See \code{?par} for details.
+#' @param bg fill colour of the plot symbols.
 #' @param show.labels logical. If \code{TRUE}, labels the
 #'     discrimination fields on the plot.
 #' @param short use short labels when using the additional argument
