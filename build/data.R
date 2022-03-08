@@ -24,6 +24,7 @@ colnames(.oxides) <- c('cation','ncat','nO')
 tosave <- c(tosave,'.oxides')
 
 .TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
+.TAS_volcanic <- IsoplotR:::fromJSON(file='inst/TAS_volcanic.json')
 .AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
 .CrY <- IsoplotR:::fromJSON(file='inst/Cr_Y.json')
 .LaYb <- IsoplotR:::fromJSON(file='inst/LanYbn_Ybn.json')
@@ -36,8 +37,8 @@ tosave <- c(tosave,'.oxides')
 .NbLaYb <- IsoplotR:::fromJSON(file='inst/NbLa_LaYb.json')
 .ThNbLaYb <- IsoplotR:::fromJSON(file='inst/ThNb_LaYb.json')
 .ZrTi <- IsoplotR:::fromJSON(file='inst/Zr_Ti.json')
-tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.LaYb','.SrY',
-            '.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
+tosave <- c(tosave,'.TAS','.TAS_volcanic','.AnAbOr','.CrY','.LaYb',
+            '.SrY','.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
             '.NbLaYb','.ThNbLaYb','.ZrTi')
 
 .AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')

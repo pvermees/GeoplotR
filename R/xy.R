@@ -184,7 +184,9 @@ TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
     if (is.null(ylim)) ylim <- getlimits(x=Na2O[good]+K2O[good],m=0,M=15)
     xlab <- expression('SiO'[2])
     ylab <- expression('Na'[2]*'O+K'[2]*'O')
-    invisible(xyplot(json=.TAS,X=SiO2,Y=Na2O+K2O,
+    if (volcanic) json <- .TAS_volcanic
+    else json <- .TAS
+    invisible(xyplot(json=json,X=SiO2,Y=Na2O+K2O,
                      xlim=xlim,ylim=ylim,show.labels=show.labels,
                      short=short,xlab=xlab,ylab=ylab,...))
 }
