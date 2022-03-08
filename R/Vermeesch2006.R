@@ -44,7 +44,8 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
         quadratic <- identical(type[1],'QDA')
         if (quadratic) da <- .TiZrY_QDA
         else da <- .TiZrY_LDA
-        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),pch=pch,bg=bg,...)
+        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),
+                  xlab='Ti',ylab='Zr',zlab='Y',pch=pch,bg=bg,...)
         plotlabels(diagram='TiZrY',ternary=ternary,f=c(1/100,1,3),
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
@@ -56,7 +57,19 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
                       pch=pch,bg=bg,short=short,show.labels=show.labels,...))
 }
 
-TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),bg=NULL,
-                show.labels=FALSE,short=TRUE,...){
-    
+TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
+                ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,short=TRUE,...){
+    if (identical(type[1],'Shervais')){
+        out <- TiV_nominal(T=Ti,V=V,pch=pch,bg=bg,
+                           show.labels=show.labels,short=short,...)
+    } else {
+        uv <- alr(cbind(1e6-Ti-V,Ti,V))
+        quadratic <- identical(type[1],'QDA')
+        if (quadratic) da <- .TiV_QDA
+        else da <- .TiV_LDA
+        out <- DA(uv=uv,da=da,D2=TRUE,ternary=ternary,
+                  xlab='Ti',ylab='V',f=c(1,100,5000),pch=pch,bg=bg,...)
+        plotlabels(diagram='TiV',ternary=ternary,f=c(1,100,5000),
+                   quadratic=quadratic,show.labels=show.labels,short=short)
+    }
 }

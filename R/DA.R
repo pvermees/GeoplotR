@@ -8,7 +8,9 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
     if (is.null(bg)) bg <- out$class
     if (ternary){
         p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
-        ternaryplot(f=f,xyzlab=c(xlab,ylab,zlab))
+        if (D2) xyzlab <- c(paste0('1-',xlab,'-',ylab),xlab,ylab)
+        else xyzlab <- c(xlab,ylab,zlab)
+        ternaryplot(f=f,xyzlab=xyzlab)
         fcorr <- log(f[-1])-log(f[1])
         for (cont in da$contours){
             fcont <- sweep(cont,2,fcorr,'+')
@@ -41,19 +43,13 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
     invisible(out)
 }
 
-# units is only used if Z is missing
-construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE,units='ppm'){
+construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     out <- list()     
     x <- get_training_data(X)
     y <- get_training_data(Y)
     if (missing(Z)){
         out$ndim <- 2
-        if (identical(units,'ppm')){
-            S <- 1e6
-        } else {
-            S <- 100
-        }
-        uv <- alr(cbind(S-x-y,x,y))
+        uv <- alr(cbind(1e6-x-y,x,y))
     } else {
         out$ndim <- 3
         uv <- alr(cbind(x,y,get_training_data(Z)))
