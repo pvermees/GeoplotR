@@ -113,6 +113,9 @@ dat4cart <- function(dat,option=1){
     as.data.frame(out,check.names=FALSE)
 }
 
+rpartpredict <- utils::getFromNamespace("predict.rpart", "rpart")
+rparttext <- utils::getFromNamespace("text.rpart", "rpart")
+
 # function copied from Sam Buttrey's treeClust package
 rpart.predict.leaves <- function (rp, newdata, type = "where"){
     if (type == "where") {
