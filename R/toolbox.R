@@ -42,7 +42,11 @@ ppm2wtpct <- function(x,oxide){
 alr <- function(dat,inverse=FALSE){
     if (inverse){
         num <- cbind(1,exp(dat))
-        den <- 1+rowSums(exp(dat),na.rm=TRUE)
+        if (is.vector(dat)){
+            den <- 1+exp(dat)
+        } else {
+            den <- 1+rowSums(exp(dat),na.rm=TRUE)
+        }
         out <- sweep(num,1,den,'/')
     } else if (ncol(dat)>2){
         out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')  
