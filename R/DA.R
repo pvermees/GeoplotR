@@ -66,3 +66,42 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     }
     invisible(out)
 }
+
+construct_DA_2D <- function(X,Y,quadratic=FALSE,plot=FALSE){
+    AFFINITY <- training[,'AFFINITY']
+    x <- get_training_data(X)
+    y <- get_training_data(Y)
+    nn <- 1000
+    u <- alr(cbind(x,y))
+    padding <- 4
+    ugrid <- seq(from=min(u,na.rm=TRUE)-padding,
+                 to=max(u,na.rm=TRUE)+padding,length.out=nn)
+    out <- list()
+    if (quadratic){
+        out$fit <- MASS::qda(AFFINITY ~ u,na.action='na.omit')
+        nt <- 500
+    } else {
+        out$fit <- MASS::lda(AFFINITY ~ u,na.action='na.omit')
+        nt <- 50
+    }
+    pr <- DApredict(fit=out$fit,dat=data.frame(u=ugrid))
+    naff <- length(levels(pr$class))
+    out$contours <- rep(NA,naff-1)
+    for (i in 1:(naff-1)){
+        aff <- pr$class[i]
+        i <- tail(which(pr$class %in% aff),n=1)
+        out$contours[i] <- mean(pr$x[i+(0:1)])
+    }
+    if (plot) matplot(ugrid,pr$posterior,type='l',lty=1,col='black')
+    invisible(out)
+}
+
+LDApredict <- utils::getFromNamespace("predict.lda", "MASS")
+QDApredict <- utils::getFromNamespace("predict.qda", "MASS")
+DApredict <- function(fit,dat){
+    if (class(fit)%in%'lda'){
+        out <- LDApredict(fit,newdata=dat)
+    } else {
+        out <- QDApredict(fit,newdata=dat)
+    }
+}

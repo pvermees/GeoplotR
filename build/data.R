@@ -45,8 +45,10 @@ tosave <- c(tosave,'.TAS','.TAS_volcanic','.AnAbOr','.CrY','.LaYb',
 .QAP <- IsoplotR:::fromJSON(file='inst/QAP.json')
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
+.TiV_LDA <- construct_DA(X='Ti',Y='V',quadratic=FALSE,plot=FALSE)
 attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 .TiZrY_QDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
+.TiV_QDA <- construct_DA(X='Ti',V='V',quadratic=TRUE,plot=FALSE)
 attributes(.TiZrY_QDA$fit$terms)$.Environment <- NULL
 tosave <- c(tosave,'.AFM','.QAP','.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA')
 
