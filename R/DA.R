@@ -1,67 +1,49 @@
-DA <- function(uv,da,ternary=FALSE,f=rep(1,3),
-               xyzlab=c('X','Y','Z'),pch=21,bg=NULL,...){
-    dat <- stats::na.omit(data.frame(u=uv[,1],v=uv[,2]))
-    out <- DApredict(da$fit,dat)
+DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
+               xlab=ifelse(D2,'1-X-Y','X'),
+               ylab=ifelse(D2,'X','Y'),
+               zlab=ifelse(D2,'Y','Z'),
+               pch=21,bg=NULL,...){
+    UV <- na.omit(data.frame(u=uv[,1],v=uv[,2]))
+    out <- DApredict(da$fit,UV)
     if (is.null(bg)) bg <- out$class
     if (ternary){
         p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
-        ternaryplot(f=f,xyzlab=xyzlab)
+        ternaryplot(f=f,xyzlab=c(xlab,ylab,zlab))
         fcorr <- log(f[-1])-log(f[1])
         for (cont in da$contours){
             fcont <- sweep(cont,2,fcorr,'+')
             ternarylines(fcont)
         }
-        fdat <- sweep(dat,2,fcorr,'+')
+        fdat <- sweep(UV,2,fcorr,'+')
         ternarypoints(fdat,bg=bg,pch=pch,...)
         graphics::par(p)
     } else {
-        xy <- do.call("rbind",da$contours)
-        xlab <- paste0('ln[',xyzlab[2],'/',xyzlab[1],']')
-        ylab <- paste0('ln[',xyzlab[3],'/',xyzlab[1],']')
+        if (D2){
+            xycont <- alr(do.call("rbind",da$contours),inverse=TRUE)[,-1]
+            xlab <- xlab
+            ylab <- ylab
+            xy <- alr(UV,inverse=TRUE)[,-1]
+        } else {
+            xycont <- do.call("rbind",da$contours)
+            graphics::plot(xycont,type='n',xlab=xlab,ylab=ylab)
+            xlab <- paste0('ln[',ylab,'/',xlab,']')
+            ylab <- paste0('ln[',zlab,'/',xlab,']')
+            xy <- UV
+        }
         graphics::plot(xy,type='n',xlab=xlab,ylab=ylab)
         for (cont in da$contours){
-            graphics::lines(cont)
+            if (D2) graphics::lines(alr(cont,inverse=TRUE)[,-1])
+            else graphics::lines(cont)
         }
-        graphics::points(x=dat[,1],y=dat[,2],pch=pch,bg=bg,...)
-    }
-    invisible(out)
-}
 
-DA2D <- function(uv,da,ternary=FALSE,f=rep(1,3),
-                 xyzlab=c('1-X-Y','X','Y'),pch=21,bg=NULL,...){
-    complete <- complete.cases(uv)
-    dat <- stats::na.omit(data.frame(u=uv[,1],v=uv[,2]))
-    out <- DApredict(da$fit,dat)
-    if (is.null(bg)) bg <- out$class
-    if (ternary){
-        p <- graphics::par(oma=rep(0,4),mar=rep(1,4),xpd=NA)
-        ternaryplot(f=f,xyzlab=xyzlab)
-        fcorr <- log(f[-1])-log(f[1])
-        for (cont in da$contours){
-            fcont <- sweep(cont,2,fcorr,'+')
-            ternarylines(fcont)
-        }
-        fdat <- sweep(dat,2,fcorr,'+')
-        ternarypoints(fdat[complete,],bg=bg,pch=pch,...)
-        graphics::par(p)
-    } else {
-        dlines <- do.call("rbind",da$contours)
-        xlab <- xyzlab[2]
-        ylab <- xyzlab[3]
-        xy <- alr(uv,inverse=TRUE)[complete,-1]
-        graphics::plot(xy,type='n',xlab=xlab,ylab=ylab)
-        for (cont in da$contours){
-            graphics::lines(alr(cont,inverse=TRUE)[,-1])
-        }
-        graphics::points(x=xy[,1],y=xy[,2],pch=pch,bg=bg,...)
+        graphics::points(xy[,1:2],pch=pch,bg=bg,...)
     }
     invisible(out)
 }
 
 # units is only used if Z is missing
 construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE,units='ppm'){
-    out <- list()
-    AFFINITY <- training[,'AFFINITY']
+    out <- list()     
     x <- get_training_data(X)
     y <- get_training_data(Y)
     if (missing(Z)){
@@ -76,9 +58,10 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE,units='ppm'){
         out$ndim <- 3
         uv <- alr(cbind(x,y,get_training_data(Z)))
     }
-    nn <- 3000
     u <- uv[,1]
     v <- uv[,2]
+    dat <- data.frame(AFFINITY=training[,'AFFINITY'],u=u,v=v)
+    nn <- 3000
     padding <- 4
     ugrid <- seq(from=min(u,na.rm=TRUE)-padding,
                  to=max(u,na.rm=TRUE)+padding,length.out=nn)
@@ -86,10 +69,10 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE,units='ppm'){
                  to=max(v,na.rm=TRUE)+padding,length.out=nn)
     uvgrid <- expand.grid(ugrid,vgrid)
     if (quadratic){
-        out$fit <- MASS::qda(AFFINITY ~ u + v,na.action='na.omit')
+        out$fit <- MASS::qda(AFFINITY ~ ., data=dat, na.action='na.omit')
         nt <- 500
     } else {
-        out$fit <- MASS::lda(AFFINITY ~ u + v,na.action='na.omit')
+        out$fit <- MASS::lda(AFFINITY ~ ., data=dat, na.action='na.omit')
         nt <- 50
     }
     out$contours <- list()
