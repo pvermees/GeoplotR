@@ -86,23 +86,29 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
 #' TiV(Ti=wtpct2ppm(test[,'TiO2']),V=test[,'V'],type='Shervais')
 #' @export
 TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
-                ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,short=TRUE,...){
+                ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
+                short=TRUE,xlim=NULL,ylim=NULL,...){
+    good <- !(is.na(Ti) | is.na(V))
+    if (is.null(xlim)) xlim <- getlimits(x=Ti[good],m=0,M=25)/1000
+    if (is.null(ylim)) ylim <- getlimits(x=V[good],m=0,M=600)
     if (identical(type[1],'Shervais')){
-        out <- TiV_nominal(Ti=Ti,V=V,pch=pch,bg=bg,
-                           show.labels=show.labels,short=short,...)
+        out <- TiV_nominal(Ti=Ti,V=V,pch=pch,bg=bg,show.labels=show.labels,
+                           short=short,xlim=xlim,ylim=ylim,...)
     } else {
         uv <- alr(cbind(1e6-Ti-V,Ti,V))
         quadratic <- identical(type[1],'QDA')
         if (quadratic) da <- .TiV_QDA
         else da <- .TiV_LDA
         out <- DA(uv=uv,da=da,D2=TRUE,ternary=ternary,
-                  xlab='Ti',ylab='V',f=c(1,100,5000),pch=pch,bg=bg,...)
+                  xlab='Ti',ylab='V',f=c(1,100,5000),
+                  pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
         plotlabels(diagram='TiV',ternary=ternary,f=c(1,1,5000),
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
 }
-TiV_nominal <- function(Ti=NULL,V=NULL,pch=21,bg=NULL,
-                        show.labels=TRUE,short=TRUE,...){
+TiV_nominal <- function(Ti=NULL,V=NULL,pch=21,bg=NULL,show.labels=TRUE,
+                        short=TRUE,xlim=NULL,ylim=NULL,...){
     invisible(xyplot(json=.TiV_nominal,X=Ti/1000,Y=V,pch=pch,bg=bg,
-                     short=short,show.labels=show.labels,...))
+                     short=short,show.labels=show.labels,
+                     xlim=xlim,ylim=ylim,...))
 }
