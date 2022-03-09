@@ -3,7 +3,7 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
                ylab=ifelse(D2,'X','Y'),
                zlab=ifelse(D2,'Y','Z'),
                pch=21,bg=NULL,...){
-    UV <- na.omit(data.frame(u=uv[,1],v=uv[,2]))
+    UV <- stats::na.omit(data.frame(u=uv[,1],v=uv[,2]))
     out <- DApredict(da$fit,UV)
     if (is.null(bg)) bg <- out$class
     if (ternary){

@@ -100,7 +100,8 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),xyzlab=NULL,
             xyz <- matrix(unlist(json$label_coords[[lname]]),ncol=3,byrow=TRUE)
             if (short) lab <- lname
             else lab <- json$labels[[lname]]
-            graphics::text(xyz2xy(xyz),labels=lab,srt=json$angle[[lname]],xpd=TRUE)
+            a <- angle(json$angle[[lname]])
+            graphics::text(xyz2xy(xyz),labels=lab,srt=a,xpd=TRUE)
         }
     }
     graphics::par(oldpar)
