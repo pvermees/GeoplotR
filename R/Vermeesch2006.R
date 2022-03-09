@@ -88,9 +88,6 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
 TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
                 ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
                 short=TRUE,xlim=NULL,ylim=NULL,...){
-    good <- !(is.na(Ti) | is.na(V))
-    if (is.null(xlim)) xlim <- getlimits(x=Ti[good],m=0,M=25)/1000
-    if (is.null(ylim)) ylim <- getlimits(x=V[good],m=0,M=600)
     if (identical(type[1],'Shervais')){
         out <- TiV_nominal(Ti=Ti,V=V,pch=pch,bg=bg,show.labels=show.labels,
                            short=short,xlim=xlim,ylim=ylim,...)
@@ -108,6 +105,9 @@ TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
 }
 TiV_nominal <- function(Ti=NULL,V=NULL,pch=21,bg=NULL,show.labels=TRUE,
                         short=TRUE,xlim=NULL,ylim=NULL,...){
+    good <- !(is.na(Ti) | is.na(V))
+    if (is.null(xlim)) xlim <- getlimits(x=Ti[good],m=0,M=25)/1000
+    if (is.null(ylim)) ylim <- getlimits(x=V[good],m=0,M=600)
     invisible(xyplot(json=.TiV_nominal,X=Ti/1000,Y=V,pch=pch,bg=bg,
                      short=short,show.labels=show.labels,
                      xlim=xlim,ylim=ylim,...))
