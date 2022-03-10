@@ -117,7 +117,7 @@ inside <- function(pts,pol,log=''){
         pol[,1] <- log(pol[,1])
         x <- log(x)
     }
-    if (log%in%c('x','xy')){
+    if (log%in%c('y','xy')){
         pol[,2] <- log(pol[,2])
         y <- log(y)
     }
@@ -133,7 +133,7 @@ inside <- function(pts,pol,log=''){
         if (any(crosses[igood])){
             icrosses <- igood[which(crosses[igood])]
             cross <- (xp1 - xp0) * (y[icrosses] - yp0) / (yp1 - yp0) + xp0
-            change <- icrosses[cross < x[icrosses]]
+            change <- icrosses[cross <= x[icrosses]]
             out[change] <- !out[change]
         }
     }

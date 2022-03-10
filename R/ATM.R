@@ -67,10 +67,10 @@
 #' legend('topleft',legend=c('Cascades','Iceland'),lty=1)
 #'
 #' @export
-ATM <- function(A,T,M,ternary=TRUE,plot=TRUE,kde=TRUE,
-                decision=TRUE,bty='n',asp=1,xpd=FALSE,bw="nrd0",
-                dlty=2,dlwd=1.5,dcol='blue',padding=0.15,
-                xlim=NULL,ylim=NULL,...){
+ATM <- function(A,T,M,ternary=TRUE,plot=TRUE,kde=TRUE,decision=TRUE,
+                bty='n',asp=1,xpd=FALSE,bw="nrd0",pch=21,bg=NULL,
+                dlty=2,dlwd=1.5,dcol='blue',padding=0.15,xlim=NULL,
+                ylim=NULL,...){
     miss <- (missing(A)|missing(T)|missing(M))
     if (miss){
         out <- NULL
@@ -78,6 +78,7 @@ ATM <- function(A,T,M,ternary=TRUE,plot=TRUE,kde=TRUE,
     } else {
         uv <- alr(cbind(T,A,M))
         out <- BF(A=A,T=T,M=M)
+        if (is.null(bg)) bg <- ((out>0)+1)
     }
     if (plot){
         if (miss | ternary){
@@ -104,7 +105,7 @@ ATM <- function(A,T,M,ternary=TRUE,plot=TRUE,kde=TRUE,
             f <- c(5,1,1)
             ternaryplot(xyzlab=c('T','A','M'),f=f,xpd=xpd)
             if (!miss){
-                ternarypoints(uv,f=f,...)
+                ternarypoints(uv,f=f,pch=pch,bg=bg,...)
             }
             if (decision){
                 ternarylines(uvd,f=f,lty=dlty,lwd=dlwd,col=dcol)
@@ -140,7 +141,7 @@ ATM <- function(A,T,M,ternary=TRUE,plot=TRUE,kde=TRUE,
                 graphics::plot(x=c(minu,maxu),y=c(minv,maxv),type='n',
                                xlab='ln(A/T)',ylab='ln(M/T)',
                                bty=bty,asp=asp,xpd=xpd,xlim=xlim,ylim=ylim)
-                graphics::points(uv,...)
+                graphics::points(uv,pch=pch,bg=bg,...)
             } else {
                 graphics::plot(c(-1,3),c(-1,3),type='n',xlab='ln(A/T)',
                                ylab='ln(M/T)',bty=bty,asp=asp,xpd=xpd,
