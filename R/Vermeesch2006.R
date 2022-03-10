@@ -104,6 +104,7 @@ TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
         plotlabels(diagram='TiV',ternary=ternary,f=c(1,1,5000),linear=TRUE,
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
+    invisible(out)
 }
 TiV_nominal <- function(Ti=NULL,V=NULL,pch=21,bg=NULL,show.labels=TRUE,
                         short=TRUE,xlim=NULL,ylim=NULL,...){
@@ -170,6 +171,7 @@ ZrTi <- function(Zr=NULL,Ti=NULL,type=c('LDA','QDA','Pearce','Dilek'),
         plotlabels(diagram='ZrTi',ternary=ternary,f=c(1,15000,200),linear=TRUE,
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
+    invisible(out)
 }
 ZrTi_nominal <- function(Zr=NULL,Ti=NULL,xlim=NULL,ylim=NULL,
                          show.labels=TRUE,short=FALSE,...){
