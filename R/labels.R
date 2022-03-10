@@ -45,7 +45,7 @@ plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
             if (quadratic){
                 if (short) labs <- c('IAB','MORB','OIB')
                 else labs <- c('Island Arc','Mid Ocean Ridge','Ocean Island')
-                uv <- rbind(c(-10.5,-6),
+                uv <- rbind(c(-10.5,-5.5),
                             c(-9.2,-4.6),
                             c(-8,-4))
             } else {
