@@ -1,4 +1,4 @@
-DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
+DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),tot=1,
                xlab=ifelse(D2,'1-X-Y','X'),
                ylab=ifelse(D2,'X','Y'),
                zlab=ifelse(D2,'Y','Z'),
@@ -21,10 +21,10 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
         graphics::par(p)
     } else {
         if (D2){
-            xycont <- alr(do.call("rbind",da$contours),inverse=TRUE)[,-1]
+            xycont <- alr(do.call("rbind",da$contours),inverse=TRUE,tot=tot)[,-1]
             xlab <- xlab
             ylab <- ylab
-            xy <- alr(UV,inverse=TRUE)[,-1]
+            xy <- alr(UV,inverse=TRUE,tot=tot)[,-1]
         } else {
             xycont <- do.call("rbind",da$contours)
             graphics::plot(xycont,type='n',xlab=xlab,ylab=ylab)
@@ -34,7 +34,7 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),
         }
         graphics::plot(xy,type='n',xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim)
         for (cont in da$contours){
-            if (D2) graphics::lines(alr(cont,inverse=TRUE)[,-1])
+            if (D2) graphics::lines(alr(cont,inverse=TRUE,tot=tot)[,-1])
             else graphics::lines(cont)
         }
 

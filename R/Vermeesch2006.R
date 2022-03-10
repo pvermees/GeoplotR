@@ -87,21 +87,22 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
 #' data(test,package='GeoplotR')
 #' TiV(Ti=wtpct2ppm(test[,'TiO2']),V=test[,'V'],type='Shervais')
 #' @export
-TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
+TiV <- function(Ti=NULL,V=NULL,type=c('Shervais','LDA','QDA'),
                 ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
                 short=TRUE,xlim=NULL,ylim=NULL,...){
     if (identical(type[1],'Shervais')){
         out <- TiV_nominal(Ti=Ti,V=V,pch=pch,bg=bg,show.labels=show.labels,
                            short=short,xlim=xlim,ylim=ylim,...)
     } else {
-        uv <- alr(cbind(1e6-Ti-V,Ti,V))
+        tot <- 1e6
+        uv <- alr(cbind(tot-Ti-V,Ti,V))
         quadratic <- identical(type[1],'QDA')
         if (quadratic) da <- .TiV_QDA
         else da <- .TiV_LDA
-        out <- DA(uv=uv,da=da,D2=TRUE,ternary=ternary,
+        out <- DA(uv=uv,da=da,D2=TRUE,tot=tot,ternary=ternary,
                   xlab='Ti',ylab='V',f=c(1,100,5000),
                   pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
-        plotlabels(diagram='TiV',ternary=ternary,f=c(1,1,5000),linear=TRUE,
+        plotlabels(diagram='TiV',ternary=ternary,f=c(1,100,5000),linear=TRUE,
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
     invisible(out)
@@ -161,11 +162,12 @@ ZrTi <- function(Zr=NULL,Ti=NULL,type=c('LDA','QDA','Pearce','Dilek'),
         out <- TiZr_Dilek(Ti=Ti,Zr=Zr,pch=pch,bg=bg,show.labels=show.labels,
                           short=short,xlim=xlim,ylim=ylim,...)        
     } else {
-        uv <- alr(cbind(1e6-Ti-Zr,Zr,Ti))
+        tot <- 1e6
+        uv <- alr(cbind(tot-Ti-Zr,Zr,Ti))
         quadratic <- identical(type[1],'QDA')
         if (quadratic) da <- .ZrTi_QDA
         else da <- .ZrTi_LDA
-        out <- DA(uv=uv,da=da,D2=TRUE,ternary=ternary,
+        out <- DA(uv=uv,da=da,D2=TRUE,tot=tot,ternary=ternary,
                   xlab='Zr',ylab='Ti',f=c(1,15000,200),
                   pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
         plotlabels(diagram='ZrTi',ternary=ternary,f=c(1,15000,200),linear=TRUE,

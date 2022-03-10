@@ -28,7 +28,7 @@ tosave <- c(tosave,'.oxides')
 message('read json files')
 
 .TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
-.TAS_volcanic <- IsoplotR:::fromJSON(file='inst/TAS_volcanic.json')
+.TAS_plutonic <- IsoplotR:::fromJSON(file='inst/TAS_plutonic.json')
 .AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
 .CrY <- IsoplotR:::fromJSON(file='inst/Cr_Y.json')
 .LaYb <- IsoplotR:::fromJSON(file='inst/LanYbn_Ybn.json')
@@ -43,7 +43,7 @@ message('read json files')
 .TiZr <- IsoplotR:::fromJSON(file='inst/TiZr.json')
 .AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')
 .QAP <- IsoplotR:::fromJSON(file='inst/QAP.json')
-tosave <- c(tosave,'.TAS','.TAS_volcanic','.AnAbOr','.CrY','.LaYb',
+tosave <- c(tosave,'.TAS','.TAS_plutonic','.AnAbOr','.CrY','.LaYb',
             '.SrY','.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
             '.NbLaYb','.ThNbLaYb','.TiZr','.AFM','.QAP')
 

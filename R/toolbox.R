@@ -39,7 +39,7 @@ ppm2wtpct <- function(x,oxide){
     conconv(x=x,oxide=oxide,wtpct2ppm=FALSE)
 }
 
-alr <- function(dat,inverse=FALSE){
+alr <- function(dat,inverse=FALSE,tot=1){
     if (inverse){
         num <- cbind(1,exp(dat))
         if (is.vector(dat)){
@@ -53,7 +53,7 @@ alr <- function(dat,inverse=FALSE){
     } else {
         out <- log(dat[,-1])-log(dat[,1])
     }
-    out
+    tot*out
 }
 
 # automatically converts wt% to ppm if necessary
