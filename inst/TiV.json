@@ -1,0 +1,52 @@
+{
+    "type": "xy",
+    "log": "false",
+    "axis":["Ti/1000","V"],
+    "reference": "Shervais, 1982",
+    "lines": {
+	"IAB-MORB":[
+	    [0,0],
+	    [20,1000]
+	],
+	"MORB-OIB":[
+	    [0,0],
+	    [50,1000]
+	]
+    },
+    "line_type": {
+	"IAB-MORB":"solid",
+	"MORB-OIB":"solid"
+    },
+    "polygons": {
+	"IAB":[
+	    [0,0],
+	    [0,1000],
+	    [20,1000]
+	],
+	"MORB":[
+	    [0,0],
+	    [20,1000],
+	    [50,1000]
+	],
+	"OIB":[
+	    [0,0],
+	    [50,1000],
+	    [50,0]
+	]
+    },
+    "labels": {
+	"IAB": "Island-arc basalts",
+	"MORB": "Mid Ocean Ridge Basalts",
+	"OIB": "Ocean Island Basalts"
+    },
+    "label_coords": {
+	"IAB": [2,400],
+	"MORB": [10,300],
+	"OIB": [15,100]
+    },
+    "angle": {
+	"IAB": 90,
+	"MORB": 88,
+	"OIB": 0
+    }
+}

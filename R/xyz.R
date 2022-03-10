@@ -22,59 +22,6 @@ AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
                       show.labels=show.labels,...))
 }
 
-#' @title Ti-Zr-Y
-#' @description Ti-Zr-Y tectonic discrimination diagram
-#' @param Ti vector with Ti concentrations (ppm)
-#' @param Zr vector with Zr concentrations (ppm)
-#' @param Y vector with Y concentrations (ppm)
-#' @param type either \code{'LDA'} for linear discriminant analysis,
-#'     \code{'QDA'} for quadratic discriminant analysis, or
-#'     \code{'Pearce'} for the nominal decision boundaries of Pearce
-#'     and Cann (1973). The latter option has not been implemented
-#'     yet.
-#' @param plot either \code{'none'} to omit the plot, \code{'ternary'}
-#'     for a ternary diagram, or \code{'logratio'} for a bivariate
-#'     logratio plot
-#' @param ... additional arguments for the generic \code{points}
-#'     function.
-#' @return if \code{type='LDA'} or \code{type='QDA'}, a list with
-#'     components \code{class}, \code{posterior} and \code{x};
-#'     otherwise a table with labels for \code{MORB}, \code{IAB} and
-#'     \code{OIB}.
-#' @references Pearce, J. A., and Cann, J. R., 1973, Tectonic setting
-#'     of basic volcanic rocks determined using trace element
-#'     analyses: Earth and Planetary Science Letters, v. 19, no. 2,
-#'     p. 290-300.
-#' @examples
-#' data(test,package='GeoplotR')
-#' TiZrY(Ti=wtpct2ppm(test[,'TiO2']),
-#'       Zr=test[,'Zr'],Y=test[,'Y'],
-#'       type='QDA',plot='ternary')
-#' @export
-TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
-                  type=c('LDA','QDA','Pearce'),
-                  ternary=TRUE,pch=21,bg=NULL,
-                  show.labels=FALSE,short=TRUE,...){
-    if (identical(type[1],'Pearce')) {
-        out <- TiZrY_nominal(Ti=Ti,Zr=Zr,Y=Y,pch=pch,bg=bg,
-                             show.labels=show.labels,short=short,...)
-    } else {
-        uv <- alr(cbind(Ti,Zr,Y))
-        quadratic <- identical(type[1],'QDA')
-        if (quadratic) da <- .TiZrY_QDA
-        else da <- .TiZrY_LDA
-        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),pch=pch,bg=bg,...)
-        plotlabels(diagram='TiZrY',ternary=ternary,f=c(1/100,1,3),
-                   quadratic=quadratic,show.labels=show.labels,short=short)
-    }
-    invisible(out)
-}
-TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
-                          show.labels=TRUE,short=TRUE,...){
-    invisible(xyzplot(json=.TiZrY_nominal,X=Ti,Y=Zr,Z=Y,f=c(0.01,1,3),
-                      pch=pch,bg=bg,short=short,show.labels=show.labels,...))
-}
-
 #' @title QAP diagram
 #' @description Streckeisen (1967)'s Quartz - Alkali feldspar -
 #'     Plagioclase feldspar diagram for classification of felsic and
@@ -82,8 +29,8 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
 #' @param Q vector with quartz concentrations (\%)
 #' @param A vector with alkali feldspar concentrations (\%)
 #' @param P vector with plagioclase feldspar concentrations (\%)
-#' @param xlim x-axis limits
-#' @param ylim y-axis limits
+#' @param pch plot character. See \code{?par} for details.
+#' @param bg fill colour of the plot symbols.
 #' @param show.labels logical. If \code{TRUE}, labels the
 #'     discrimination fields on the plot.
 #' @param short use short labels when using the additional argument
@@ -153,7 +100,8 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),xyzlab=NULL,
             xyz <- matrix(unlist(json$label_coords[[lname]]),ncol=3,byrow=TRUE)
             if (short) lab <- lname
             else lab <- json$labels[[lname]]
-            graphics::text(xyz2xy(xyz),labels=lab,srt=json$angle[[lname]],xpd=TRUE)
+            a <- angle(json$angle[[lname]])
+            graphics::text(xyz2xy(xyz),labels=lab,srt=a,xpd=TRUE)
         }
     }
     graphics::par(oldpar)

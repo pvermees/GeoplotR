@@ -1,7 +1,7 @@
 Package: GeoplotR
 Title: Toolbox for Geological Plots
 Version: 1.0
-Date: 2021-07-22
+Date: 2022-03-09
 Imports: MASS, grDevices, utils, rpart, IsoplotR
 Authors@R: person("Pieter", "Vermeesch", , "p.vermeesch@ucl.ac.uk", role = c("aut", "cre"))
 Description: Plots TAS diagrams, tectonic discrimination diagrams.

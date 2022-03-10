@@ -5,6 +5,8 @@ source('R/toolbox.R')
 
 tosave <- NULL
 
+message('load csv files')
+
 training <- read.csv('inst/training.csv',header=TRUE,check.names=FALSE)
 save(training,file="data/training.rda",version=2)
 
@@ -23,7 +25,10 @@ tosave <- c(tosave,'.atomicmass')
 colnames(.oxides) <- c('cation','ncat','nO')
 tosave <- c(tosave,'.oxides')
 
+message('read json files')
+
 .TAS <- IsoplotR:::fromJSON(file='inst/TAS.json')
+.TAS_volcanic <- IsoplotR:::fromJSON(file='inst/TAS_volcanic.json')
 .AnAbOr <- IsoplotR:::fromJSON(file='inst/AnAbOr.json')
 .CrY <- IsoplotR:::fromJSON(file='inst/Cr_Y.json')
 .LaYb <- IsoplotR:::fromJSON(file='inst/LanYbn_Ybn.json')
@@ -35,20 +40,36 @@ tosave <- c(tosave,'.oxides')
 .YbTaRb <- IsoplotR:::fromJSON(file='inst/Pearce_Yb+Ta-Rb.json')
 .NbLaYb <- IsoplotR:::fromJSON(file='inst/NbLa_LaYb.json')
 .ThNbLaYb <- IsoplotR:::fromJSON(file='inst/ThNb_LaYb.json')
-.ZrTi <- IsoplotR:::fromJSON(file='inst/Zr_Ti.json')
-tosave <- c(tosave,'.TAS','.AnAbOr','.CrY','.LaYb','.SrY',
-            '.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
-            '.NbLaYb','.ThNbLaYb','.ZrTi')
-
+.TiZr <- IsoplotR:::fromJSON(file='inst/TiZr.json')
 .AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')
 .QAP <- IsoplotR:::fromJSON(file='inst/QAP.json')
+tosave <- c(tosave,'.TAS','.TAS_volcanic','.AnAbOr','.CrY','.LaYb',
+            '.SrY','.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
+            '.NbLaYb','.ThNbLaYb','.TiZr','.AFM','.QAP')
+
+message('Build TiZrY DA')
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
 .TiZrY_LDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
-attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 .TiZrY_QDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
+attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 attributes(.TiZrY_QDA$fit$terms)$.Environment <- NULL
-tosave <- c(tosave,'.AFM','.QAP','.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA')
+message('Build TiV DA')
+.TiV_nominal <- IsoplotR:::fromJSON(file='inst/TiV.json')
+.TiV_LDA <- construct_DA(X='Ti',Y='V',quadratic=FALSE,plot=FALSE)
+.TiV_QDA <- construct_DA(X='Ti',Y='V',quadratic=TRUE,plot=FALSE)
+attributes(.TiV_LDA$fit$terms)$.Environment <- NULL
+attributes(.TiV_QDA$fit$terms)$.Environment <- NULL
+message('Build ZrTi DA')
+.ZrTi_nominal <- IsoplotR:::fromJSON(file='inst/ZrTi.json')
+.ZrTi_LDA <- construct_DA(X='Zr',Y='Ti',quadratic=FALSE,plot=FALSE)
+.ZrTi_QDA <- construct_DA(X='Zr',Y='Ti',quadratic=TRUE,plot=FALSE)
+attributes(.ZrTi_LDA$fit$terms)$.Environment <- NULL
+attributes(.ZrTi_QDA$fit$terms)$.Environment <- NULL
+tosave <- c(tosave,'.TiZrY_nominal','.TiZrY_LDA',
+            '.TiZrY_QDA','.TiV_nominal','.TiV_LDA','.TiV_QDA',
+            '.ZrTi_nominal','.ZrTi_LDA','.ZrTi_QDA')
 
+message('tectotree_all')
 library(rpart)
 treedata_all <- training[c(1,5:55)]
 my.control <- rpart.control(xval=10, cp=0, minsplit=1)
@@ -57,6 +78,7 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_all,
 .tectotree_all <- prune(unpruned, cp=0.008)
 tosave <- c(tosave,'.tectotree_all')
 
+message('tectotree_HFS')
 treedata_HFS <- get_training_data(c("AFFINITY","TiO2","La","Ce","Pr","Nd",
                                     "Sm","Gd","Tb","Dy","Ho","Er","Tm","Yb",
                                     "Lu","Sc","Y","Zr","Nb","Hf","Ta","Pb",
@@ -67,6 +89,7 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_HFS,
 .tectotree_HFS <- prune(unpruned, cp=0.025)
 tosave <- c(tosave,'.tectotree_HFS')
 
+message('tectotree_ratios')
 num <- c(rep('Ti',23),'Zr','Nb','La','La','Gd',
          'Th','Nb','Th','Th','Nb','Nb','Sr')
 den <- c('La','Ce','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb',
@@ -81,6 +104,8 @@ unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
                   method="class", control=my.control)
 .tectotree_ratios <- prune(unpruned, cp=0.015)
 tosave <- c(tosave,'.tectotree_ratios')
+
+message('Bowen-Fenner boundary')
 
 .BF_Fe1 <- list(p=c(9.57,6.98),
                 xy0=c(-3.84,2.12))

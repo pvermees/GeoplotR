@@ -1,9 +1,4 @@
 {
-    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
-    "date": "2021-8-6",
-    "version": "0.01",
-    "author": "fred yu",
-    "title": "Zr_Ti",
     "type": "xy",
     "log": "false",
     "axis":["Ti","Zr"],    

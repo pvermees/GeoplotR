@@ -7,7 +7,7 @@
 xyztest(
   fname,
   xyzlab = NULL,
-  show.labels = FALSE,
+  show.labels = TRUE,
   short = FALSE,
   polygons = FALSE,
   smooth = FALSE,

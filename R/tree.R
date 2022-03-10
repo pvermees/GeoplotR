@@ -19,13 +19,13 @@
 #' \code{Tb}, \code{Dy}, \code{Ho}, \code{Er}, \code{Tm}, \code{Yb},
 #' \code{Lu}, \code{Sc}, \code{Y}, \code{Zr}, \code{Nb}, \code{Hf},
 #' \code{Ta}, \code{Pb}, \code{Th}, \code{U} (all as ppm),
-#' {Nd143/Nd144}, \code{Sr87/Sr86}, \code{Pb206/Pb204},
+#' \code{Nd143/Nd144}, \code{Sr87/Sr86}, \code{Pb206/Pb204},
 #' \code{Pb207/Pb204} and \code{Pb208/Pb204}.
 #'
 #' If \code{option=3}: \code{TiO2} (as wt\%) or \code{Ti} (as ppm),
 #' \code{La}, \code{Sm}, \code{Nd}, \code{Gd}, \code{Yb}, \code{Sc},
-#' \code{V}, \code{Sr}, {Y}, \code{Zr}, \code{Nb}, \code{Th}, \code{U}
-#' (all as ppm).
+#' \code{V}, \code{Sr}, \code{Y}, \code{Zr}, \code{Nb}, \code{Th},
+#' \code{U} (all as ppm).
 #' @param option numerical. If \code{option=1}, uses all major and
 #'     trace element concentrations and isotopic ratios, if
 #'     \code{option=2}, uses high field strength element
@@ -112,6 +112,9 @@ dat4cart <- function(dat,option=1){
     }
     as.data.frame(out,check.names=FALSE)
 }
+
+rpartpredict <- utils::getFromNamespace("predict.rpart", "rpart")
+rparttext <- utils::getFromNamespace("text.rpart", "rpart")
 
 # function copied from Sam Buttrey's treeClust package
 rpart.predict.leaves <- function (rp, newdata, type = "where"){

@@ -8,7 +8,7 @@
 line. The easiest way to get started with the program is via its web
 interface:
 
-[http://lgc.es.ucl.ac.uk/geoplotr/](http://lgc.es.ucl.ac.uk/geoplotr/)
+[http://isoplotr.es.ucl.ac.uk/geoplotr/](http://isoplotr.es.ucl.ac.uk/geoplotr/)
 
 ## Installation for offline use
 

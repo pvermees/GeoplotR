@@ -42,25 +42,19 @@ ppm2wtpct <- function(x,oxide){
 alr <- function(dat,inverse=FALSE){
     if (inverse){
         num <- cbind(1,exp(dat))
-        den <- 1+rowSums(exp(dat),na.rm=TRUE)
+        if (is.vector(dat)){
+            den <- 1+exp(dat)
+        } else {
+            den <- 1+rowSums(exp(dat),na.rm=TRUE)
+        }
         out <- sweep(num,1,den,'/')
+    } else if (ncol(dat)>2){
+        out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')  
     } else {
-        out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')
+        out <- log(dat[,-1])-log(dat[,1])
     }
     out
 }
-
-LDApredict <- utils::getFromNamespace("predict.lda", "MASS")
-QDApredict <- utils::getFromNamespace("predict.qda", "MASS")
-DApredict <- function(fit,dat){
-    if (class(fit)%in%'lda'){
-        out <- LDApredict(fit,newdata=dat)
-    } else {
-        out <- QDApredict(fit,newdata=dat)
-    }
-}
-rpartpredict <- utils::getFromNamespace("predict.rpart", "rpart")
-rparttext <- utils::getFromNamespace("text.rpart", "rpart")
 
 # automatically converts wt% to ppm if necessary
 get_training_data <- function(cols){
