@@ -120,38 +120,6 @@ ThCo <- function(Th=NULL,Co=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
                      show.labels=show.labels,smooth=TRUE,...))
 }
 
-#' @title Ti-Zr
-#' @description Zr vs Ti discrimination diagram of Dilek and Furnes
-#'     (2009) for MORB, IAT, and boninites, modified after earlier
-#'     workers.
-#' @param Ti vector with Ti concentrations (ppm)
-#' @param Zr vector with Zr concentrations (ppm)
-#' @param xlim x-axis limits
-#' @param ylim y-axis limits
-#' @param show.labels logical. If \code{TRUE}, labels the polygonal
-#'     decision fields with text strings.
-#' @param short use short labels when using the additional argument
-#'     \code{show.labels=TRUE}.
-#' @param ... additional arguments to the generic \code{points}
-#'     function, may include the logical argument \code{show.labels}
-#'     which labels the fields in the diagram.
-#' @return a vector with tectonic affinities
-#' @references Dilek, Y. and Furnes, H., 2009, Structure and
-#'     geochemistry of Tethyan ophiolites and their petrogenesis in
-#'     subduction rollback systems.  Lithos, v. 113, p. 1-20.
-#' @examples
-#' data(test,package='GeoplotR')
-#' ZrTi(Zr=c(50,40,60),Ti=c(1000,4000,6000))
-#' @export
-ZrTi <- function(Zr=NULL,Ti=NULL,xlim=NULL,ylim=NULL,
-                 show.labels=TRUE,short=FALSE,...){
-    good <- !(is.na(Ti) | is.na(Zr))
-    if (is.null(xlim)) xlim <- getlimits(x=Ti[good],m=0,M=9000)
-    if (is.null(ylim)) ylim <- getlimits(x=Zr[good],m=0,M=120)
-    invisible(xyplot(json=.ZrTi,X=Ti,Y=Zr,log='',xlim=xlim,ylim=ylim,
-                     show.labels=show.labels,short=short,smooth=TRUE,...))
-}
-
 #' @title TAS diagram
 #' @description Total Alkali Silica diagram
 #' @param Na2O vector with Na\eqn{_2}O concentrations (wt\%)

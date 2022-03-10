@@ -13,6 +13,8 @@ TiV(
   bg = NULL,
   show.labels = FALSE,
   short = TRUE,
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 }
@@ -38,6 +40,10 @@ discrimination fields.}
 
 \item{short}{logical. If \code{TRUE}, uses abbreviated labels for
 the discrimination fields.}
+
+\item{xlim}{x-axis limits}
+
+\item{ylim}{y-axis limits}
 
 \item{...}{additional arguments for the generic \code{points}
 function.}

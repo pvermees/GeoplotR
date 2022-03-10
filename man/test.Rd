@@ -9,7 +9,7 @@ MOIB, OIB and IAB test set from Vermeesch (2006)
 }
 \examples{
 data(test,package='GeoplotR')
-TiZrY(test[,'TiO2'],test[,'Zr'],test[,'Y'],units=c('wt\%','ppm','ppm'))
+TiZrY(wtpct2ppm(test[,'TiO2']),test[,'Zr'],test[,'Y'])
 }
 \references{
 Vermeesch, P., 2006, Tectonic discrimination diagrams
