@@ -127,7 +127,8 @@ ThCo <- function(Th=NULL,Co=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
 #' @param SiO2 vector with SiO\eqn{_2} concentrations (wt\%)
 #' @param xlim x-axis limits
 #' @param ylim y-axis limits
-#' @param volcanic logical. Set to \code{FALSE} for plutonic rocks.
+#' @param plutonic logical. If \code{TRUE}, uses the nomenclature of
+#'     Middlemost (1994).
 #' @param show.labels logical. If \code{TRUE}, labels the
 #'     discrimination fields on the plot.
 #' @param short use short labels when using the additional argument
@@ -140,19 +141,22 @@ ThCo <- function(Th=NULL,Co=NULL,xlim=NULL,ylim=NULL,show.labels=TRUE,...){
 #'     M. J. L., Bonin, B., and Bateman, P., 2004,
 #'     "Igneous Rocks: A Classification and Glossary of Terms":
 #'     Cambridge University Press, v. -1, no. 70, p. 93–120.
+#'
+#' Middlemost, E.A., 1994. Naming materials in the magma/igneous rock
+#' system. Earth-science reviews, 37(3-4), pp.215-224.
 #' @examples
 #' data(test,package='GeoplotR')
 #' TAS(test[,'Na2O'],test[,'K2O'],test[,'SiO2'])
 #' @export
 TAS <- function(Na2O=NULL,K2O=NULL,SiO2=NULL,
-                xlim=NULL,ylim=NULL,volcanic=TRUE,
+                xlim=NULL,ylim=NULL,plutonic=FALSE,
                 show.labels=TRUE,short=TRUE,...){
     good <- !(is.na(Na2O) | is.na(K2O) | is.na(SiO2))
     if (is.null(xlim)) xlim <- getlimits(x=SiO2[good],m=35,M=80)
     if (is.null(ylim)) ylim <- getlimits(x=Na2O[good]+K2O[good],m=0,M=15)
     xlab <- expression('SiO'[2])
     ylab <- expression('Na'[2]*'O+K'[2]*'O')
-    if (volcanic) json <- .TAS_volcanic
+    if (plutonic) json <- .TAS_plutonic
     else json <- .TAS
     invisible(xyplot(json=json,X=SiO2,Y=Na2O+K2O,
                      xlim=xlim,ylim=ylim,show.labels=show.labels,
