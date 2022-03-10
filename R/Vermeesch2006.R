@@ -101,7 +101,7 @@ TiV <- function(Ti=NULL,V=NULL,type=c('LDA','QDA','Shervais'),
         out <- DA(uv=uv,da=da,D2=TRUE,ternary=ternary,
                   xlab='Ti',ylab='V',f=c(1,100,5000),
                   pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
-        plotlabels(diagram='TiV',ternary=ternary,f=c(1,1,5000),
+        plotlabels(diagram='TiV',ternary=ternary,f=c(1,1,5000),linear=TRUE,
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
 }
@@ -165,9 +165,9 @@ ZrTi <- function(Zr=NULL,Ti=NULL,type=c('LDA','QDA','Pearce','Dilek'),
         if (quadratic) da <- .ZrTi_QDA
         else da <- .ZrTi_LDA
         out <- DA(uv=uv,da=da,D2=TRUE,ternary=ternary,
-                  xlab='Zr',ylab='Ti',f=c(1,200,15000),
+                  xlab='Zr',ylab='Ti',f=c(1,15000,200),
                   pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
-        plotlabels(diagram='ZrTi',ternary=ternary,f=c(1,200,15000),
+        plotlabels(diagram='ZrTi',ternary=ternary,f=c(1,15000,200),linear=TRUE,
                    quadratic=quadratic,show.labels=show.labels,short=short)
     }
 }
