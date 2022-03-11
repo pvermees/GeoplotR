@@ -1,3 +1,49 @@
+# types = nominal type, QDA type, LDA type
+XYZhelper <- function(X=NULL,Y=NULL,Z=NULL,type,
+                      ternary=TRUE,pch=21,bg=NULL,
+                      show.labels=FALSE,short=TRUE,
+                      types,nominal,LDA,QDA,xlab,ylab,zlab,
+                      f=c(1,1,1),diagram,...){
+    if (identical(type[1],types[1])) {
+        out <- xyzplot(json=nominal,X=X,Y=Y,Z=Z,f=f,pch=pch,
+                       bg=bg,short=short,show.labels=show.labels,...)
+    } else {
+        uv <- alr(cbind(X,Y,Z))
+        quadratic <- identical(type[1],types[2])
+        if (quadratic) da <- QDA
+        else da <- LDA
+        out <- DA(uv=uv,da=da,ternary=ternary,f=f,
+                  xlab=xlab,ylab=ylab,zlab=zlab,pch=pch,bg=bg,...)
+        plotlabels(diagram=diagram,ternary=ternary,f=f,
+                   quadratic=quadratic,show.labels=show.labels,short=short)
+    }
+    invisible(out)
+}
+XYhelper <- function(X=NULL,Y=NULL,type,
+                     ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
+                     short=TRUE,xlim=NULL,ylim=NULL,
+                     types,nominal,LDA,QDA,xlab,ylab,zlab,
+                     f=c(1,1,1),nf=c(1,1),diagram,m,M,tot=1e6,linear=TRUE,...){
+    if (identical(type[1],types[1])){
+        good <- !(is.na(X) | is.na(Y))
+        if (is.null(xlim)) xlim <- getlimits(x=X[good],m=m[1],M=M[1])*nf[1]
+        if (is.null(ylim)) ylim <- getlimits(x=Y[good],m=m[2],M=M[2])*nf[2]
+        out <- xyplot(json=nominal,X=nf[1]*X,Y=nf[2]*Y,pch=pch,bg=bg,
+                      short=short,show.labels=show.labels,
+                      xlim=xlim,ylim=ylim,...)
+    } else {
+        uv <- alr(cbind(tot-X-Y,X,Y))
+        quadratic <- identical(type[1],types[2])
+        if (quadratic) da <- QDA
+        else da <- LDA
+        out <- DA(uv=uv,da=da,D2=TRUE,tot=tot,ternary=ternary,
+                  xlab=xlab,ylab=ylab,f=f,pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
+        plotlabels(diagram=diagram,ternary=ternary,f=f,linear=linear,
+                   quadratic=quadratic,show.labels=show.labels,short=short)
+    }
+    invisible(out)
+}
+
 #' @title Ti-Zr-Y
 #' @description Ti-Zr-Y tectonic discrimination diagram
 #' @param Ti vector with Ti concentrations (ppm)
@@ -35,25 +81,13 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
                   type=c('LDA','QDA','Pearce'),
                   ternary=TRUE,pch=21,bg=NULL,
                   show.labels=FALSE,short=TRUE,...){
-    if (identical(type[1],'Pearce')) {
-        out <- TiZrY_nominal(Ti=Ti,Zr=Zr,Y=Y,pch=pch,bg=bg,
-                             show.labels=show.labels,short=short,...)
-    } else {
-        uv <- alr(cbind(Ti,Zr,Y))
-        quadratic <- identical(type[1],'QDA')
-        if (quadratic) da <- .TiZrY_QDA
-        else da <- .TiZrY_LDA
-        out <- DA(uv=uv,da=da,ternary=ternary,f=c(1/100,1,3),
-                  xlab='Ti',ylab='Zr',zlab='Y',pch=pch,bg=bg,...)
-        plotlabels(diagram='TiZrY',ternary=ternary,f=c(1/100,1,3),
-                   quadratic=quadratic,show.labels=show.labels,short=short)
-    }
+    out <- XYZhelper(X=Ti,Y=Zr,Z=Y,type=type,ternary=ternary,
+                     pch=pch,bg=bg,show.labels=show.labels,short=short,
+                     types=c('Pearce','QDA','LDA'),
+                     nominal=.TiZrY_nominal,LDA=.TiZrY_LDA,QDA=.TiZrY_QDA,
+                     xlab='Ti',ylab='Zr',zlab='Y',
+                     f=c(1/100,1,3),diagram='TiZrY',...)
     invisible(out)
-}
-TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
-                          show.labels=TRUE,short=TRUE,...){
-    invisible(xyzplot(json=.TiZrY_nominal,X=Ti,Y=Zr,Z=Y,f=c(0.01,1,3),
-                      pch=pch,bg=bg,short=short,show.labels=show.labels,...))
 }
 
 #' @title Ti-V
@@ -90,31 +124,15 @@ TiZrY_nominal <- function(Ti=NULL,Zr=NULL,Y=NULL,pch=21,bg=NULL,
 TiV <- function(Ti=NULL,V=NULL,type=c('Shervais','LDA','QDA'),
                 ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
                 short=TRUE,xlim=NULL,ylim=NULL,...){
-    if (identical(type[1],'Shervais')){
-        out <- TiV_nominal(Ti=Ti,V=V,pch=pch,bg=bg,show.labels=show.labels,
-                           short=short,xlim=xlim,ylim=ylim,...)
-    } else {
-        tot <- 1e6
-        uv <- alr(cbind(tot-Ti-V,Ti,V))
-        quadratic <- identical(type[1],'QDA')
-        if (quadratic) da <- .TiV_QDA
-        else da <- .TiV_LDA
-        out <- DA(uv=uv,da=da,D2=TRUE,tot=tot,ternary=ternary,
-                  xlab='Ti',ylab='V',f=c(1,100,5000),
-                  pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
-        plotlabels(diagram='TiV',ternary=ternary,f=c(1,100,5000),linear=TRUE,
-                   quadratic=quadratic,show.labels=show.labels,short=short)
-    }
+    out <- XYhelper(X=Ti,Y=V,type,
+                    ternary=ternary,pch=pch,bg=bg,show.labels=show.labels,
+                    short=short,xlim=xlim,ylim=ylim,
+                    types=c('Shervais','QDA','LDA'),
+                    nominal=.TiV_nominal,LDA=.TiV_LDA,QDA=.TiV_QDA,
+                    xlab='Ti',ylab='V',f=c(1,100,5000),
+                    nf=c(1/1000,1),diagram='TiV',
+                    m=c(0,0),M=c(25,600),tot=1e6,linear=TRUE,...)
     invisible(out)
-}
-TiV_nominal <- function(Ti=NULL,V=NULL,pch=21,bg=NULL,show.labels=TRUE,
-                        short=TRUE,xlim=NULL,ylim=NULL,...){
-    good <- !(is.na(Ti) | is.na(V))
-    if (is.null(xlim)) xlim <- getlimits(x=Ti[good],m=0,M=25)/1000
-    if (is.null(ylim)) ylim <- getlimits(x=V[good],m=0,M=600)
-    invisible(xyplot(json=.TiV_nominal,X=Ti/1000,Y=V,pch=pch,bg=bg,
-                     short=short,show.labels=show.labels,
-                     xlim=xlim,ylim=ylim,...))
 }
 
 #' @title Ti-Zr
@@ -155,33 +173,20 @@ TiV_nominal <- function(Ti=NULL,V=NULL,pch=21,bg=NULL,show.labels=TRUE,
 ZrTi <- function(Zr=NULL,Ti=NULL,type=c('LDA','QDA','Pearce','Dilek'),
                  ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
                  short=TRUE,xlim=NULL,ylim=NULL,...){
-    if (identical(type[1],'Pearce')){
-        out <- ZrTi_nominal(Zr=Zr,Ti=Ti,pch=pch,bg=bg,show.labels=show.labels,
-                            short=short,xlim=xlim,ylim=ylim,...)
-    } else if (identical(type[1],'Dilek')){
-        out <- TiZr_Dilek(Ti=Ti,Zr=Zr,pch=pch,bg=bg,show.labels=show.labels,
-                          short=short,xlim=xlim,ylim=ylim,...)        
+    if (type[1]=='Dilek'){
+        out <- TiZr_Dilek(Ti=Ti,Zr=Zr,xlim=xlim,ylim=ylim,
+                          show.labels=show.labels,short=short,...)
     } else {
-        tot <- 1e6
-        uv <- alr(cbind(tot-Ti-Zr,Zr,Ti))
-        quadratic <- identical(type[1],'QDA')
-        if (quadratic) da <- .ZrTi_QDA
-        else da <- .ZrTi_LDA
-        out <- DA(uv=uv,da=da,D2=TRUE,tot=tot,ternary=ternary,
-                  xlab='Zr',ylab='Ti',f=c(1,15000,200),
-                  pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
-        plotlabels(diagram='ZrTi',ternary=ternary,f=c(1,15000,200),linear=TRUE,
-                   quadratic=quadratic,show.labels=show.labels,short=short)
+        out <- XYhelper(X=Zr,Y=Ti,type,
+                        ternary=ternary,pch=pch,bg=bg,show.labels=show.labels,
+                        short=short,xlim=xlim,ylim=ylim,
+                        types=c('Pearce','QDA','LDA'),
+                        nominal=.ZrTi_nominal,LDA=.ZrTi_LDA,QDA=.ZrTi_QDA,
+                        xlab='Zr',ylab='Ti',f=c(1,15000,200),
+                        nf=c(1,1),diagram='ZrTi',
+                        m=c(0,0),M=c(200,15000),tot=1e6,linear=TRUE,...)
     }
     invisible(out)
-}
-ZrTi_nominal <- function(Zr=NULL,Ti=NULL,xlim=NULL,ylim=NULL,
-                         show.labels=TRUE,short=FALSE,...){
-    good <- !(is.na(Zr) | is.na(Ti))
-    if (is.null(xlim)) xlim <- getlimits(x=Zr[good],m=0,M=200)
-    if (is.null(ylim)) ylim <- getlimits(x=Ti[good],m=0,M=15000)
-    invisible(xyplot(json=.ZrTi_nominal,X=Zr,Y=Ti,log='',xlim=xlim,ylim=ylim,
-                     show.labels=show.labels,short=short,smooth=FALSE,...))
 }
 TiZr_Dilek <- function(Ti=NULL,Zr=NULL,xlim=NULL,ylim=NULL,
                        show.labels=TRUE,short=FALSE,...){
