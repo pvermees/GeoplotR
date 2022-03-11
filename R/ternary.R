@@ -20,11 +20,11 @@ ternarytext <- function(uv,f=rep(1,3),labels=seq_along(uv[,1]),...){
     ternaryhelper(uv=uv,type='t',f=f,labels=labels,...)
 }
 ternaryhelper <- function(uv,type='p',f=rep(1,3),
-                          labels=seq_along(uv[,1]),...){
+                          labels=seq_along(uv[,1]),neg=FALSE,...){
     uvt <- uv - log(f[1])
     uvt <- sweep(uvt,2,log(f[2:3]),'+')
     xyz <- alr(uvt,inverse=TRUE)
-    xy <- xyz2xy(xyz)
+    xy <- xyz2xy(xyz,neg=neg)
     if (type=='p'){
         graphics::points(xy,...)
     } else if (type=='l'){
@@ -35,8 +35,25 @@ ternaryhelper <- function(uv,type='p',f=rep(1,3),
         stop('Invalid value for argument type in ternaryhelper().')
     }
 }
+diamondplot <- function(labels=c('A','Q','P','F'),...){
+    oldpar <- par(mar=rep(0,4),mgp=c(1.5,0.5,0))
+    on.exit(par(oldpar))
+    xy <- rbind(xyz2xy(c(0,1,0)),
+                xyz2xy(c(1,0,0)),
+                xyz2xy(c(0,0,1)),
+                xyz2xy(c(1,0,0))*c(1,-1),
+                xyz2xy(c(0,1,0)))
+    graphics::plot(xy,type='l',asp=1,axes=FALSE,
+                   ann=FALSE,bty='n',...)
+    position <- c(2,3,4,1)
+    for (i in seq_along(labels)){
+        graphics::text(xy[i,,drop=FALSE],labels=labels[i],
+                       pos=position[i],xpd=NA)
+    }
 
-xyz2xy <- function(xyz){
+}
+
+xyz2xy <- function(xyz,neg=FALSE){
     if (any(class(xyz)%in%c('matrix','data.frame'))){
         n <- nrow(xyz)
         x <- xyz[,1]
@@ -50,6 +67,6 @@ xyz2xy <- function(xyz){
     }
     xy <- matrix(0,nrow=n,ncol=2)
     xy[,1] <- 0.5*(x+2*z)/(x+y+z)
-    xy[,2] <- sin(pi/3)*x/(x+y+z)
+    xy[,2] <- sin(pi/3)*x*ifelse(neg,-1,1)/(x+y+z)
     return(xy)
 }

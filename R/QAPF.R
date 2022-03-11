@@ -24,8 +24,21 @@
 #' QAP(Q=c(10,20),A=c(10,30),P=c(80,50))
 #' @return a vector with rock names
 #' @export
-QAPF <- function(Q=NULL,A=NULL,P=NULL,F=NULL){
-    
+QAPF <- function(Q=NULL,A=NULL,P=NULL,F=NULL,pch=21,bg=NULL,
+                 show.labels=TRUE,short=TRUE,...){
+    diamondplot(labels=c('A','Q','P','F'))
+    lines(c(0,1),c(0,0))
+    out <- rep(NA,max(length(Q),length(F)))
+    top <- which(Q>=0 & F==0)
+    bottom <- which(F>0)
+    out[top] <- xyzplot(json=.QAP,X=Q[top],Y=A[top],Z=P[top],
+                        pch=pch,bg=bg,short=short,
+                        show.labels=show.labels,add=TRUE,
+                        buffered=TRUE,...)
+    out[bottom] <- xyzplot(json=.FAP,X=F[bottom],Y=A[bottom],Z=P[bottom],
+                           pch=pch,bg=bg,short=short,show.labels=show.labels,
+                           add=TRUE,neg=TRUE,buffered=TRUE,...)
+    invisible(out)
 }
 #' @rdname QAPF
 #' @export
