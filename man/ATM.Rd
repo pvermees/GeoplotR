@@ -16,6 +16,8 @@ ATM(
   asp = 1,
   xpd = FALSE,
   bw = "nrd0",
+  pch = 21,
+  bg = NULL,
   dlty = 2,
   dlwd = 1.5,
   dcol = "blue",

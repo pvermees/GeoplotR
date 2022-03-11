@@ -21,7 +21,10 @@
 #'     of igneous rocks.  Nues Jarbuch fur Mineralogie Abhandlungen,
 #'     v. 107, p. 144-240.
 #' @examples
-#' QAP(Q=c(10,20),A=c(10,30),P=c(80,50))
+#'    out <- QAPF(Q=c(50,40,0,0,80,60),
+#'                A=c(10,20,50,0,0,20),
+#'                P=c(40,40,50,20,20,20),
+#'                F=c(0,0,0,80,0,0))
 #' @return a vector with rock names
 #' @export
 QAPF <- function(Q=NULL,A=NULL,P=NULL,F=NULL,pch=21,bg=NULL,
