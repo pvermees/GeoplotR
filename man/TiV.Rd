@@ -7,7 +7,7 @@
 TiV(
   Ti = NULL,
   V = NULL,
-  type = c("LDA", "QDA", "Shervais"),
+  type = c("Shervais", "LDA", "QDA"),
   ternary = FALSE,
   pch = 21,
   bg = NULL,

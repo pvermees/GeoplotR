@@ -10,7 +10,7 @@ TAS(
   SiO2 = NULL,
   xlim = NULL,
   ylim = NULL,
-  volcanic = TRUE,
+  plutonic = FALSE,
   show.labels = TRUE,
   short = TRUE,
   ...
@@ -27,7 +27,8 @@ TAS(
 
 \item{ylim}{y-axis limits}
 
-\item{volcanic}{logical. Set to \code{FALSE} for plutonic rocks.}
+\item{plutonic}{logical. If \code{TRUE}, uses the nomenclature of
+Middlemost (1994).}
 
 \item{show.labels}{logical. If \code{TRUE}, labels the
 discrimination fields on the plot.}
@@ -54,4 +55,7 @@ Le Maitre, R. W., Streckeisen, A., Zanettin, B., Bas,
     M. J. L., Bonin, B., and Bateman, P., 2004,
     "Igneous Rocks: A Classification and Glossary of Terms":
     Cambridge University Press, v. -1, no. 70, p. 93–120.
+
+Middlemost, E.A., 1994. Naming materials in the magma/igneous rock
+system. Earth-science reviews, 37(3-4), pp.215-224.
 }

@@ -98,10 +98,16 @@ lty <- function(ltype){
 
 # This uses the ray-casting algorithm to decide whether the point is inside
 # the given polygon. See https://en.wikipedia.org/wiki/Point_in_polygon
-inside <- function(pts,pol,log=''){
-    nv <- nrow(pol)
-    if (identical(pol[1,],pol[nv,])){
-        pol <- pol[-1,] # remove the duplicate vertex
+inside <- function(pts,pol,log='',buffered=FALSE){
+    if (buffered){
+        M <- colMeans(pol)
+        POL <- sweep(sweep(pol,2,M,'-')*(1+1e-10),2,M,'+')
+    } else {
+        POL <- pol
+    }
+    nv <- nrow(POL)
+    if (identical(POL[1,],POL[nv,])){
+        POL <- POL[-1,] # remove the duplicate vertex
         nv <- nv - 1
     }
     if (class(pts)=='matrix'){
@@ -114,21 +120,21 @@ inside <- function(pts,pol,log=''){
         y <- pts[2]
     }
     if (log%in%c('x','xy')){
-        pol[,1] <- log(pol[,1])
+        POL[,1] <- log(POL[,1])
         x <- log(x)
     }
     if (log%in%c('y','xy')){
-        pol[,2] <- log(pol[,2])
+        POL[,2] <- log(POL[,2])
         y <- log(y)
     }
     igood <- which(!(is.na(x)|is.na(y)))
     out <- rep(FALSE,np)
     for (i in 1:nv){
         j <- i %% nv + 1
-        xp0 <- pol[i,1]
-        yp0 <- pol[i,2]
-        xp1 <- pol[j,1]
-        yp1 <- pol[j,2]
+        xp0 <- POL[i,1]
+        yp0 <- POL[i,2]
+        xp1 <- POL[j,1]
+        yp1 <- POL[j,2]
         crosses <- (yp0 <= y) & (yp1 > y) | (yp1 <= y) & (yp0 > y)
         if (any(crosses[igood])){
             icrosses <- igood[which(crosses[igood])]

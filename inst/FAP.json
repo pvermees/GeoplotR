@@ -1,0 +1,75 @@
+{
+    "date": "2022-03-11",
+    "version": "0.01",
+    "author": "Pieter Vermeesch",
+    "title": "FAP",
+    "type": "xyz",
+    "axis": ["F","A","P"],
+    "reference": "Streckeisen, A., 1967, Classification and nomenclature of igneous rocks.  Nues Jarbuch fur Mineralogie Abhandlungen, v. 107, p. 144-240.",
+    "lines": {
+	"A": [[60,0,40],[60,40,0]],
+	"B": [[10,90,0],[10,0,90]],
+	"C": [[0,10,90],[60,4,36]],
+	"D": [[0,90,10],[60,36,4]],
+	"E": [[10,45,45],[60,20,20]],
+	"F": [[0,35,65],[10,31.5,58.5]],
+	"G": [[0,65,35],[10,58.5,31.5]]
+    },
+    "line_type": {
+	"A": "solid",
+	"B": "solid",
+	"C": "solid",
+	"D": "solid",
+	"E": "solid",
+	"F": "solid",
+	"G": "solid"
+    },
+    "polygons": {
+	"F": [[100,0,0],[60,0,40],[60,40,0]],
+	"FD": [[60,0,40],[10,0,90],[10,9,81],[60,4,36]],
+	"Fd": [[0,0,100],[0,10,90],[10,9,81],[10,0,90]],
+	"FMd": [[0,10,90],[0,35,65],[10,31.5,58.5],[10,9,81]],
+	"FM": [[0,35,65],[10,31.5,58.5],[10,58.5,31.5],[0,65,35]],
+	"Fs": [[0,90,10],[0,65,35],[10,58.5,31.5],[10,81,9]],
+	"Fd": [[0,100,0],[0,90,10],[10,81,9],[10,90,0]],
+	"FS": [[60,40,0],[10,90,0],[10,81,9],[60,36,4]],
+	"FMS": [[10,81,9],[10,45,45],[60,20,20],[60,36,4]],
+	"FMD": [[10,9,81],[10,45,45],[60,20,20],[60,4,36]]
+    },
+    "label_coords": {
+	"F": [80,10,10],
+	"FD": [35,3.25,61.75],
+	"Fd": [5,5,90],
+	"FMd": [5,22,73],
+	"FM": [5,97.5,97.5],
+	"Fs": [5,73,22],
+	"FAS": [5,90,5],
+	"FS": [35,61.75,3.25],
+	"FMS": [35,42.25,22.75],
+	"FMD": [35,22.75,42.25]
+    },
+    "labels": {
+	"F": "foidolite",
+	"FD": "foid diorite/gabbro",
+	"Fd": "foid-bearing diorite/gabbro/anorthosite",
+	"FMd": "foid-bearing monzodiorite",
+	"FM": "foid-bearing monzonite",
+	"Fs": "foid-bearing syenite",
+	"FAS": "foid-bearing alkali feldspar syenite",
+	"FS": "foid syenite",
+	"FMS": "foid monzosyenite",
+	"FMD": "foid monzodiorite/monzogabbro"
+    },
+    "angle": {
+	"F": 0,
+	"FD": 0,
+	"Fd": 0,
+	"FMd": 0,
+	"FM": 0,
+	"Fs": 0,
+	"FAS": 0,
+	"FS": 0,
+	"FMS": 0,
+	"FMD": 0
+    }
+}
