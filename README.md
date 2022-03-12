@@ -26,20 +26,36 @@ after which **GeoplotR** can be installed as follows:
 
 ```
 remotes::install_github('pvermees/GeoplotR')
+remotes::install_github('pvermees/GeoplotRgui')
 ```
 
-## Examples
+To start the GUI on your own computer:
 
-Quadratic discriminant analysis of Ti-Zr-Y data:
+```
+GeoplotRgui::GeoplotRgui()
+```
+
+## Command line
+
+Advanced users can get access to all the functions in the GUI, and
+more, from the `R` console. To view the contents of the API:
+
+```
+help(package="simplex")
+```
+
+Here are some command line examples:
+
+1. Quadratic discriminant analysis of Ti-Zr-Y data:
 
 ```
 library(GeoplotR)
 data(test,package='GeoplotR')
 TiZrY(Ti=wtpct2ppm(test[,'TiO2'],oxide='TiO2'),
-      Zr=test[,'Zr'],Y=test[,'Y'],type='QDA',plot='ternary')
+      Zr=test[,'Zr'],Y=test[,'Y'],type='QDA',ternary=TRUE)
 ```
 
-Total-Alkali-Silica diagram:
+1. Total-Alkali-Silica diagram:
 
 ```
 out <- TAS(Na2O=test[,'Na2O'],K2O=test[,'K2O'],SiO2=test[,'SiO2'])
@@ -47,8 +63,8 @@ out <- TAS(Na2O=test[,'Na2O'],K2O=test[,'K2O'],SiO2=test[,'SiO2'])
 
 Where `out` lists the classification of each sample in `test`.  
 
-Plot basalt compositions from Iceland and the Cascade Mountains on an
-A-F-M diagram, and mark the two-stage calc-alkaline/tholeiitic
+1. Plot basalt compositions from Iceland and the Cascade Mountains on
+an A-F-M diagram, and mark the two-stage calc-alkaline/tholeiitic
 decision boundary of Vermeesch and Pease (Geochemical Perspective
 Letters, 2021) on it:
 
@@ -63,7 +79,7 @@ legend('topleft',legend=c('Cascades','Iceland'),
        pch=21,pt.bg=c(1,2))
 ```
 
-Plot the Iceland data in logratio space and visualise their
+1. Plot the Iceland data in logratio space and visualise their
 *Bowen-Fenner* indices as a kernel density estimate:
 
 ```
