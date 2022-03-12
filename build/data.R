@@ -44,9 +44,12 @@ message('read json files')
 .AFM <- IsoplotR:::fromJSON(file='inst/AFM.json')
 .QAP <- IsoplotR:::fromJSON(file='inst/QAP.json')
 .FAP <- IsoplotR:::fromJSON(file='inst/FAP.json')
+.QAP_volcanic <- IsoplotR:::fromJSON(file='inst/QAP_volcanic.json')
+.FAP_volcanic <- IsoplotR:::fromJSON(file='inst/FAP_volcanic.json')
 tosave <- c(tosave,'.TAS','.TAS_plutonic','.AnAbOr','.CrY','.LaYb',
             '.SrY','.ThCo','.YNb','.YNbRb','.YbTa','.YbTaRb',
-            '.NbLaYb','.ThNbLaYb','.TiZr','.AFM','.QAP','.FAP')
+            '.NbLaYb','.ThNbLaYb','.TiZr','.AFM',
+            '.QAP','.FAP','.QAP_volcanic','.FAP_volcanic')
 
 message('Build TiZrY DA')
 .TiZrY_nominal <- IsoplotR:::fromJSON(file='inst/TiZrY.json')
