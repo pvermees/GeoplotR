@@ -11,6 +11,7 @@ QAPF(
   A = NULL,
   P = NULL,
   F = NULL,
+  volcanic = FALSE,
   pch = 21,
   bg = NULL,
   show.labels = TRUE,
@@ -22,6 +23,7 @@ QAP(
   Q = NULL,
   A = NULL,
   P = NULL,
+  volcanic = FALSE,
   pch = 21,
   bg = NULL,
   show.labels = TRUE,
@@ -48,6 +50,9 @@ FAP(
 \item{P}{plagioclase feldspar (\%)}
 
 \item{F}{feldspathoid (\%)}
+
+\item{volcanic}{logical. If \code{TRUE}, uses the volcanic
+classification of Le Maitre et al. (2004).}
 
 \item{pch}{plot character. See \code{?par} for details.}
 
@@ -81,4 +86,8 @@ Streckeisen (1967)'s Quartz - Alkali feldspar -
 Streckeisen, A., 1967, Classification and nomenclature
     of igneous rocks.  Nues Jarbuch fur Mineralogie Abhandlungen,
     v. 107, p. 144-240.
+
+Le Maitre, R. W., Streckeisen, A., Zanettin, B., Bas, M. J. L.,
+Bonin, B., and Bateman, P., 2004, Igneous Rocks: A Classification
+and Glossary of Terms: Cambridge University Press.
 }
