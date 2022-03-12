@@ -26,6 +26,7 @@
 #' \code{La}, \code{Sm}, \code{Nd}, \code{Gd}, \code{Yb}, \code{Sc},
 #' \code{V}, \code{Sr}, \code{Y}, \code{Zr}, \code{Nb}, \code{Th},
 #' \code{U} (all as ppm).
+#' 
 #' @param option numerical. If \code{option=1}, uses all major and
 #'     trace element concentrations and isotopic ratios, if
 #'     \code{option=2}, uses high field strength element
