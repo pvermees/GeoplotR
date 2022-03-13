@@ -1,8 +1,9 @@
 {
     "type": "xyz",
     "log": "false",
-    "axis":["2*Nb","Zr/4","Y"],
-    "reference": "Meschede (1986)",
+    "axis":["Nb","Zr","Y"],
+    "reference": "Meschede, M., 1986. A method of discriminating between different types of mid-ocean ridge basalts and continental tholeiites with the Nb-Zr-Y diagram. Chemical geology, 56(3-4), pp.207-218.",
+    "comment": "The plot coordinates are provided as 2xNb, Zr/4 and Y",
     "lines": {
 	"solid": [
 	    [22.00,37.00,41.00],

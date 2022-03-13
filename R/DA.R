@@ -21,13 +21,10 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),tot=1,
         graphics::par(p)
     } else {
         if (D2){
-            xycont <- alr(do.call("rbind",da$contours),inverse=TRUE,tot=tot)[,-1]
             xlab <- xlab
             ylab <- ylab
             xy <- alr(UV,inverse=TRUE,tot=tot)[,-1]
         } else {
-            xycont <- do.call("rbind",da$contours)
-            graphics::plot(xycont,type='n',xlab=xlab,ylab=ylab)
             xlab <- paste0('ln[',ylab,'/',xlab,']')
             ylab <- paste0('ln[',zlab,'/',xlab,']')
             xy <- UV
@@ -57,7 +54,7 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     u <- uv[,1]
     v <- uv[,2]
     dat <- data.frame(AFFINITY=training[,'AFFINITY'],u=u,v=v)
-    nn <- 3000
+    nn <- 5000
     padding <- 4
     ugrid <- seq(from=min(u,na.rm=TRUE)-padding,
                  to=max(u,na.rm=TRUE)+padding,length.out=nn)
@@ -66,10 +63,10 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     uvgrid <- expand.grid(ugrid,vgrid)
     if (quadratic){
         out$fit <- MASS::qda(AFFINITY ~ ., data=dat, na.action='na.omit')
-        nt <- 500
+        nt <- 750
     } else {
         out$fit <- MASS::lda(AFFINITY ~ ., data=dat, na.action='na.omit')
-        nt <- 50
+        nt <- 250
     }
     out$contours <- list()
     pr <- DApredict(fit=out$fit,dat=data.frame(u=uvgrid[,1],v=uvgrid[,2]))

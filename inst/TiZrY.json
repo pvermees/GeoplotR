@@ -1,8 +1,9 @@
 {
     "type": "xyz",
     "log": "false",
-    "axis":["Ti/100","Zr","Y*3"],
+    "axis":["Ti","Zr","Y"],
     "reference": "Barker 1979, Pearce and Cann 1973",
+    "comment": "the plot coordinates are provided as Ti/100, Zr and 3xY",
     "lines": {
 	"D":[
 	    [24,55.5,20.5],

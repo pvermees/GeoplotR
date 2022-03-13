@@ -39,15 +39,15 @@ plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
                 else labs <- c('Island Arc','Island Arc',
                                'Mid Ocean Ridge','Ocean Island')
                 uv <- rbind(c(1,1),
-                            c(4,1),
+                            c(3.5,1),
                             c(3,2),
                             c(2,0))
             } else {
                 if (short) labs <- c('IAB','OIB','MORB')
                 else labs <- c('Island Arc','Ocean Island','Mid Ocean Ridge')
                 uv <- rbind(c(3.5,2),
-                            c(2,-0.5),
-                            c(1.5,1.5))
+                            c(2,0),
+                            c(2,1.5))
             }
         } else if (identical(diagram,'ZrTi')){
             if (quadratic){
