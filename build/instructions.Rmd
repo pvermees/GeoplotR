@@ -91,7 +91,7 @@ following code at the console:
 # The actual job
 
 1. Visit
-[`https://minerva.union.edu/hollochk/c_petrology/discrim.html`](https://minerva.union.edu/hollochk/c_petrology/discrim.html)
+[`Kurt Hollocher's homepage`](https://muse.union.edu/hollochk/kurt-hollocher/petrology/whole-rock-geochemical-discriminant-diagrams/)
 and click on any blue link in it. This should download an `Excel` file
 on your computer containing the anchor points of various binary and
 ternary diagrams.
@@ -103,24 +103,17 @@ whose `json` files you can inspect at
 [`github:pvermees/GeoplotR/inst/`](https://github.com/pvermees/GeoplotR/tree/main/inst). I
 would like you to make some more of these, notably:
 
-   (a) Meschede, 1986
+   (a) Wood, 1980
 
-   (b) Pearce and Cann, 1973 (except the Ti-Zr-Y diagram, which has
-     already been implemented)
+   (b) Ewart, 1982
 
-   (c) Wood, 1980
+   (c) Winchester and Floyd, 1977
 
-   (d) Ewart, 1982
+   (d) Cabanis and Lecolle, 1989
 
-   (e) Winchester and Floyd, 1977
+   (e) Mullen, 1983
 
-   (f) Cabanis and Lecolle, 1989
-
-   (g) Mullen, 1983
-
-   (h) Shervais, 1982
-
-   (i) Pearce and Norry, 1979
+   (f) Pearce and Norry, 1979
 
 1. The best way to build a `json` file is to open `Template.json`,
 save it under a different name and modify its contents. Edit `test.R`

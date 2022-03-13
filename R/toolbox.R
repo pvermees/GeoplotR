@@ -39,7 +39,7 @@ ppm2wtpct <- function(x,oxide){
     conconv(x=x,oxide=oxide,wtpct2ppm=FALSE)
 }
 
-alr <- function(dat,inverse=FALSE,tot=1){
+alr <- function(dat,inverse=FALSE,tot=1,zero2na=TRUE){
     if (inverse){
         num <- cbind(1,exp(dat))
         if (is.vector(dat)){
@@ -48,10 +48,13 @@ alr <- function(dat,inverse=FALSE,tot=1){
             den <- 1+rowSums(exp(dat),na.rm=TRUE)
         }
         out <- sweep(num,1,den,'/')
-    } else if (ncol(dat)>2){
-        out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')  
     } else {
-        out <- log(dat[,-1])-log(dat[,1])
+        if (zero2na) dat[dat<=0] <- NA
+        if (ncol(dat)>2){
+            out <- sweep(log(dat[,-1]),1,log(dat[,1]),'-')  
+        } else {
+            out <- log(dat[,-1])-log(dat[,1])
+        }
     }
     tot*out
 }

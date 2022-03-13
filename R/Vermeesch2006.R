@@ -78,7 +78,7 @@ XYhelper <- function(X=NULL,Y=NULL,type,
 #'       type='QDA',plot='ternary')
 #' @export
 TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
-                  type=c('LDA','QDA','Pearce'),
+                  type=c('Pearce','LDA','QDA'),
                   ternary=TRUE,pch=21,bg=NULL,
                   show.labels=FALSE,short=TRUE,...){
     out <- XYZhelper(X=Ti,Y=Zr,Z=Y,type=type,ternary=ternary,
@@ -87,6 +87,49 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
                      nominal=.TiZrY_nominal,LDA=.TiZrY_LDA,QDA=.TiZrY_QDA,
                      xlab='Ti',ylab='Zr',zlab='Y',
                      f=c(1/100,1,3),diagram='TiZrY',...)
+    invisible(out)
+}
+
+#' @title Nb-Zr-Y
+#' @description Nb-Zr-Y tectonic discrimination diagram
+#' @param Nb vector with Nb concentrations (ppm)
+#' @param Zr vector with Zr concentrations (ppm)
+#' @param Y vector with Y concentrations (ppm)
+#' @param type either \code{'LDA'} for linear discriminant analysis,
+#'     \code{'QDA'} for quadratic discriminant analysis, or
+#'     \code{'Pearce'} for the nominal decision boundaries of Meschede
+#'     (1986).
+#' @param ternary logical. If \code{FALSE}, produces a logratio plot.
+#'     Only used if \code{type} is \code{LDA} or \code{QDA}.
+#' @param pch plot character. See \code{?par} for details.
+#' @param bg fill colour for the plot character.
+#' @param show.labels logical. If \code{TRUE}, labels the
+#'     discrimination fields.
+#' @param short logical. If \code{TRUE}, uses abbreviated labels for
+#'     the discrimination fields.
+#' @param ... additional arguments for the generic \code{points}
+#'     function.
+#' @return if \code{type='LDA'} or \code{type='QDA'}, a list with
+#'     components \code{class}, \code{posterior} and \code{x};
+#'     otherwise a table with tectonic affinities.
+#' @references Meschede, M., 1986. A method of discriminating between
+#'     different types of mid-ocean ridge basalts and continental
+#'     tholeiites with the Nb-Zr-Y diagram. Chemical geology, 56(3-4),
+#'     pp.207-218.
+#' @examples
+#' data(test,package='GeoplotR')
+#' NbZrY(Nb=test[,'Nb'],Zr=test[,'Zr'],Y=test[,'Y'])
+#' @export
+NbZrY <- function(Nb=NULL,Zr=NULL,Y=NULL,
+                  type=c('Meschede','LDA','QDA'),
+                  ternary=TRUE,pch=21,bg=NULL,
+                  show.labels=FALSE,short=TRUE,...){
+    out <- XYZhelper(X=Nb,Y=Zr,Z=Y,type=type,ternary=ternary,
+                     pch=pch,bg=bg,show.labels=show.labels,short=short,
+                     types=c('Meschede','QDA','LDA'),
+                     nominal=.NbZrY_nominal,LDA=.NbZrY_LDA,QDA=.NbZrY_QDA,
+                     xlab='Nb',ylab='Zr',zlab='Y',
+                     f=c(2,1/4,1),diagram='NbZrY',...)
     invisible(out)
 }
 

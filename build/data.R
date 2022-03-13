@@ -57,6 +57,12 @@ message('Build TiZrY DA')
 .TiZrY_QDA <- construct_DA(X='Ti',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
 attributes(.TiZrY_LDA$fit$terms)$.Environment <- NULL
 attributes(.TiZrY_QDA$fit$terms)$.Environment <- NULL
+message('Build NbZrY DA')
+.NbZrY_nominal <- IsoplotR:::fromJSON(file='inst/NbZrY.json')
+.NbZrY_LDA <- construct_DA(X='Nb',Y='Zr',Z='Y',quadratic=FALSE,plot=FALSE)
+.NbZrY_QDA <- construct_DA(X='Nb',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
+attributes(.NbZrY_LDA$fit$terms)$.Environment <- NULL
+attributes(.NbZrY_QDA$fit$terms)$.Environment <- NULL
 message('Build TiV DA')
 .TiV_nominal <- IsoplotR:::fromJSON(file='inst/TiV.json')
 .TiV_LDA <- construct_DA(X='Ti',Y='V',quadratic=FALSE,plot=FALSE)
@@ -69,8 +75,10 @@ message('Build ZrTi DA')
 .ZrTi_QDA <- construct_DA(X='Zr',Y='Ti',quadratic=TRUE,plot=FALSE)
 attributes(.ZrTi_LDA$fit$terms)$.Environment <- NULL
 attributes(.ZrTi_QDA$fit$terms)$.Environment <- NULL
-tosave <- c(tosave,'.TiZrY_nominal','.TiZrY_LDA',
-            '.TiZrY_QDA','.TiV_nominal','.TiV_LDA','.TiV_QDA',
+tosave <- c(tosave,
+            '.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA',
+            '.NbZrY_nominal','.NbZrY_LDA','.NbZrY_QDA',
+            '.TiV_nominal','.TiV_LDA','.TiV_QDA',
             '.ZrTi_nominal','.ZrTi_LDA','.ZrTi_QDA')
 
 message('tectotree_all')

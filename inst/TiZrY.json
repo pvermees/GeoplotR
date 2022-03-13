@@ -1,14 +1,9 @@
 {
-    "comment": "This is a sample JSON file for coords of GeoChem Plots. ",
-    "date": "2021-2-27",
-    "version": "0.04",
-    "author": "Fred Yu, Pieter Vermeesch",
-    "title": "Ti/100-Zr-Y*3",
     "type": "xyz",
     "log": "false",
-    "axis":["Ti/100","Zr","Y*3"],
+    "axis":["Ti","Zr","Y"],
     "reference": "Barker 1979, Pearce and Cann 1973",
-    "notice":"coords below is Ti/100, Zr, Y*3, not original Ti,Zr,Y. ",   
+    "comment": "the plot coordinates are provided as Ti/100, Zr and 3xY",
     "lines": {
 	"D":[
 	    [24,55.5,20.5],
