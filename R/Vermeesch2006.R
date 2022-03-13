@@ -78,7 +78,7 @@ XYhelper <- function(X=NULL,Y=NULL,type,
 #'       type='QDA',plot='ternary')
 #' @export
 TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
-                  type=c('LDA','QDA','Pearce'),
+                  type=c('Pearce','LDA','QDA'),
                   ternary=TRUE,pch=21,bg=NULL,
                   show.labels=FALSE,short=TRUE,...){
     out <- XYZhelper(X=Ti,Y=Zr,Z=Y,type=type,ternary=ternary,
@@ -87,6 +87,19 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
                      nominal=.TiZrY_nominal,LDA=.TiZrY_LDA,QDA=.TiZrY_QDA,
                      xlab='Ti',ylab='Zr',zlab='Y',
                      f=c(1/100,1,3),diagram='TiZrY',...)
+    invisible(out)
+}
+
+NbZrY <- function(Nb=NULL,Zr=NULL,Y=NULL,
+                  type=c('Meschede','LDA','QDA'),
+                  ternary=TRUE,pch=21,bg=NULL,
+                  show.labels=FALSE,short=TRUE,...){
+    out <- XYZhelper(X=Nb,Y=Zr,Z=Y,type=type,ternary=ternary,
+                     pch=pch,bg=bg,show.labels=show.labels,short=short,
+                     types=c('Meschede','QDA','LDA'),
+                     nominal=.NbZrY_nominal,LDA=.NbZrY_LDA,QDA=.NbZrY_QDA,
+                     xlab='Nb',ylab='Zr',zlab='Y',
+                     f=c(2,1/4,1),diagram='NbZrY',...)
     invisible(out)
 }
 
