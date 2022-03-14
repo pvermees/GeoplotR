@@ -63,6 +63,12 @@ message('Build NbZrY DA')
 .NbZrY_QDA <- construct_DA(X='Nb',Y='Zr',Z='Y',quadratic=TRUE,plot=FALSE)
 attributes(.NbZrY_LDA$fit$terms)$.Environment <- NULL
 attributes(.NbZrY_QDA$fit$terms)$.Environment <- NULL
+message('Build ThTaHf DA')
+.ThTaHf_nominal <- IsoplotR:::fromJSON(file='inst/ThTaHf.json')
+.ThTaHf_LDA <- construct_DA(X='Hf',Y='Th',Z='Ta',quadratic=FALSE,plot=FALSE)
+.ThTaHf_QDA <- construct_DA(X='Hf',Y='Th',Z='Ta',quadratic=TRUE,plot=FALSE)
+attributes(.ThTaHf_LDA$fit$terms)$.Environment <- NULL
+attributes(.ThTaHf_QDA$fit$terms)$.Environment <- NULL
 message('Build TiV DA')
 .TiV_nominal <- IsoplotR:::fromJSON(file='inst/TiV.json')
 .TiV_LDA <- construct_DA(X='Ti',Y='V',quadratic=FALSE,plot=FALSE)

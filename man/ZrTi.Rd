@@ -7,7 +7,7 @@
 ZrTi(
   Zr = NULL,
   Ti = NULL,
-  type = c("LDA", "QDA", "Pearce", "Dilek"),
+  type = c("Pearce", "Dilek", "LDA", "QDA"),
   ternary = FALSE,
   pch = 21,
   bg = NULL,
