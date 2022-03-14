@@ -69,6 +69,21 @@ message('Build ThTaHf DA')
 .ThTaHf_QDA <- construct_DA(X='Hf',Y='Th',Z='Ta',quadratic=TRUE,plot=FALSE)
 attributes(.ThTaHf_LDA$fit$terms)$.Environment <- NULL
 attributes(.ThTaHf_QDA$fit$terms)$.Environment <- NULL
+message('Build TiSiSr DA')
+.TiSiSr_LDA <- construct_DA(X='Ti',Y='Si',Z='Sr',quadratic=FALSE,plot=FALSE)
+attributes(.TiSiSr_LDA$fit$terms)$.Environment <- NULL
+message('Build LuEuSr DA')
+.LuEuSr_LDA <- construct_DA(X='Lu',Y='Eu',Z='Sr',quadratic=FALSE,plot=FALSE)
+attributes(.LuEuSr_LDA$fit$terms)$.Environment <- NULL
+message('Build TiVSc DA')
+.TiVSc_LDA <- construct_DA(X='Ti',Y='V',Z='Sc',quadratic=FALSE,plot=FALSE)
+attributes(.TiVSc_LDA$fit$terms)$.Environment <- NULL
+message('Build NbNaSr DA')
+.NbNaSr_QDA <- construct_DA(X='Nb',Y='Na',Z='Sr',quadratic=TRUE,plot=FALSE)
+attributes(.NbNaSr_QDA$fit$terms)$.Environment <- NULL
+message('Build TiSmV DA')
+.TiSmV_QDA <- construct_DA(X='Ti',Y='Sm',Z='V',quadratic=TRUE,plot=FALSE)
+attributes(.TiSmV_QDA$fit$terms)$.Environment <- NULL
 message('Build TiV DA')
 .TiV_nominal <- IsoplotR:::fromJSON(file='inst/TiV.json')
 .TiV_LDA <- construct_DA(X='Ti',Y='V',quadratic=FALSE,plot=FALSE)
@@ -82,6 +97,8 @@ message('Build ZrTi DA')
 attributes(.ZrTi_LDA$fit$terms)$.Environment <- NULL
 attributes(.ZrTi_QDA$fit$terms)$.Environment <- NULL
 tosave <- c(tosave,
+            '.TiSiSr_LDA','.LuEuSr_LDA','.TiVSc_LDA',
+            '.NbNaSr_QDA','.TiSmV_QDA',
             '.ThTaHf_nominal','.ThTaHf_LDA','.ThTaHf_QDA',
             '.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA',
             '.NbZrY_nominal','.NbZrY_LDA','.NbZrY_QDA',
