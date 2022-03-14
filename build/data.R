@@ -82,6 +82,7 @@ message('Build ZrTi DA')
 attributes(.ZrTi_LDA$fit$terms)$.Environment <- NULL
 attributes(.ZrTi_QDA$fit$terms)$.Environment <- NULL
 tosave <- c(tosave,
+            '.ThTaHf_nominal','.ThTaHf_LDA','.ThTaHf_QDA',
             '.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA',
             '.NbZrY_nominal','.NbZrY_LDA','.NbZrY_QDA',
             '.TiV_nominal','.TiV_LDA','.TiV_QDA',
