@@ -295,6 +295,7 @@ TiZr_Dilek <- function(Ti=NULL,Zr=NULL,xlim=NULL,ylim=NULL,
                      show.labels=show.labels,short=short,smooth=TRUE,...))
 }
 
+#' @title Vermeesch (2006)
 #' @name Vermeesch2006
 #' @rdname Vermeesch2006
 #' @description discriminant analysis for oceanic basalts
@@ -311,6 +312,9 @@ TiZr_Dilek <- function(Ti=NULL,Zr=NULL,xlim=NULL,ylim=NULL,
 #' @param ... additional arguments to the generic \code{points}
 #'     function, may include the logical argument \code{show.labels}
 #'     which labels the fields in the diagram.
+#' @param Ti vector of Ti-concentrations (in ppm)
+#' @param Si vector of Si-concentrations (in ppm)
+#' @param Sr vector of Sr-concentrations (in ppm)
 #' @return a vector with tectonic affinities
 #' @references Vermeesch, 2006. Tectonic discrimination diagrams
 #'     revisited: Geochemistry, Geophysics, and Geosystems, 7, Q06017,
@@ -325,11 +329,14 @@ TiSiSr <- function(Ti=NULL,Si=NULL,Sr=NULL,ternary=FALSE,pch=21,
     uv <- alr(cbind(Ti,Si,Sr))
     f <- c(25,1,1000)
     out <- DA(uv=uv,da=.TiSiSr_LDA,ternary=ternary,f=f,
-              xlab='Ti',ylab='Si',zlab='Sr',pch=pch,bg=bg,...)
+              xlab='Ti',ylab='Si',zlab='Sr',pch=pch,bg=bg,
+              xlim=xlim,ylim=ylim,...)
     plotlabels(diagram='TiSiSr',ternary=ternary,f=f,
-               quadratic=FALSE,show.labels=show.labels,short=short)
+               show.labels=show.labels,short=short)
     invisible(out)
 }
+#' @param Lu vector of Lu-concentrations (in ppm)
+#' @param Eu vector of Eu-concentrations (in ppm)
 #' @rdname Vermeesch2006
 #' @export
 LuEuSr <- function(Lu=NULL,Eu=NULL,Sr=NULL,ternary=FALSE,pch=21,
@@ -338,8 +345,56 @@ LuEuSr <- function(Lu=NULL,Eu=NULL,Sr=NULL,ternary=FALSE,pch=21,
     uv <- alr(cbind(Lu,Eu,Sr))
     f <- c(500,100,1)
     out <- DA(uv=uv,da=.LuEuSr_LDA,ternary=ternary,f=f,
-              xlab='Lu',ylab='Eu',zlab='Sr',pch=pch,bg=bg,...)
+              xlab='Lu',ylab='Eu',zlab='Sr',pch=pch,bg=bg,
+              xlim=xlim,ylim=ylim,...)
     plotlabels(diagram='LuEuSr',ternary=ternary,f=f,
-               quadratic=FALSE,show.labels=show.labels,short=short)
+               show.labels=show.labels,short=short)
+    invisible(out)
+}
+#' @param V vector of V-concentrations (in ppm)
+#' @param Sc vector of Sc-concentrations (in ppm)
+#' @rdname Vermeesch2006
+#' @export
+TiVSc <- function(Ti=NULL,V=NULL,Sc=NULL,ternary=FALSE,pch=21,
+                  bg=NULL,show.labels=FALSE,short=TRUE,xlim=NULL,
+                  ylim=NULL,...){
+    uv <- alr(cbind(Ti,V,Sc))
+    f <- c(1,50,250)
+    out <- DA(uv=uv,da=.TiVSc_LDA,ternary=ternary,f=f,
+              xlab='Ti',ylab='V',zlab='Sc',pch=pch,bg=bg,
+              xlim=xlim,ylim=ylim,...)
+    plotlabels(diagram='TiVSc',ternary=ternary,f=f,
+               show.labels=show.labels,short=short)
+    invisible(out)
+}
+#' @param Nb vector of Nb-concentrations (in ppm)
+#' @param Na vector of Na-concentrations (in ppm)
+#' @rdname Vermeesch2006
+#' @export
+NbNaSr <- function(Nb=NULL,Na=NULL,Sr=NULL,ternary=FALSE,pch=21,
+                   bg=NULL,show.labels=FALSE,short=TRUE,xlim=NULL,
+                   ylim=NULL,...){
+    uv <- alr(cbind(Nb,Na,Sr))
+    f <- c(2500,1,100)
+    out <- DA(uv=uv,da=.NbNaSr_QDA,ternary=ternary,f=f,
+              xlab='Nb',ylab='Na',zlab='Sr',pch=pch,bg=bg,
+              xlim=xlim,ylim=ylim,...)
+    plotlabels(diagram='NbNaSr',ternary=ternary,f=f,
+               show.labels=show.labels,short=short)
+    invisible(out)
+}
+#' @param Sm vector of Sm-concentrations (in ppm)
+#' @rdname Vermeesch2006
+#' @export
+TiSmV <- function(Ti=NULL,Sm=NULL,V=NULL,ternary=FALSE,pch=21,
+                  bg=NULL,show.labels=FALSE,short=TRUE,xlim=NULL,
+                  ylim=NULL,...){
+    uv <- alr(cbind(Ti,Sm,V))
+    f <- c(1,2500,50)
+    out <- DA(uv=uv,da=.TiSmV_QDA,ternary=ternary,f=f,
+              xlab='Ti',ylab='Sm',zlab='V',pch=pch,bg=bg,
+              xlim=xlim,ylim=ylim,...)
+    plotlabels(diagram='TiSmV',ternary=ternary,f=f,
+               show.labels=show.labels,short=short)
     invisible(out)
 }
