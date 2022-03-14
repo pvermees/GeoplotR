@@ -97,8 +97,8 @@ TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
 #' @param Y vector with Y concentrations (ppm)
 #' @param type either \code{'LDA'} for linear discriminant analysis,
 #'     \code{'QDA'} for quadratic discriminant analysis, or
-#'     \code{'Pearce'} for the nominal decision boundaries of Meschede
-#'     (1986).
+#'     \code{'Meschede'} for the nominal decision boundaries of
+#'     Meschede (1986).
 #' @param ternary logical. If \code{FALSE}, produces a logratio plot.
 #'     Only used if \code{type} is \code{LDA} or \code{QDA}.
 #' @param pch plot character. See \code{?par} for details.
@@ -130,6 +130,50 @@ NbZrY <- function(Nb=NULL,Zr=NULL,Y=NULL,
                      nominal=.NbZrY_nominal,LDA=.NbZrY_LDA,QDA=.NbZrY_QDA,
                      xlab='Nb',ylab='Zr',zlab='Y',
                      f=c(2,1/4,1),diagram='NbZrY',...)
+    invisible(out)
+}
+
+#' @title Th-Ta-Hf
+#' @description Th-Ta-Hf tectonic discrimination diagram
+#' @param Th vector with Th concentrations (ppm)
+#' @param Ta vector with Ta concentrations (ppm)
+#' @param Hf vector with Hf concentrations (ppm)
+#' @param type either \code{'LDA'} for linear discriminant analysis,
+#'     \code{'QDA'} for quadratic discriminant analysis, or
+#'     \code{'Wood'} for the nominal decision boundaries of Wood
+#'     (1980).
+#' @param ternary logical. If \code{FALSE}, produces a logratio plot.
+#'     Only used if \code{type} is \code{LDA} or \code{QDA}.
+#' @param pch plot character. See \code{?par} for details.
+#' @param bg fill colour for the plot character.
+#' @param show.labels logical. If \code{TRUE}, labels the
+#'     discrimination fields.
+#' @param short logical. If \code{TRUE}, uses abbreviated labels for
+#'     the discrimination fields.
+#' @param ... additional arguments for the generic \code{points}
+#'     function.
+#' @return if \code{type='LDA'} or \code{type='QDA'}, a list with
+#'     components \code{class}, \code{posterior} and \code{x};
+#'     otherwise a table with tectonic affinities.
+#' @references Wood, D.A., 1980. The application of a Th-Hf-Ta diagram
+#'     to problems of tectonomagmatic classification and to
+#'     establishing the nature of crustal contamination of basaltic
+#'     lavas of the British Tertiary Volcanic Province. Earth and
+#'     Planetary Science Letters, 50(1), pp.11-30.
+#' @examples
+#' data(test,package='GeoplotR')
+#' ThTaHf(Th=test[,'Th'],Ta=test[,'Ta'],Hf=test[,'Hf'])
+#' @export
+ThTaHf <- function(Th=NULL,Ta=NULL,Hf=NULL,
+                   type=c('Wood','LDA','QDA'),
+                   ternary=TRUE,pch=21,bg=NULL,
+                   show.labels=FALSE,short=TRUE,...){
+    out <- XYZhelper(X=Hf,Y=Th,Z=Ta,type=type,ternary=ternary,
+                     pch=pch,bg=bg,show.labels=show.labels,short=short,
+                     types=c('Wood','QDA','LDA'),
+                     nominal=.ThTaHf_nominal,LDA=.ThTaHf_LDA,QDA=.ThTaHf_QDA,
+                     xlab='Hf',ylab='Th',zlab='Ta',
+                     f=c(1,3,3),diagram='ThTaHf',...)
     invisible(out)
 }
 
@@ -213,7 +257,7 @@ TiV <- function(Ti=NULL,V=NULL,type=c('Shervais','LDA','QDA'),
 #' data(test,package='GeoplotR')
 #' ZrTi(Zr=c(50,40,60),Ti=c(1000,4000,6000))
 #' @export
-ZrTi <- function(Zr=NULL,Ti=NULL,type=c('LDA','QDA','Pearce','Dilek'),
+ZrTi <- function(Zr=NULL,Ti=NULL,type=c('Pearce','Dilek','LDA','QDA'),
                  ternary=FALSE,pch=21,bg=NULL,show.labels=FALSE,
                  short=TRUE,xlim=NULL,ylim=NULL,...){
     if (type[1]=='Dilek'){
