@@ -177,6 +177,17 @@ ThTaHf <- function(Th=NULL,Ta=NULL,Hf=NULL,
     invisible(out)
 }
 
+TiSiSr <- function(Ti=NULL,Si=NULL,Sr=NULL,
+                   ternary=TRUE,pch=21,bg=NULL,
+                   show.labels=FALSE,short=TRUE,...){
+    out <- XYZhelper(X=Ti,Y=Si,Z=Sr,type=type,ternary=ternary,
+                     pch=pch,bg=bg,show.labels=show.labels,short=short,
+                     types='LDA',LDA=.ThTaHf_LDA,
+                     xlab='Ti',ylab='Si',zlab='Sr',
+                     f=c(25,1,1000),diagram='TiSiSr',...)
+    invisible(out)
+}
+
 #' @title Ti-V
 #' @description Ti-V tectonic discrimination diagram
 #' @param Ti vector with Ti concentrations (ppm)
@@ -282,4 +293,53 @@ TiZr_Dilek <- function(Ti=NULL,Zr=NULL,xlim=NULL,ylim=NULL,
     if (is.null(ylim)) ylim <- getlimits(x=Zr[good],m=0,M=150)
     invisible(xyplot(json=.TiZr,X=Ti,Y=Zr,log='',xlim=xlim,ylim=ylim,
                      show.labels=show.labels,short=short,smooth=TRUE,...))
+}
+
+#' @name Vermeesch2006
+#' @rdname Vermeesch2006
+#' @description discriminant analysis for oceanic basalts
+#' @param ternary logical. If \code{TRUE}, produces a ternary
+#'     diagram. Otherwise shows the results on a logratio plot.
+#' @param pch plot character. See \code{?par} for details.
+#' @param bg fill colour for the plot character.
+#' @param xlim x-axis limits
+#' @param ylim y-axis limits
+#' @param show.labels logical. If \code{TRUE}, labels the polygonal
+#'     decision fields with text strings.
+#' @param short use short labels when using the additional argument
+#'     \code{show.labels=TRUE}.
+#' @param ... additional arguments to the generic \code{points}
+#'     function, may include the logical argument \code{show.labels}
+#'     which labels the fields in the diagram.
+#' @return a vector with tectonic affinities
+#' @references Vermeesch, 2006. Tectonic discrimination diagrams
+#'     revisited: Geochemistry, Geophysics, and Geosystems, 7, Q06017,
+#'     doi:10.1029/2005GC001092
+#' @examples
+#' data(test,package='GeoplotR')
+#' TiSiSr(Ti=wtpct2ppm(test$TiO2),Si=wtpct2ppm(test$SiO2),Sr=test$Sr)
+#' @export
+TiSiSr <- function(Ti=NULL,Si=NULL,Sr=NULL,ternary=FALSE,pch=21,
+                   bg=NULL,show.labels=FALSE,short=TRUE,xlim=NULL,
+                   ylim=NULL,...){
+    uv <- alr(cbind(Ti,Si,Sr))
+    f <- c(25,1,1000)
+    out <- DA(uv=uv,da=.TiSiSr_LDA,ternary=ternary,f=f,
+              xlab='Ti',ylab='Si',zlab='Sr',pch=pch,bg=bg,...)
+    plotlabels(diagram='TiSiSr',ternary=ternary,f=f,
+               quadratic=FALSE,show.labels=show.labels,short=short)
+    invisible(out)
+}
+#' @rdname Vermeesch2006
+#' @export
+LuEuSr <- function(Lu=NULL,Eu=NULL,Sr=NULL,ternary=FALSE,pch=21,
+                   bg=NULL,show.labels=FALSE,short=TRUE,xlim=NULL,
+                   ylim=NULL,...){
+    uv <- alr(cbind(Lu,Eu,Sr))
+    f <- c(500,100,1)
+    out <- DA(uv=uv,da=.LuEuSr_LDA,ternary=ternary,f=f,
+              xlab='Lu',ylab='Eu',zlab='Sr',pch=pch,bg=bg,...)
+    plotlabels(diagram='LuEuSr',ternary=ternary,f=f,
+               quadratic=FALSE,show.labels=show.labels,short=short)
+    invisible(out)
 }

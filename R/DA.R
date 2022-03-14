@@ -25,8 +25,9 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),tot=1,
             ylab <- ylab
             xy <- alr(UV,inverse=TRUE,tot=tot)[,-1]
         } else {
-            xlab <- paste0('ln[',ylab,'/',xlab,']')
-            ylab <- paste0('ln[',zlab,'/',xlab,']')
+            den <- xlab
+            xlab <- paste0('ln[',ylab,'/',den,']')
+            ylab <- paste0('ln[',zlab,'/',den,']')
             xy <- UV
         }
         graphics::plot(xy,type='n',xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim)

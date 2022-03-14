@@ -66,6 +66,18 @@ plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
                             c(-1,-1),
                             c(-2.5,-2.25))
             }
+        } else if (identical(diagram,'TiSiSr')){
+            if (short) labs <- c('IAB','OIB','MORB')
+            else labs <- c('Island Arc','Ocean Island','Mid Ocean Ridge')
+            uv <- rbind(c(3.75,-3),
+                        c(2.5,-3.5),
+                        c(3.25,-5))
+        } else if (identical(diagram,'LuEuSr')){
+            if (short) labs <- c('IAB','OIB','MORB')
+            else labs <- c('Island Arc','Ocean Island','Mid Ocean Ridge')
+            uv <- rbind(c(1,7),
+                        c(2,7),
+                        c(1,5))
         } else if (identical(diagram,'ZrTi')){
             if (quadratic){
                 if (short) labs <- c('IAB','MORB','OIB')
