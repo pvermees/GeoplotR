@@ -96,6 +96,9 @@ message('Build ZrTi DA')
 .ZrTi_QDA <- construct_DA(X='Zr',Y='Ti',quadratic=TRUE,plot=FALSE)
 attributes(.ZrTi_LDA$fit$terms)$.Environment <- NULL
 attributes(.ZrTi_QDA$fit$terms)$.Environment <- NULL
+message('Build TiZrYSr DA')
+.TiZrYSr <- construct_DA_highdim(c('Ti','Zr','Y','Sr'),quadratic=FALSE,plot=FALSE)
+attributes(.TiZrYSr$fit$terms)$.Environment <- NULL
 tosave <- c(tosave,
             '.TiSiSr_LDA','.LuEuSr_LDA','.TiVSc_LDA',
             '.NbNaSr_QDA','.TiSmV_QDA',
@@ -103,7 +106,8 @@ tosave <- c(tosave,
             '.TiZrY_nominal','.TiZrY_LDA','.TiZrY_QDA',
             '.NbZrY_nominal','.NbZrY_LDA','.NbZrY_QDA',
             '.TiV_nominal','.TiV_LDA','.TiV_QDA',
-            '.ZrTi_nominal','.ZrTi_LDA','.ZrTi_QDA')
+            '.ZrTi_nominal','.ZrTi_LDA','.ZrTi_QDA',
+            '.TiZrYSr')
 
 message('tectotree_all')
 library(rpart)

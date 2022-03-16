@@ -1,5 +1,6 @@
 plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
-                       quadratic=FALSE,show.labels=TRUE,short=TRUE){
+                       quadratic=FALSE,show.labels=TRUE,short=TRUE,
+                       raw=FALSE){
     if (show.labels){
         if (identical(diagram,'AFM')){
             labs <- getlabels(.AFM,short=short)
@@ -115,8 +116,16 @@ plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
                             c(5.5,9.9))
             }
             if (ternary) uv <- uv - 14 # from ppm to fraction
+        } else if (identical(diagram,'TiZrYSr')){
+            if (short) labs <- c('IAB','MORB','OIB')
+            else labs <- c('Island Arc','Mid Ocean Ridge','Ocean Island')
+            uv <- rbind(c(0,2),
+                        c(-2,-1),
+                        c(1,-1))
         }
-        if (ternary){
+        if (raw){
+            graphics::text(uv,labels=labs,xpd=NA)
+        } else if (ternary){
             ternarytext(uv,f=f,labels=labs,xpd=NA)
         } else {
             if (linear) xy <- exp(uv)

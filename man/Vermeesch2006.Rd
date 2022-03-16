@@ -7,6 +7,7 @@
 \alias{TiVSc}
 \alias{NbNaSr}
 \alias{TiSmV}
+\alias{TiZrYSr}
 \title{Vermeesch (2006)}
 \usage{
 TiSiSr(
@@ -78,6 +79,20 @@ TiSmV(
   ylim = NULL,
   ...
 )
+
+TiZrYSr(
+  Ti = NULL,
+  Zr = NULL,
+  Y = NULL,
+  Sr = NULL,
+  pch = 21,
+  bg = NULL,
+  show.labels = FALSE,
+  short = TRUE,
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Ti}{vector of Ti-concentrations (in ppm)}
@@ -120,6 +135,10 @@ which labels the fields in the diagram.}
 \item{Na}{vector of Na-concentrations (in ppm)}
 
 \item{Sm}{vector of Sm-concentrations (in ppm)}
+
+\item{Zr}{vector of Zr-concentrations (in ppm)}
+
+\item{Y}{vector of Y-concentrations (in ppm)}
 }
 \value{
 a vector with tectonic affinities
