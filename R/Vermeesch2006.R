@@ -411,3 +411,16 @@ TiZrYSr <- function(Ti=NULL,Zr=NULL,Y=NULL,Sr=NULL,pch=21,
     plotlabels(diagram='TiZrYSr',show.labels=show.labels,short=short,raw=TRUE)
     invisible(out)
 }
+#' @param major a data frame with the following columns: \code{SiO2},
+#'     \code{Al2O3}, \code{TiO2}, \code{CaO}, \code{MgO}, \code{MnO},
+#'     \code{K2O}, \code{Na2O} (in wt\%)
+#' @rdname Vermeesch2006
+#' @export
+Pearce1976 <- function(major=NULL,pch=21,bg=NULL,show.labels=FALSE,
+                       short=TRUE,xlim=NULL,ylim=NULL,...){
+    uv <- alr(major)
+    out <- DA_highdim(as.data.frame(uv),da=.Pearce1976,
+                      pch=pch,bg=bg,xlim=xlim,ylim=ylim,...)
+    plotlabels(diagram='Pearce1976',show.labels=show.labels,short=short,raw=TRUE)
+    invisible(out)
+}

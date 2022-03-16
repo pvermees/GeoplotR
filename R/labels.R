@@ -122,6 +122,12 @@ plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
             uv <- rbind(c(0,2),
                         c(-2,-1),
                         c(1,-1))
+        } else if (identical(diagram,'Pearce1976')){
+            if (short) labs <- c('IAB','MORB','OIB')
+            else labs <- c('Island Arc','Mid Ocean Ridge','Ocean Island')
+            uv <- rbind(c(-1,2.5),
+                        c(0,-2),
+                        c(1,2))
         }
         if (raw){
             graphics::text(uv,labels=labs,xpd=NA)
