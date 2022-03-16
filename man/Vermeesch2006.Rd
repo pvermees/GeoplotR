@@ -8,6 +8,7 @@
 \alias{NbNaSr}
 \alias{TiSmV}
 \alias{TiZrYSr}
+\alias{Pearce1976}
 \title{Vermeesch (2006)}
 \usage{
 TiSiSr(
@@ -93,6 +94,17 @@ TiZrYSr(
   ylim = NULL,
   ...
 )
+
+Pearce1976(
+  major = NULL,
+  pch = 21,
+  bg = NULL,
+  show.labels = FALSE,
+  short = TRUE,
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{Ti}{vector of Ti-concentrations (in ppm)}
@@ -139,6 +151,10 @@ which labels the fields in the diagram.}
 \item{Zr}{vector of Zr-concentrations (in ppm)}
 
 \item{Y}{vector of Y-concentrations (in ppm)}
+
+\item{major}{a data frame with the following columns: \code{SiO2},
+\code{Al2O3}, \code{TiO2}, \code{CaO}, \code{MgO}, \code{MnO},
+\code{K2O}, \code{Na2O} (in wt\%)}
 }
 \value{
 a vector with tectonic affinities

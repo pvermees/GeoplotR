@@ -99,6 +99,10 @@ attributes(.ZrTi_QDA$fit$terms)$.Environment <- NULL
 message('Build TiZrYSr DA')
 .TiZrYSr <- construct_DA_highdim(c('Ti','Zr','Y','Sr'),quadratic=FALSE,plot=FALSE)
 attributes(.TiZrYSr$fit$terms)$.Environment <- NULL
+message('Build Pearce1976 DA')
+.Pearce1976 <- construct_DA_highdim(c('SiO2','Al2O3','TiO2','CaO','MgO','MnO',
+                                      'K2O','Na2O'),quadratic=FALSE,plot=FALSE)
+attributes(.Pearce1976$fit$terms)$.Environment <- NULL
 tosave <- c(tosave,
             '.TiSiSr_LDA','.LuEuSr_LDA','.TiVSc_LDA',
             '.NbNaSr_QDA','.TiSmV_QDA',
@@ -107,13 +111,16 @@ tosave <- c(tosave,
             '.NbZrY_nominal','.NbZrY_LDA','.NbZrY_QDA',
             '.TiV_nominal','.TiV_LDA','.TiV_QDA',
             '.ZrTi_nominal','.ZrTi_LDA','.ZrTi_QDA',
-            '.TiZrYSr')
+            '.TiZrYSr','.Pearce1976')
 
-message('tectotree_all')
+naff <- length(levels(training$AFFINITY))
+prior <- rep(1,naff)/naff
 library(rpart)
+message('tectotree_all')
 treedata_all <- training[c(1,5:55)]
 my.control <- rpart.control(xval=10, cp=0, minsplit=1)
 unpruned <- rpart(AFFINITY ~ ., data=treedata_all,
+                  parms=list(prior=prior),
                   method="class", control=my.control)
 .tectotree_all <- prune(unpruned, cp=0.008)
 tosave <- c(tosave,'.tectotree_all')
@@ -125,6 +132,7 @@ treedata_HFS <- get_training_data(c("AFFINITY","TiO2","La","Ce","Pr","Nd",
                                     "Th","U","Nd143/Nd144","Sr87/Sr86",
                                     "Pb206/Pb204","Pb207/Pb204","Pb208/Pb204"))
 unpruned <- rpart(AFFINITY ~ ., data=treedata_HFS,
+                  parms=list(prior=prior),
                   method="class", control=my.control)
 .tectotree_HFS <- prune(unpruned, cp=0.025)
 tosave <- c(tosave,'.tectotree_HFS')
@@ -136,11 +144,12 @@ den <- c('La','Ce','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb',
          'Lu', 'Sc','V','Sr','Y','Zr','Nb','Hf','Ta','Th','U','Nb',
          'Th','Sm','Yb','Yb','Ta','La','Yb','U','U','Ta','Zr')
 treedata_ratios <- training['AFFINITY']
-for (i in 1:length(num)){
+for (i in seq_along(num)){
     treedata_ratios[paste0(num[i],'/',den[i])] <-
         get_training_data(num[i])/get_training_data(den[i])
 }
 unpruned <- rpart(AFFINITY ~ ., data=treedata_ratios,
+                  parms=list(prior=prior),
                   method="class", control=my.control)
 .tectotree_ratios <- prune(unpruned, cp=0.015)
 tosave <- c(tosave,'.tectotree_ratios')
