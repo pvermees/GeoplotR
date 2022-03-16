@@ -398,3 +398,14 @@ TiSmV <- function(Ti=NULL,Sm=NULL,V=NULL,ternary=FALSE,pch=21,
                show.labels=show.labels,short=short)
     invisible(out)
 }
+#' @param Sm vector of Sm-concentrations (in ppm)
+#' @rdname Vermeesch2006
+#' @export
+TiZrYSr <- function(Ti=NULL,Zr=NULL,Y=NULL,Sr=NULL,pch=21,
+                    bg=NULL,show.labels=FALSE,short=TRUE,
+                    xlim=NULL,ylim=NULL,...){
+    uv <- alr(cbind(Ti,Zr,Y,Sr))
+    out <- DA_highdim(as.data.frame(uv),da=.TiZrYSr)
+    plotlabels(diagram='TiZrYSr',show.labels=show.labels,short=short,raw=TRUE)
+    invisible(out)
+}

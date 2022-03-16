@@ -40,11 +40,12 @@ DA <- function(uv,da,D2=FALSE,ternary=FALSE,f=rep(1,3),tot=1,
     }
     invisible(out)
 }
-DA_highdim <- function(uv,da,pch=21,bg=NULL,xlim=NULL,ylim=NULL,...){
+DA_highdim <- function(uv,da,pch=21,bg=NULL,xlab='LD1',ylab='LD2',
+                       xlim=NULL,ylim=NULL,...){
     UV <- stats::na.omit(uv)
     out <- DApredict(da$fit,UV)
     if (is.null(bg)) bg <- out$class
-    graphics::plot(out$x,type='n',xlim=xlim,ylim=ylim)
+    graphics::plot(out$x,type='n',xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim)
     for (cont in da$contours){
         graphics::lines(cont)
     }
@@ -65,7 +66,10 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     }
     u <- uv[,1]
     v <- uv[,2]
-    dat <- data.frame(AFFINITY=training[,'AFFINITY'],u=u,v=v)
+    aff <- training$AFFINITY
+    naff <- length(levels(aff))
+    prior <- rep(1,naff)/naff
+    dat <- data.frame(AFFINITY=aff,u=u,v=v)
     nn <- 5000
     padding <- 4
     ugrid <- seq(from=min(u,na.rm=TRUE)-padding,
@@ -74,10 +78,12 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
                  to=max(v,na.rm=TRUE)+padding,length.out=nn)
     uvgrid <- expand.grid(ugrid,vgrid)
     if (quadratic){
-        out$fit <- MASS::qda(AFFINITY ~ ., data=dat, na.action='na.omit')
+        out$fit <- MASS::qda(AFFINITY ~ ., data=dat,
+                             na.action='na.omit', prior=prior)
         nt <- 750
     } else {
-        out$fit <- MASS::lda(AFFINITY ~ ., data=dat, na.action='na.omit')
+        out$fit <- MASS::lda(AFFINITY ~ ., data=dat,
+                             na.action='na.omit', prior=prior)
         nt <- 250
     }
     out$contours <- list()
@@ -99,11 +105,15 @@ construct_DA_highdim <- function(args,quadratic=FALSE,plot=FALSE){
     uv <- alr(get_training_data(args))
     dat <- as.data.frame(uv)
     dat$AFFINITY <- training$AFFINITY
+    naff <- length(levels(dat$AFFINITY))
+    prior <- rep(1,naff)/naff
     if (quadratic){
-        fit <- MASS::qda(AFFINITY ~ ., data=dat, na.action='na.omit')
+        fit <- MASS::qda(AFFINITY ~ ., data=dat,
+                         na.action='na.omit', prior=prior)
         nt <- 750
     } else {
-        fit <- MASS::lda(AFFINITY ~ ., data=dat, na.action='na.omit')
+        fit <- MASS::lda(AFFINITY ~ ., data=dat,
+                         na.action='na.omit', prior=prior)
         nt <- 250
     }
     pred <- predict(fit)$x[,1:2]
@@ -133,7 +143,7 @@ construct_DA_highdim <- function(args,quadratic=FALSE,plot=FALSE){
         contours[[i]] <- cbind(x,y)
         if (plot) graphics::lines(x,y)
     }
-    out <- list(fit=fit,contours=contours,class=fit$lev[g])
+    out <- list(fit=fit,contours=contours)
     invisible(out)
 }
 
