@@ -150,7 +150,7 @@ construct_DA_highdim <- function(args,quadratic=FALSE,plot=FALSE){
 LDApredict <- utils::getFromNamespace("predict.lda", "MASS")
 QDApredict <- utils::getFromNamespace("predict.qda", "MASS")
 DApredict <- function(fit,dat){
-    if (class(fit)%in%'lda'){
+    if ('lda' %in% class(fit)){
         out <- LDApredict(fit,newdata=dat)
     } else {
         out <- QDApredict(fit,newdata=dat)
