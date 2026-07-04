@@ -10,5 +10,5 @@ Maintainer: Pieter Vermeesch <p.vermeesch@ucl.ac.uk>
 Depends: R (>= 3.0.0)
 License: GPL-3
 LazyData: no
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.3
 Encoding: UTF-8
