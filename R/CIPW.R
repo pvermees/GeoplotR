@@ -1,7 +1,6 @@
 #' @title CIPW norm
 #' @description Cross-Iddings-Pirsson-Washington norm
 #' @param wrdata a data frame with whole rock data
-#' @param precision integer
 #' @param normsum logical. Recast the norm to 100\%?
 #' @param cancrinite logical. Is cancrinite present?
 #' @param spinel logical. Shall be spinel calculated for rocks with SiO\code{_2 < 45}\%?
@@ -19,7 +18,7 @@
 #' data(test, package='GeoplotR')
 #' norm <- CIPW(test)
 #' @export
-CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
+CIPW <- function(wrdata,normsum=FALSE,cancrinite=FALSE,
                  spinel=FALSE,complete.results=FALSE){
     # Self-contained molecular-weight lookup for the oxides used by CIPW.
     mw <- c(
@@ -61,7 +60,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
     colnames(mol.wt) <- oxides
     MW <- mol.wt[1,]
 
-    CIPW.main <- function(wrdata,digits=3,normsum=FALSE,cancrinite=FALSE,spinel=FALSE){
+    CIPW.main <- function(wrdata,normsum=FALSE,cancrinite=FALSE,spinel=FALSE){
         result.names <- c("Q","C","Or","Ab","An","Lc","Ne","Kp","Nc","Ac","Ns","Ks","Di","MgDi",
                           "FeDi","Wo","Hy","En","Fs","Ol","Fo","Fa","Dcs","Mt","Il","Hm","Tn","Pf",
                           "Ru","Ap","Fr","Py","Cc","Sp","MgSp","FeSp","Sum") 
@@ -431,8 +430,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
         return(results)
     }
 
-    results <- CIPW.main(wrdata,digits=precision,normsum=normsum,
-                         cancrinite=cancrinite,spinel=spinel)
+    results <- CIPW.main(wrdata,normsum=normsum,cancrinite=cancrinite,spinel=spinel)
     if(!complete.results){
         results <- results[,is.na(match(colnames(results),c("En","Fs","Fo","Fa","MgDi","FeDi")))]
         ee <- apply(results==0,2,sum,na.rm=TRUE)

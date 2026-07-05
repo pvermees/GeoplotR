@@ -1,4 +1,4 @@
-Intrusion,Locality,Petrology,Outcrop,Symbol,Colour,SiO2,TiO2,Al2O3,FeO,Fe2O3,MnO,MgO,CaO,Na2O,K2O,P2O5,CO2,F,S,H2O_PLUS,H2O-,Ba,Rb,Sr,Zr,Nb,Ni,Co,Zn,Cr,La,Ce,Pr,Nd,Sm,Eu,Gd,Tb,Dy,Ho,Er,Tm,Yb,Lu,Y,Cs,Ta,Hf
+label,Intrusion,Locality,Petrology,Outcrop,Symbol,Colour,SiO2,TiO2,Al2O3,FeO,Fe2O3,MnO,MgO,CaO,Na2O,K2O,P2O5,CO2,F,S,H2O_PLUS,H2O-,Ba,Rb,Sr,Zr,Nb,Ni,Co,Zn,Cr,La,Ce,Pr,Nd,Sm,Eu,Gd,Tb,Dy,Ho,Er,Tm,Yb,Lu,Y,Cs,Ta,Hf
 Sa-1,Sazava,Mrac,bi-amph quartz diorite,working quarry,10,4,59.98,0.63,16.42,5.46,1.35,0.19,3.21,7.04,2.52,2.5,0.16,0.18,,,1.18,,1037,76,539,76,6,10,17,71,29,,,,,,,,,,,,,,,25,,,
 Sa-2,Sazava,Mrac,bi-amph quartz diorite,working quarry,10,4,55.17,0.71,17,5.26,2.66,0.16,3.67,8.22,3.36,1.7,0.17,0.04,,0.05,1.13,0.04,582,53,540,55,10,10,23,76,60,,,,,,,,,,,,,,,30,,,
 Sa-3,Sazava,Mrac,bi-amph quartz diorite,working quarry,10,4,55.09,0.75,17.59,5.81,2.13,0.15,3.52,8.2,2.83,2.04,0.21,0.09,0.07,0.05,1.19,0.08,,,,,,,,,,,,,,,,,,,,,,,,30,,,
