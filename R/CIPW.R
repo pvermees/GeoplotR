@@ -61,7 +61,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
     colnames(mol.wt) <- oxides
     MW <- mol.wt[1,]
 
-    CIPW.main <- function(wrdata,digits=3,normsum=FALSE,cancrinite=FALSE,spinel=FALSE){ 
+    CIPW.main <- function(wrdata,digits=3,normsum=FALSE,cancrinite=FALSE,spinel=FALSE){
         result.names <- c("Q","C","Or","Ab","An","Lc","Ne","Kp","Nc","Ac","Ns","Ks","Di","MgDi",
                           "FeDi","Wo","Hy","En","Fs","Ol","Fo","Fa","Dcs","Mt","Il","Hm","Tn","Pf",
                           "Ru","Ap","Fr","Py","Cc","Sp","MgSp","FeSp","Sum") 
@@ -74,6 +74,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
             names(x) <- c("si","ti","al","fe3","fe2","mn","mg","ca","na","k","H2O","co2","p","fl","s")
             x <- as.list(x)
             attach(x,warn.conflicts=FALSE)
+            on.exit(detach("x"), add=TRUE)
 
             fe2 <- fe2 + mn
 
@@ -170,7 +171,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 al <- 0
             }
             
-            if (na >= fe3){  
+            if (na >= fe3){
                 y$ac <- fe3
                 na <- na - y$ac
                 fe3 <- 0
@@ -197,7 +198,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 al <- 0
             }
             
-            if (ca >= ti){  
+            if (ca >= ti){
                 y$tn <- ti
                 ca <- ca - y$tn
                 si <- si - y$tn
@@ -209,7 +210,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 y$ru <- ti
                 si <- si - y$tn
                 ti <- 0
-            }               
+            }
 
             if (fe3 >= fe2){
                 y$mt <- fe2
@@ -227,8 +228,8 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
             y$mgr <- mg / (fe2 + mg)
             y$femg <- fe2 + mg
 
-            if (spinel& si< 45){  
-                if (y$femg <= y$cor){  
+            if (spinel& si< 45){
+                if (y$femg <= y$cor){
                     y$mgsp <- y$mgr * y$femg
                     y$fesp <- y$fer * y$femg
                     y$cor <- y$cor - y$mgsp - y$fesp
@@ -262,7 +263,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 d <- abs(si)
             }
 
-            if (d <= y$hy / 2){  
+            if (d <= y$hy / 2){
                 y$ol <- d
                 y$hy <- y$hy - 2 * d
                 w <- .Ende(y)
@@ -273,7 +274,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 y$hy <- 0
             }
             
-            if (d <= y$tn){  
+            if (d <= y$tn){
                 y$tn <- y$tn - d
                 y$pf <- d
                 w <- .Ende(y)
@@ -284,7 +285,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 y$tn <- 0
             }
 
-            if (d <= 4 * y$ab){  
+            if (d <= 4 * y$ab){
                 y$ne <- d / 4
                 y$ab <- y$ab - d / 4
                 w <- .Ende(y)
@@ -296,7 +297,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
             }
             
 
-            if (d <= 2 * y$ort){  
+            if (d <= 2 * y$ort){
                 y$lc <- d / 2
                 y$ort <- y$ort - d / 2
                 w <- .Ende(y)
@@ -307,7 +308,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 y$ort <- 0
             }
             
-            if (d < y$wo / 2){  
+            if (d < y$wo / 2){
                 y$cs <- d
                 y$wo <- y$wo - 2 * d
                 w <- .Ende(y)
@@ -318,7 +319,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
                 y$wo <- 0
             }
             
-            if (d <= y$di){  
+            if (d <= y$di){
                 y$cs <- y$cs + d / 2
                 y$ol <- y$ol + d / 2
                 y$di <- y$di - d
@@ -366,7 +367,7 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
 
             suma <- sum(w[-c(14,15,18,19,21,22,35,36)])
 
-                                        # Recast to 100% anhydrous?
+            # Recast to 100% anhydrous?
             if (normsum){
                 w <- w*100/suma
                 w[37] <- sum(w[-c(14,15,18,19,21,22,35,36)])
@@ -420,7 +421,6 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
             } else {
                 w <- res
             }
-            detach(x)
             return(w)
         },simplify=TRUE)
 
@@ -431,7 +431,8 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
         return(results)
     }
 
-    results <- CIPW.main(wrdata,digits,normsum=FALSE,cancrinite=FALSE,spinel=FALSE)
+    results <- CIPW.main(wrdata,digits=precision,normsum=normsum,
+                         cancrinite=cancrinite,spinel=spinel)
     if(!complete.results){
         results <- results[,is.na(match(colnames(results),c("En","Fs","Fo","Fa","MgDi","FeDi")))]
         ee <- apply(results==0,2,sum,na.rm=TRUE)
@@ -439,7 +440,6 @@ CIPW <- function(wrdata,precision=3,normsum=FALSE,cancrinite=FALSE,
         results <- results[!is.na(results[,"Sum"]),]
     }
 
-    assign("results",results,.GlobalEnv)
     invisible(results)
 }
 
