@@ -8,12 +8,12 @@
 line. The easiest way to get started with the program is via its web
 interface:
 
-[http://isoplotr.es.ucl.ac.uk/geoplotr/](http://isoplotr.es.ucl.ac.uk/geoplotr/)
+[https://isoplotr.es.ucl.ac.uk/geoplotr/](https://isoplotr.es.ucl.ac.uk/geoplotr/)
 
 ## Installation for offline use
 
 You must have **R** installed on your system (see
-[http://r-project.org](http://r-project.org)).  Additionally, to
+[https://r-project.org](https://r-project.org)).  Additionally, to
 install **GeoplotR** from Github, you also need the **remotes**
 package.  This can be installed by typing the following code at the R
 command line prompt:
@@ -95,7 +95,7 @@ Letters, 2021) on it:
 
 ## Author
 
-[Pieter Vermeesch](http://ucl.ac.uk/~ucfbpve/)
+[Pieter Vermeesch](https://pieter-vermeesch.es.ucl.ac.uk/)
 
 ## License
 
