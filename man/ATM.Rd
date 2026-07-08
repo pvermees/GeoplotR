@@ -59,6 +59,10 @@ details.}
 \item{bw}{the smoothing bandwidth to be used for the kernel density
 estimate. See \code{density}.}
 
+\item{pch}{plotting symbol, see \code{points}.}
+
+\item{bg}{background colour of the plotting symbol, see \code{points}.}
+
 \item{dlty}{line type of the decision boundary.}
 
 \item{dlwd}{line width of the decision boundary.}
