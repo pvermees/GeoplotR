@@ -30,8 +30,8 @@ a data frame with the inferred normative mineralogical composition.
 Cross-Iddings-Pirsson-Washington norm
 }
 \examples{
-data(sazava, package='GeoplotR')
-norm <- CIPW(sazava)
+data(test, package='GeoplotR')
+norm <- CIPW(test)
 }
 \references{
 Janousek, V., Farrow, C.M. and Erban, V.,

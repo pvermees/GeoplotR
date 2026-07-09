@@ -113,8 +113,21 @@ CIPW <- function(wrdata,normsum=FALSE,cancrinite=FALSE,
         CIPWnorm <- function(x){
             names(x) <- c("si","ti","al","fe3","fe2","mn","mg","ca","na","k","H2O","co2","p","fl","s")
             x <- as.list(x)
-            attach(x,warn.conflicts=FALSE)
-            on.exit(detach("x"), add=TRUE)
+            si <- x$si
+            ti <- x$ti
+            al <- x$al
+            fe3 <- x$fe3
+            fe2 <- x$fe2
+            mn <- x$mn
+            mg <- x$mg
+            ca <- x$ca
+            na <- x$na
+            k <- x$k
+            H2O <- x$H2O
+            co2 <- x$co2
+            p <- x$p
+            fl <- x$fl
+            s <- x$s
 
             fe2 <- fe2 + mn
 
@@ -510,8 +523,20 @@ Catanorm <- function(WR){
     Catanorm.main <- function(x){
         names(x) <- c("si","ti","al","fe3","fe2","mn","mg","ca","na","k","co2","p","fl","s")
         x <- as.list(x)
-        attach(x,warn.conflicts=FALSE)
-        on.exit(detach("x"), add=TRUE)
+        si <- x$si
+        ti <- x$ti
+        al <- x$al
+        fe3 <- x$fe3
+        fe2 <- x$fe2
+        mn <- x$mn
+        mg <- x$mg
+        ca <- x$ca
+        na <- x$na
+        k <- x$k
+        co2 <- x$co2
+        p <- x$p
+        fl <- x$fl
+        s <- x$s
 
         norm.names <- c("qtz","cor","ort","plg","ab","an","lc",
                       "ne","kp","ac","ns","ks","hy","di","wo",
@@ -701,6 +726,13 @@ Catanorm <- function(WR){
     }
 
     milli <- millications(WR)
+    missing.oxides <- oxides[!oxides %in% colnames(milli)]
+    if(length(missing.oxides) > 0){
+        for(ox in missing.oxides){
+            milli <- cbind(milli, setNames(data.frame(rep(0, nrow(milli))), ox))
+        }
+    }
+    milli <- milli[,oxides,drop=FALSE]
 
     results <- sapply(1:nrow(WR),function(fff){
     
