@@ -20,6 +20,8 @@
 #'     details.
 #' @param bw the smoothing bandwidth to be used for the kernel density
 #'     estimate. See \code{density}.
+#' @param pch plotting symbol, see \code{points}.
+#' @param bg background colour of the plotting symbol, see \code{points}.
 #' @param dlty line type of the decision boundary.
 #' @param dlwd line width of the decision boundary.
 #' @param dcol colour of the decision boundary.

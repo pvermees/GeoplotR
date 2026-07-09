@@ -36,8 +36,8 @@ ternaryhelper <- function(uv,type='p',f=rep(1,3),
     }
 }
 diamondplot <- function(labels=c('A','Q','P','F'),...){
-    oldpar <- par(mar=rep(0,4),mgp=c(1.5,0.5,0))
-    on.exit(par(oldpar))
+    oldpar <- graphics::par(mar=rep(0,4),mgp=c(1.5,0.5,0))
+    on.exit(graphics::par(oldpar))
     xy <- rbind(xyz2xy(c(0,1,0)),
                 xyz2xy(c(1,0,0)),
                 xyz2xy(c(0,0,1)),

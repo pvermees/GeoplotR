@@ -35,6 +35,7 @@ FAP(
   F = NULL,
   A = NULL,
   P = NULL,
+  volcanic = FALSE,
   pch = 21,
   bg = NULL,
   show.labels = TRUE,

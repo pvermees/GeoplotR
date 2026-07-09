@@ -66,7 +66,7 @@ xyzplot <- function(json,X=NULL,Y=NULL,Z=NULL,f=rep(1,3),xyzlab=NULL,
                                    paste0(out[matched],' + ',json$labels[[pname]]))
             if (missingbg) bg[matched] <- i+1
         }
-        points(XY,pch=pch,bg=bg,...)
+        graphics::points(XY,pch=pch,bg=bg,...)
     }
     if (show.labels){
         for (lname in names(json$labels)){

@@ -53,6 +53,7 @@
 #' @examples
 #' data(test,package='GeoplotR')
 #' tree <- cart(test,option=1,plot=TRUE)
+#' @import rpart
 #' @export
 cart <- function(dat,option=1,type=c("class","prob","vector","matrix"),
                  plot=FALSE,...){
@@ -61,15 +62,15 @@ cart <- function(dat,option=1,type=c("class","prob","vector","matrix"),
     else if (option==2) tree <- .tectotree_HFS
     else if (option==3) tree <- .tectotree_ratios
     else stop('Illegal option provided to cart function.')
-    out <- rpartpredict(tree,newdata=cdat,type=type[1])
-    if (plot){
-        xy <- plot(tree)
+    out <- stats::predict(tree,newdata=cdat,type=type[1])
+    if (plot) {
+        xy <- graphics::plot(tree)
         # overwrite the training tree to plot the sample
-        leaves <- rpart.predict.leaves(tree,newdata=cdat)
+        leaves <- rpart_predict_leaves(tree,newdata=cdat)
         i <- as.numeric(names(table(leaves)))
         tree$frame$n[i] <- as.vector(table(leaves))
         tree$frame$n[-i] <- NA
-        rparttext(tree,xpd=NA,use.n=FALSE,...)
+        graphics::text(tree,xpd=NA,use.n=FALSE,...)
         graphics::text(xy,labels=tree$frame$n,xpd=NA,pos=1,offset=1.25)
     }
     invisible(out)
@@ -114,11 +115,8 @@ dat4cart <- function(dat,option=1){
     as.data.frame(out,check.names=FALSE)
 }
 
-rpartpredict <- utils::getFromNamespace("predict.rpart", "rpart")
-rparttext <- utils::getFromNamespace("text.rpart", "rpart")
-
 # function copied from Sam Buttrey's treeClust package
-rpart.predict.leaves <- function (rp, newdata, type = "where"){
+rpart_predict_leaves <- function(rp, newdata, type = "where"){
     if (type == "where") {
         rp$frame$yval <- 1:nrow(rp$frame)
         should.be.leaves <- which(rp$frame[, 1] == "<leaf>")
@@ -129,7 +127,7 @@ rpart.predict.leaves <- function (rp, newdata, type = "where"){
             "<leaf>"]
     }
     else stop("Type must be 'where' or 'leaf'")
-    leaves <- rpartpredict(rp, newdata = newdata, type = "vector")
+    leaves <- stats::predict(rp, newdata = newdata, type = "vector")
     should.be.leaves <- which(rp$frame[, 1] == "<leaf>")
     bad.leaves <- leaves[!is.element(leaves, should.be.leaves)]
     if (length(bad.leaves) == 0) 

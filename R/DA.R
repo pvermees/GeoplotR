@@ -116,7 +116,7 @@ construct_DA_highdim <- function(args,quadratic=FALSE,plot=FALSE){
                          na.action='na.omit', prior=prior)
         nt <- 250
     }
-    pred <- predict(fit)$x[,1:2]
+    pred <- stats::predict(fit)$x[,1:2]
     nn <- 3000
     padding <- 4
     ugrid <- seq(from=min(pred[,1],na.rm=TRUE)-padding,
@@ -126,7 +126,7 @@ construct_DA_highdim <- function(args,quadratic=FALSE,plot=FALSE){
     uvgrid <- expand.grid(ugrid,vgrid)
     contours <- list()
     d <- NULL
-    centres <- predict(fit,newdata=as.data.frame(fit$means))$x
+    centres <- stats::predict(fit,newdata=as.data.frame(fit$means))$x
     for (i in 1:nrow(centres)){
         D <- sqrt(rowSums(sweep(uvgrid,2,centres[i,],'-')^2))
         d <- cbind(d,D)
