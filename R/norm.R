@@ -24,11 +24,11 @@ get_mol_wt <- function(WR){
         ee <- strsplit(paste(formula," ",sep=""),"O")
         n <- as.numeric(gsub("[a-zA-Z]","",ee[[1]]))
         n[is.na(n)] <- 1
-        if(length(n)==1)n[2] <- 0
+        if (length(n) == 1) n[2] <- 0
         atom <- gsub("[0-9 ]","",ee[[1]][1])
         z <- n[1]*mw[atom]+n[2]*mw["O"]
         z <- c(z,n)
-        names(z) <- c("MW","x.atoms","x.oxygen")
+        names(z) <- c("MW", "x.atoms", "x.oxygen")
         return(z)
     }
 
@@ -42,7 +42,7 @@ get_mol_wt <- function(WR){
     mol.wt
 }
 
-millications <- function(x=WR){
+millications <- function(x){
 
     mol.wt <- get_mol_wt()
 
@@ -95,8 +95,8 @@ millications <- function(x=WR){
 #' techniques (Vol. 527). New York: Wiley.
 #' @author Vojtech Janousek
 #' @examples
-#' data(test, package='GeoplotR')
-#' norm <- CIPW(test)
+#' data(cath, package='GeoplotR')
+#' norm <- CIPW(cath)
 #' @export
 CIPW <- function(wrdata,normsum=FALSE,cancrinite=FALSE,
                  spinel=FALSE,complete.results=FALSE){
@@ -507,8 +507,8 @@ CIPW <- function(wrdata,normsum=FALSE,cancrinite=FALSE,
 #' Niggli P (1948) Gesteine und Minerallagerstatten. Birkhauser, Basel, p. 1-540
 #' @author Vojtech Janousek
 #' @examples
-#' data(test, package='GeoplotR')
-#' norm  <-  Catanorm(test)
+#' data(cath, package='GeoplotR')
+#' norm  <-  Catanorm(cath)
 #' @export
 Catanorm <- function(WR){
     result.names <- c("Q","C","Or","Plag","Ab","An","Lc","Ne","Kp","Ac",
@@ -729,7 +729,7 @@ Catanorm <- function(WR){
     missing.oxides <- oxides[!oxides %in% colnames(milli)]
     if(length(missing.oxides) > 0){
         for(ox in missing.oxides){
-            milli <- cbind(milli, setNames(data.frame(rep(0, nrow(milli))), ox))
+            milli <- cbind(milli, stats::setNames(data.frame(rep(0, nrow(milli))), ox))
         }
     }
     milli <- milli[,oxides,drop=FALSE]

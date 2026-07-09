@@ -32,7 +32,7 @@ NULL
 #' @keywords data
 #' @references Vermeesch, P. and Pease, V. A genetic classification of
 #'     the tholeiitic and calc-alkaline magma series, Geochemical
-#'     Perspective Letters (in review).
+#'     Perspective Letters, 19, 1-6, doi:10.7185/geochemlet.2125.
 #' @examples
 #' data(cath,package='GeoplotR')
 #' ca <- cath[cath$affinity=='ca',]

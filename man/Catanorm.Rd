@@ -16,8 +16,8 @@ a data frame with the inferred normative mineralogical composition.
 Calculates the cationic norm of Niggli (1948)
 }
 \examples{
-data(test, package='GeoplotR')
-norm  <-  Catanorm(test)
+data(cath, package='GeoplotR')
+norm  <-  Catanorm(cath)
 }
 \references{
 Janousek, V., Farrow, C.M. and Erban, V.,

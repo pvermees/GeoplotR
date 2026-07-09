@@ -36,8 +36,8 @@
 QAPF <- function(Q=NULL,A=NULL,P=NULL,F=NULL,volcanic=FALSE,
                  pch=21,bg=NULL,show.labels=TRUE,short=TRUE,...){
     diamondplot(labels=c('A','Q','P','F'))
-    if (volcanic) lines(c(0,0.65),c(0,0))
-    else lines(c(0,1),c(0,0))
+    if (volcanic) graphics::lines(c(0,0.65),c(0,0))
+    else graphics::lines(c(0,1),c(0,0))
     out <- rep(NA,max(length(Q),length(F)))
     top <- (Q>=0 & F==0)
     if (volcanic){
@@ -48,7 +48,7 @@ QAPF <- function(Q=NULL,A=NULL,P=NULL,F=NULL,volcanic=FALSE,
         FAPBA <- (F>0 & P>65 & F<10)
         out[FAPBA] <- "basalt/andesite"
         col <- which(topjson$labels %in% "basalt/andesite")+1
-        points(xyz2xy(cbind(F,A,P)[FAPBA,],neg=TRUE),pch=pch,bg=col,...)
+        graphics::points(xyz2xy(cbind(F,A,P)[FAPBA,],neg=TRUE),pch=pch,bg=col,...)
         bottom <- (F>0 & !FAPBA)
     } else {
         topjson <- .QAP
@@ -75,8 +75,8 @@ QAP <- function(Q=NULL,A=NULL,P=NULL,volcanic=FALSE,
 }
 #' @rdname QAPF
 #' @export
-FAP <- function(F=NULL,A=NULL,P=NULL,pch=21,bg=NULL,
-                show.labels=TRUE,short=TRUE,...){
+FAP <- function(F=NULL,A=NULL,P=NULL,volcanic=FALSE,
+                pch=21,bg=NULL,show.labels=TRUE,short=TRUE,...){
     if (volcanic) son <- .FAP_volcanic
     else json <- .FAP
     invisible(xyzplot(json=json,X=F,Y=A,Z=P,pch=pch,bg=bg,
