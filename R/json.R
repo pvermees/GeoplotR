@@ -1,0 +1,294 @@
+# The following code was lifted from Alex Couture-Beil <rjson_pkg at mofo.ca>'s
+# rjson package (version 0.2.15) The C-code was removed and only native
+# R code retained
+
+fromJSON <- function( json_str, file, unexpected.escape = "error" ){
+    if( missing( json_str ) ) {
+        if( missing( file ) )
+            stop( "either json_str or file must be supplied to fromJSON")
+        json_str <- paste(readLines( file, warn=FALSE ),collapse="")
+    } else {
+        if( missing( file ) == FALSE ) {
+            stop( "only one of json_str or file must be supplied to fromJSON")
+        }
+    }
+    return( .fromJSON_R( json_str ) )
+}
+
+.fromJSON_R <- function( json_str ){
+    if( !is.character(json_str) )
+        stop( "JSON objects must be a character string" )
+    chars = strsplit(json_str, "")[[1]]
+    tmp <- .parseValue( chars, 1)
+    if( is.null( tmp$incomplete ) )
+        return( tmp$val )
+    else
+        return( NULL )
+}
+
+.parseValue <- function( chars, i ){
+    if( i > length( chars ) )
+        return( list( "incomplete" = TRUE ) )
+    
+    #ignore whitespace
+    while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+        i = i + 1
+        if( i > length( chars ) )
+            return( list( "incomplete" = TRUE ) )
+    }
+
+    ch = chars[i]
+    if( ch == "{" ) {
+        return( .parseObj( chars, i ) )
+    }
+    if( ch == "[" ) {
+        return( .parseArray( chars, i ) )
+    }
+    if( ch == "\"" ) {
+        return( .parseString( chars, i ) )
+    }
+    if( any(grep("[0-9\\-]", ch)) ) {
+        return( .parseNumber( chars, i ) )
+    }
+    if( ch == "t" ) {
+        return( .parseTrue( chars, i ) )
+    }
+    if( ch == "f" ) {
+        return( .parseFalse( chars, i ) )
+    }
+    if( ch == "n" ) {
+        return( .parseNull( chars, i ) )
+    }
+    #stop("shouldnt reach end of parseValue")
+    
+    err <- paste( "unexpected data:", paste( chars[ i:length(chars)], collapse = "" ) )
+    stop( err )
+}
+
+.parseObj <- function( chars, i ){
+    obj <- list()
+    if( chars[i] != "{" ) stop("error - no openning tag")
+    i = i + 1
+    if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+    
+    first_pass <- TRUE
+    while( TRUE ) {
+
+        #ignore whitespace
+        while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+            i = i + 1
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+
+        #look out for empty lists
+        if( chars[i] == "}" && first_pass == TRUE ) {
+            i = i + 1
+            break
+        }
+        first_pass <- FALSE
+        
+        #get key
+        str = .parseString( chars, i )
+        if( is.null( str$incomplete ) == FALSE ) return( str )
+        key = str$val
+        i = str$size
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        
+        #ignore whitespace
+        while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+            i = i + 1
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+        
+        #verify seperater
+        if( chars[i] != ":" ) stop("error - no seperator")
+        i = i + 1
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+
+        
+        #ignore whitespace
+        while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+            i = i + 1
+            if( i > length( chars ) )
+                return( list( "incomplete" = TRUE ) )
+        }
+        
+        #get value
+        val = .parseValue( chars, i )
+        if( is.null( val$incomplete ) == FALSE ) return( val )
+        obj[key] <- list(val$val)
+        i = val$size
+        
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+	
+        #ignore whitespace
+        while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+            i = i + 1
+            if( i > length( chars ) )
+                return( list( "incomplete" = TRUE ) )
+        }
+        
+        if( chars[i] == "}" ) {
+            i = i + 1
+            break
+        }
+        if( chars[i] != "," ){
+            stop("error - no closing tag")
+        }
+        i = i + 1
+        if( i > length( chars ) )
+            return( list( "incomplete" = TRUE ) )
+    }
+    return( list(val=obj, size=i) )
+}
+
+.parseArray <- function( chars, i ){
+    useVect <- TRUE
+    arr <- list()
+    if( chars[i] != "[" ) stop("error - no openning tag")
+
+    i = i + 1
+    if( i > length( chars ) )
+        return( list( "incomplete" = TRUE ) )
+
+    while( TRUE ) {
+        
+        #ignore whitespace
+        while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+            i = i + 1
+            if( i > length( chars ) )
+                return( list( "incomplete" = TRUE ) )
+        }
+	
+        #look out for empty arrays
+        if( chars[i] == "]" ) { 
+            i = i + 1
+            useVect <- FALSE #force an empty list instead of NULL (i.e. value = vector("list",0))
+            break
+        }
+        
+        #get value
+        val = .parseValue( chars, i )
+        if( is.null( val$incomplete ) == FALSE ) return( val )
+        arr[length(arr)+1] <- list(val$val)
+        if( is.list(val$val) || length(val$val) > 1 || is.null(val$val) )
+            useVect <- FALSE
+        
+        i = val$size
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        
+        #ignore whitespace
+        while( chars[i] == " " || chars[i] == "\t" || chars[i] == "\n" ) {
+            i = i + 1
+            if( i > length( chars ) )
+                return( list( "incomplete" = TRUE ) )
+        }
+        
+        if( chars[i] == "]" ) { 
+            i = i + 1
+            break
+        }
+        if( chars[i] != "," ){
+            stop("error - no closing tag")
+        }
+        i = i + 1
+        if( i > length( chars ) )
+            return( list( "incomplete" = TRUE ) )
+    }
+    if( useVect )
+    	arr <- unlist(arr)
+    return( list(val=arr, size=i) )
+}
+
+.parseString <- function( chars, i ){
+    str_start = i
+    if( chars[i] != "\"") stop("error")
+    i = i + 1
+    if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+    
+    while( TRUE ) {
+        while( chars[i] != "\\" && chars[i] != "\"" ) {
+            i = i + 1
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+        if( chars[i] == "\\" ) {
+            i = i + 2 #skip the next char
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+        else
+            break
+    }
+    str_end = i
+    i = i + 1
+    return(list(
+        val=eval(parse( text=paste(chars[str_start:str_end], collapse="") )), 
+        size=i ))
+}
+
+.parseNumber <- function( chars, i ){
+    str_start = i
+
+    if( chars[i] == "-" )
+        i = i + 1
+    
+    if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+    
+    if( chars[i] == "0" ) {
+        i = i + 1
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        if( any(grep("[1-9]", chars[i])) ) stop("JSON specs don't allow a number like \"012\"")
+    } else if( any(grep("[1-9]", chars[i])) ) {
+        i = i + 1
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        while( any(grep("[0-9]", chars[i])) ) {
+            i = i + 1
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+    } else {
+        stop( "doesn't look like a valid JSON number" )
+    }
+    
+    if( chars[i] == "." ) {
+        i = i + 1
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        while( any(grep("[0-9]", chars[i])) ) {
+            i = i + 1
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+    }
+    
+    if( chars[i] == "e" || chars[i] == "E" ) {
+        i = i + 1
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        if( chars[i] == "-" || chars[i] == "+" )
+            i = i + 1
+        if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        while( any(grep("[0-9]", chars[i])) ) {
+            i = i + 1
+            if( i > length( chars ) ) return( list( "incomplete" = TRUE ) )
+        }
+    }
+    str_end = i-1
+    
+    return(list(
+        val=eval(parse( text=paste(chars[str_start:str_end], collapse="") )), 
+        size=i ))
+}
+
+.parseTrue <- function( chars, i ){
+    if( paste(chars[i:(i+3)], collapse="") == "true" )
+        return( list(val=TRUE,size=i+4) )
+    stop("error parsing true value (maybe the word starts with t but isnt true)")
+}
+
+.parseFalse <- function( chars, i ){
+    if( paste(chars[i:(i+4)], collapse="") == "false" )
+        return( list(val=FALSE,size=i+5) )
+    stop("error parsing false value (maybe the word starts with f but isnt false)")
+}
+
+.parseNull <- function( chars, i ){
+    if( paste(chars[i:(i+3)], collapse="") == "null" )
+        return( list(val=NULL,size=i+4) )
+    stop("error parsing null value (maybe the word starts with n but isnt null)")
+}
