@@ -30,7 +30,7 @@
 #' @export
 xytest <- function(fname,xlim=NULL,ylim=NULL,xlab=NULL,ylab=NULL,log='',
                    show.labels=TRUE,short=FALSE,smooth=FALSE,polygons=FALSE,...){
-    json <- IsoplotR:::fromJSON(file=fname)
+    json <- fromJSON(file=fname)
     if (is.null(xlim) | is.null(ylim)){
         xy <- NULL
         for (pname in names(json$lines)){
@@ -66,7 +66,7 @@ xytest <- function(fname,xlim=NULL,ylim=NULL,xlab=NULL,ylab=NULL,log='',
 #' @export
 xyztest <- function(fname,xyzlab=NULL,show.labels=TRUE,short=FALSE,
                     polygons=FALSE,smooth=FALSE,...){
-    json <- IsoplotR:::fromJSON(file=fname)
+    json <- fromJSON(file=fname)
     out <- xyzplot(json,xyzlab=xyzlab,show.labels=show.labels,
                    short=short,test.polygons=polygons,smooth=smooth,...)
     graphics::title(main=fname)
