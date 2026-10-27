@@ -39,6 +39,23 @@ NULL
 #' A <- cath[,'Na2O']+cath[,'K2O']
 #' F <- cath[,'FeOT']
 #' M <- cath[,'MgO']
-#' AFM(A,F,M,pch=16,col=cath$affinity)
+#' AFM(A,F,M,pch=16,col=ifelse(cath$affinity=='th','red','white'))
 #' legend('topleft',legend=c('Cascades','Iceland'),pch=16,col=c(1,2))
+NULL
+
+#' @title TTG data
+#' @description Compilation of 153 tonalite-trondhjemite-granodiorite
+#'     major element compositions extracted from the database of Moyen
+#'     (2011)
+#' @name TTG
+#' @docType data
+#' @keywords data
+#' @references Moyen, J. F., 2011. The composite Archaean grey
+#'     gneisses: Petrological significance, and evidence for a
+#'     non-unique tectonic setting for Archaean crustal growth,
+#'     Lithos, 123, 21-36.
+#' @examples
+#' data(TTG,package='GeoplotR')
+#' norm <- CIPW(TTG)
+#' AnAbOr(norm)
 NULL

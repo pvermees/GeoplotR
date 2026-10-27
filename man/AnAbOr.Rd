@@ -28,7 +28,9 @@ An-Ab-Or diagram for tonalite, trondhjemite,
     granodiorite, and granite according to Barker (1979).
 }
 \examples{
-AnAbOr(An=c(70,75,73),Ab=c(20,10,27),Or=c(10,15,0))
+data(TTG,package='GeoplotR')
+norm <- CIPW(TTG)
+AnAbOr(norm)
 }
 \references{
 Barker, F., 1979, Trondhjemite: Definition,

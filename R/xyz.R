@@ -15,10 +15,12 @@
 #'     ed., Trondhjemites, Dacites, and Related Rocks, Elsevier,
 #'     Amsterdam, 659 p.
 #' @examples
-#' AnAbOr(An=c(70,75,73),Ab=c(20,10,27),Or=c(10,15,0))
+#' data(TTG,package='GeoplotR')
+#' norm <- CIPW(TTG)
+#' AnAbOr(norm)
 #' @export
 AnAbOr <- function(An=NULL,Ab=NULL,Or=NULL,show.labels=TRUE,...){
-    invisible(xyzplot(json=.AnAbOr,X=Ab,Y=An,Z=Or,
+    invisible(xyzplot(json=.AnAbOr,X=An,Y=Ab,Z=Or,
                       show.labels=show.labels,buffered=TRUE,...))
 }
 

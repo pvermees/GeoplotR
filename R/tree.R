@@ -52,7 +52,7 @@
 #' 
 #' @examples
 #' data(test,package='GeoplotR')
-#' tree <- cart(test,option=1,plot=TRUE)
+#' groups <- cart(test,option=1,plot=TRUE)
 #' @import rpart
 #' @export
 cart <- function(dat,option=1,type=c("class","prob","vector","matrix"),

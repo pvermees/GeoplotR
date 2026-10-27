@@ -75,7 +75,7 @@ XYhelper <- function(X=NULL,Y=NULL,type,
 #' data(test,package='GeoplotR')
 #' TiZrY(Ti=wtpct2ppm(test[,'TiO2']),
 #'       Zr=test[,'Zr'],Y=test[,'Y'],
-#'       type='QDA',plot='ternary')
+#'       type='QDA',ternary=FALSE)
 #' @export
 TiZrY <- function(Ti=NULL,Zr=NULL,Y=NULL,
                   type=c('Pearce','LDA','QDA'),

@@ -68,24 +68,24 @@
 #' A <- cath[,'Na2O']+cath[,'K2O']
 #' F <- cath[,'FeOT']
 #' M <- cath[,'MgO']
+#' bg <- ifelse(cath[,'affinity']=="th","red","white")
 #' 
 #' # 1. Irvine and Baragar (1971):
 #' 
-#' AFM(A=A,F=F,M=M,genetic=FALSE,
-#'     bg=cath[,'affinity'],dcol='blue',pch=21)
+#' AFM(A=A,F=F,M=M,genetic=FALSE,bg=bg,dcol='blue',pch=21)
 #' 
 #' # 2. Vermeesch and Pease (2021):
 #' 
 #' oldpar <- par(mfrow=c(2,2),mar=c(4,4,0,0))
+#' on.exit(par(oldpar))
 #'
 #' tern <- c(TRUE,FALSE,TRUE,FALSE)
 #' stag <- c(TRUE,TRUE,FALSE,FALSE)
 #' for (i in 1:4){
-#'    AFM(A,F,M,ternary=tern[i],decision=TRUE,twostage=stag[i],
-#'        pch=21,bw=0.2,padding=0.15,bg=cath[,'affinity'])
+#'    AFM(A,F,M,ternary=tern[i],decision=TRUE,
+#'        twostage=stag[i],pch=21,bw=0.2,
+#'        padding=0.15,bg=bg)
 #' }
-#'
-#' par(oldpar)
 #' 
 #' @export
 AFM <- function(A,F,M,genetic=TRUE,ternary=TRUE,twostage=TRUE,

@@ -73,5 +73,5 @@ Classification And Regression Trees (CART) of basalts
 }
 \examples{
 data(test,package='GeoplotR')
-tree <- cart(test,option=1,plot=TRUE)
+groups <- cart(test,option=1,plot=TRUE)
 }

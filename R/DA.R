@@ -67,7 +67,7 @@ construct_DA <- function(X,Y,Z,quadratic=FALSE,plot=FALSE){
     u <- uv[,1]
     v <- uv[,2]
     aff <- training$AFFINITY
-    naff <- length(levels(aff))
+    naff <- length(unique(aff))
     prior <- rep(1,naff)/naff
     dat <- data.frame(AFFINITY=aff,u=u,v=v)
     nn <- 5000
@@ -105,7 +105,7 @@ construct_DA_highdim <- function(args,quadratic=FALSE,plot=FALSE){
     uv <- alr(get_training_data(args))
     dat <- as.data.frame(uv)
     dat$AFFINITY <- training$AFFINITY
-    naff <- length(levels(dat$AFFINITY))
+    naff <- length(unique(dat$AFFINITY))
     prior <- rep(1,naff)/naff
     if (quadratic){
         fit <- MASS::qda(AFFINITY ~ ., data=dat,

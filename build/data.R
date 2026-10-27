@@ -1,4 +1,5 @@
-setwd('~/Documents/Programming/R/GeoplotR/')
+# First setwd to the root directory of the package
+
 source('R/AFM.R')
 source('R/DA.R')
 source('R/toolbox.R')
@@ -15,6 +16,9 @@ save(test,file="data/test.rda",version=2)
 
 cath <- read.csv('inst/cath.csv',header=TRUE)
 save(cath,file="data/cath.rda",version=2)
+
+TTG <- read.csv('inst/TTG.csv',header=TRUE)
+save(TTG,file="data/TTG.rda",version=2)
 
 am <- read.csv('inst/atomicmass.csv',header=FALSE)
 .atomicmass <- am[,2]

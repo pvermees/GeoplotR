@@ -98,14 +98,15 @@ on.exit(par(oldpar))
 A <- cath[,'Na2O']+cath[,'K2O']
 T <- cath[,'TiO2']
 M <- cath[,'MgO']
+bg <- ifelse(cath[,'affinity']=="th","red","white")
 
 ATM(A,T,M,decision=FALSE,pch=21,bg='white',cex=0.5)
 
 ATM(A,T,M,ternary=TRUE,pch=21,bw=0.2,
-    padding=0.15,bg=cath[,'affinity'])
+    padding=0.15,bg=bg)
 
 ATM(A,T,M,ternary=FALSE,decision=TRUE,kde=TRUE,
-    pch=21,bw=0.2,padding=0.15,bg=cath[,'affinity'])
+    pch=21,bw=0.2,padding=0.15,bg=bg)
    
 CA <- (cath$affinity=='ca')
 TH <- (cath$affinity=='th')

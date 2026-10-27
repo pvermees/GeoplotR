@@ -14,7 +14,7 @@ ca <- cath[cath$affinity=='ca',]
 A <- cath[,'Na2O']+cath[,'K2O']
 F <- cath[,'FeOT']
 M <- cath[,'MgO']
-AFM(A,F,M,pch=16,col=cath$affinity)
+AFM(A,F,M,pch=16,col=ifelse(cath$affinity=='th','red','white'))
 legend('topleft',legend=c('Cascades','Iceland'),pch=16,col=c(1,2))
 }
 \references{

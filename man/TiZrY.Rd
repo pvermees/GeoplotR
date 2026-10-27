@@ -58,7 +58,7 @@ Ti-Zr-Y tectonic discrimination diagram
 data(test,package='GeoplotR')
 TiZrY(Ti=wtpct2ppm(test[,'TiO2']),
       Zr=test[,'Zr'],Y=test[,'Y'],
-      type='QDA',plot='ternary')
+      type='QDA',ternary=FALSE)
 }
 \references{
 Pearce, J. A., and Cann, J. R., 1973, Tectonic setting
