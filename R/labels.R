@@ -22,10 +22,10 @@ plotlabels <- function(diagram,ternary=TRUE,f=rep(1,3),linear=FALSE,
                 if (short) labs <- c('IAB','IAB','MORB','OIB','OIB')
                 else labs <- c('Island Arc','Island Arc','Mid Ocean Ridge',
                                'Ocean Island','Ocean Island')
-                uv <- rbind(c(-6,-5),
-                            c(-2,-4.5),
+                uv <- rbind(c(-5.5,-5),
+                            c(-3.5,-4.5),
                             c(-4.5,-4),
-                            c(-4,-7),
+                            c(-4,-6.5),
                             c(-4,-2.5))
             } else {
                 if (short) labs <- c('IAB','MORB','OIB')
